@@ -54,6 +54,7 @@ const UploadIDs = () => {
   const [content, setContent] = useState("");
   const [data, setData] = useState([]);
   const [uploaded, setUploaded] = useState(false);
+  const [deleted, setDeleted] = useState(false);
   const [error, setError] = useState(false);
   const [columns, setColumns] = useState([
     {
@@ -114,9 +115,13 @@ const UploadIDs = () => {
   };
 
   const handleDeleteIDs = () => {
+    setDeleted(false);
     axios
       .delete("http://localhost:3000/delete-ids/" + deleteLevel)
-      .then((res) => console.log(res))
+      .then((res) => {
+        setDeleted(true);
+        console.log(res);
+      })
       .catch((err) => console.log(err));
   };
   return (
@@ -234,8 +239,7 @@ const UploadIDs = () => {
             ModalHead={"Delete Student IDs"}
             ModalContent={"Are you sure you want to delete all IDs the?"}
           />
-
-          <Checkmark />
+          {deleted && <Checkmark />}
         </Label>
       </div>
     </div>

@@ -64,6 +64,7 @@ const Admin = () => {
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
   };
   const [data, setData] = useState([]);
+  const [level, setLevel] = useState(100);
 
   const [columns, setColumns] = useState([
     { title: "Student ID", field: "std_id", editable: "never" },
@@ -108,6 +109,7 @@ const Admin = () => {
     axios
       .get("http://localhost:3000/getStudents")
       .then((res) => {
+        console.log(res);
         setData(res.data);
       })
       .catch((err) => console.log(err));
@@ -130,6 +132,22 @@ const Admin = () => {
     setIsModalOpen(false);
   }
 
+  const handleDeleteIDs = () => {
+    axios
+      .delete("http://localhost:3000/remove-register/" + null + "/" + level)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+
+    axios
+      .delete("http://localhost:3000/remove/" + null + "/" + level)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+
+    axios
+      .delete("http://localhost:3000/remove-login/" + null + "/" + level)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
   return (
     <div>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
@@ -232,20 +250,31 @@ const Admin = () => {
             new Promise((resolve, reject) => {
               setTimeout(() => {
                 axios
-                  .delete("http://localhost:3000/remove/" + oldData.std_id)
-                  .then((res) => console.log(res))
-                  .catch((err) => console.log(err));
-
-                axios
                   .delete(
-                    "http://localhost:3000/remove-register/" + oldData.std_id
+                    "http://localhost:3000/remove/" +
+                      oldData.std_id +
+                      "/" +
+                      null
                   )
                   .then((res) => console.log(res))
                   .catch((err) => console.log(err));
 
                 axios
                   .delete(
-                    "http://localhost:3000/remove-login/" + oldData.std_id
+                    "http://localhost:3000/remove-register/" +
+                      oldData.std_id +
+                      "/" +
+                      null
+                  )
+                  .then((res) => console.log(res))
+                  .catch((err) => console.log(err));
+
+                axios
+                  .delete(
+                    "http://localhost:3000/remove-login/" +
+                      oldData.std_id +
+                      "/" +
+                      null
                   )
                   .then((res) => console.log(res))
                   .catch((err) => console.log(err));
@@ -263,13 +292,14 @@ const Admin = () => {
       <Label className='mt-4 mb-5'>
         <h1 style={{ fontSize: "20px" }}>Delete All IDs</h1>
         <span>Select Level</span>
-        <Select className='mt-1'>
+        <Select className='mt-1' onChange={(e) => setLevel(e.target.value)}>
           <option>100</option>
           <option>200</option>
           <option>300</option>
           <option>400</option>
         </Select>
         <CustomModal
+          handleClick={handleDeleteIDs}
           ModalTitle={"Delete IDs"}
           ModalHead={"Delete Student IDs"}
           ModalContent={"Are you sure you want to delete all IDs the?"}

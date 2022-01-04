@@ -125,6 +125,7 @@ function Header() {
                       window.localStorage.removeItem("admin");
 
                     window.localStorage.removeItem("id");
+                    window.localStorage.removeItem("level");
                   }}>
                   {" "}
                   <span>Log out</span>

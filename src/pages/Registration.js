@@ -62,6 +62,7 @@ function Registration() {
           MiddleName: MName,
           LastName: lName,
           StudentID: studId,
+          Level: UserDetails.level,
           Gender: gender,
           Size: size,
           isValid: isValid,
@@ -151,6 +152,7 @@ function Registration() {
             <HelperText valid={false}>
               {wrongId && "Student id do not match"}
             </HelperText>
+
             <Label className='mt-4'>
               <span>Select Gender</span>
               <Select

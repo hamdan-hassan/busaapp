@@ -4,7 +4,7 @@ import Logo from "../assets/img/images.jpeg";
 import axios from "axios";
 import Particles from "react-tsparticles";
 
-import ImageDark from "../assets/img/create-account-office-dark.jpeg";
+// import ImageDark from "../assets/img/create-account-office-dark.jpeg";
 
 import { Input, Label, Button, Select, HelperText } from "@windmill/react-ui";
 
@@ -117,12 +117,13 @@ function CreateAccount() {
               if (response.data === "already exist") {
                 return setExist(true);
               }
+              window.localStorage.setItem("level", level);
               history.push("/login");
               setError(false);
               axios
                 .post(
                   "http://localhost:3000/create-profile-img",
-                  { StudentID: studId },
+                  { StudentID: studId, Level: level },
                   {
                     headers: {
                       "Content-Type": "application/json",

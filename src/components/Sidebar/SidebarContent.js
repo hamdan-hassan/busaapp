@@ -63,6 +63,7 @@ function SidebarContent() {
                 window.localStorage.removeItem("admin");
 
               window.localStorage.removeItem("id");
+              window.localStorage.removeItem("level");
             }}>
             Logout
           </Button>
