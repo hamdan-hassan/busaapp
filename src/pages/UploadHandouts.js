@@ -1,16 +1,5 @@
 import React, { forwardRef, useState, useEffect } from "react";
-import {
-  Label,
-  Button,
-  Select,
-  TableContainer,
-  Table,
-  TableHeader,
-  TableBody,
-  TableRow,
-  TableCell,
-  Input,
-} from "@windmill/react-ui";
+import { Label, Button, Select, Input } from "@windmill/react-ui";
 import PageTitle from "../components/Typography/PageTitle";
 import MaterialTable from "material-table";
 import AddBox from "@material-ui/icons/AddBox";
@@ -141,6 +130,8 @@ const UploadHandouts = () => {
             onChange={(e) => {
               setProgramme(e.target.value);
             }}>
+            <option>BCom(Level 100)</option>
+            <option>BCom(Level 200)</option>
             <option>BCom(Human Resource Management)</option>
             <option>BCom(Accounting)</option>
             <option>BCom(Banking and Finance)</option>

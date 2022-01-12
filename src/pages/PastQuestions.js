@@ -16,8 +16,10 @@ import { UserDetails } from "../userDetails";
 import { Link } from "react-router-dom";
 
 const PastQuestions = () => {
-  const [programme, setProgramme] = useState("BCom(Human Resource Management)");
-  const [level, setLevel] = useState("100");
+  const [programme, setProgramme] = useState("BCom(Level 100)");
+  const [level, setLevel] = useState("300");
+  const [disableLevel, setDisableLevel] = useState(true);
+  const [removeLevel, setRemoveLevel] = useState(false);
   const [data, setData] = useState([]);
   const [noData, setNoData] = useState(false);
   const [registered, setRegistered] = useState(false);
@@ -101,7 +103,30 @@ const PastQuestions = () => {
               <Select
                 className='mt-1'
                 onChange={(e) => {
+                  setRemoveLevel(false);
                   setProgramme(e.target.value);
+                  if (e.target.value === "BCom(Level 100)") {
+                    setLevel("100");
+
+                    return setDisableLevel(true);
+                  }
+
+                  if (e.target.value === "BCom(Level 200)") {
+                    setLevel("200");
+
+                    return setDisableLevel(true);
+                  }
+
+                  if (
+                    e.target.value === "BCom(Human Resource Management)" ||
+                    e.target.value === "BCom(Accounting)" ||
+                    e.target.value === "BCom(Banking and Finance)" ||
+                    e.target.value === "BCom(Marketing)"
+                  ) {
+                    setRemoveLevel(true);
+                  }
+
+                  return setDisableLevel(false);
                 }}>
                 <option>BCom(Level 100)</option>
                 <option>BCom(Level 200)</option>
@@ -117,15 +142,17 @@ const PastQuestions = () => {
                 <option>Diploma Integrated Business Studies</option>
               </Select>
             </Label>
-            <Label className='mt-4'>
+            <Label
+              className='mt-4'
+              style={{ display: disableLevel ? "none" : null }}>
               <span>Select Level</span>
               <Select
                 className='mt-1'
                 onChange={(e) => {
                   setLevel(e.target.value);
                 }}>
-                <option>100</option>
-                <option>200</option>
+                {!removeLevel && <option>100</option>}
+                {!removeLevel && <option>200</option>}
                 <option>300</option>
                 <option>400</option>
               </Select>

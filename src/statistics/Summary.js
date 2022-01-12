@@ -16,8 +16,21 @@ const Summary = () => {
       .then((res) => setStd(res.data[0].count));
   }, []);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/registered-students")
+      .then((res) => setRegistered(res.data[0].count));
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/not-registered-students")
+      .then((res) => setNotRegistered(res.data[0].count));
+  }, []);
   const [course, setCourse] = useState([]);
   const [std, setStd] = useState([]);
+  const [registered, setRegistered] = useState([]);
+  const [notRegisteered, setNotRegistered] = useState([]);
 
   let result = course.map((item) => {
     return item.count;
@@ -28,6 +41,12 @@ const Summary = () => {
         <PageTitle>Summary</PageTitle>
         <div>
           <h1 style={{ marginBottom: "10px" }}>Total students: {std}</h1>
+          <h1 style={{ marginBottom: "10px" }}>
+            Registered Students: {registered}
+          </h1>
+          <h1 style={{ marginBottom: "10px" }}>
+            Not Registered Students: {notRegisteered}
+          </h1>
           <h1 style={{ marginBottom: "10px" }}>
             Total number of Programmmes: {10}
           </h1>

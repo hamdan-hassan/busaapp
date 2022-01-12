@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import Logo from "../assets/img/logo.png";
 import auth from "../auth";
 import { UserDetails } from "../userDetails";
+import Loader from "../loader/loader";
 import axios from "axios";
 
 import { Label, Input, Button } from "@windmill/react-ui";
@@ -13,9 +14,11 @@ function Login() {
 
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [showText, setText] = useState(null);
   const handleSubmit = () => {
+    setLoading(true);
     axios
       .post(
         "http://localhost:3000/login",
@@ -31,6 +34,7 @@ function Login() {
       )
       .then((response) => {
         if (response.data === "not found") {
+          setLoading(false);
           return setText(true);
         }
         if (response.data.role === "admin") {
@@ -39,8 +43,11 @@ function Login() {
           });
         } else {
           auth.login(() => {
+            console.log(response);
             window.localStorage.setItem("id", response.data[0].std_id);
+            window.localStorage.setItem("level", response.data[0].level);
             UserDetails.studentId = response.data[0].std_id;
+            UserDetails.level = response.data[0].level;
 
             history.push("/app");
           });
@@ -48,6 +55,7 @@ function Login() {
       })
       .catch((error) => {
         console.log(error.message);
+        setLoading(false);
         setText(true);
       });
   };
@@ -132,54 +140,60 @@ function Login() {
             />
           </div>
           <main className='flex items-center justify-center p-6 sm:p-12 md:w-1/2'>
-            <div className='w-full'>
-              <h1 className='mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200'>
-                Login
-              </h1>
-              <Label>
-                <span>Email</span>
-                <Input
-                  className='mt-1'
-                  type='email'
-                  placeholder='example@gmail.com'
-                  onChange={(e) => setEmail(e.target.value.toLowerCase())}
-                />
-              </Label>
+            {!loading && (
+              <div className='w-full'>
+                <h1 className='mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200'>
+                  Login
+                </h1>
+                <Label>
+                  <span>Email</span>
+                  <Input
+                    className='mt-1'
+                    type='email'
+                    placeholder='example@gmail.com'
+                    onChange={(e) => setEmail(e.target.value.toLowerCase())}
+                  />
+                </Label>
 
-              <Label className='mt-4'>
-                <span>Password</span>
-                <Input
-                  className='mt-1'
-                  type='password'
-                  placeholder='***************'
-                  onChange={(e) => setPass(e.target.value)}
-                />
-              </Label>
+                <Label className='mt-4'>
+                  <span>Password</span>
+                  <Input
+                    className='mt-1'
+                    type='password'
+                    placeholder='***************'
+                    onChange={(e) => setPass(e.target.value)}
+                  />
+                </Label>
 
-              <Button className='mt-4' block onClick={() => handleSubmit()}>
-                Log in
-              </Button>
+                <Button className='mt-4' block onClick={() => handleSubmit()}>
+                  Log in
+                </Button>
 
-              <p
-                style={{ color: "red", display: !showText ? "none" : "block" }}>
-                Wrong Email or Password
-              </p>
+                <p
+                  style={{
+                    color: "red",
+                    display: !showText ? "none" : "block",
+                  }}>
+                  Wrong Email or Password
+                </p>
 
-              <p className='mt-4'>
-                <Link
-                  className='text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline'
-                  to='/forgot-password'>
-                  Forgot your password?
-                </Link>
-              </p>
-              <p className='mt-1'>
-                <Link
-                  className='text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline'
-                  to='/create-account'>
-                  Create account
-                </Link>
-              </p>
-            </div>
+                <p className='mt-4'>
+                  <Link
+                    className='text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline'
+                    to='/forgot-password'>
+                    Forgot your password?
+                  </Link>
+                </p>
+                <p className='mt-1'>
+                  <Link
+                    className='text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline'
+                    to='/create-account'>
+                    Create account
+                  </Link>
+                </p>
+              </div>
+            )}
+            {loading && <Loader />}
           </main>
         </div>
       </div>

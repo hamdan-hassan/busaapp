@@ -1,17 +1,27 @@
 /* eslint-disable no-useless-escape */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import PageTitle from "../components/Typography/PageTitle";
 import SectionTitle from "../components/Typography/SectionTitle";
-import { Input, Label, Select, Button, HelperText } from "@windmill/react-ui";
+import Logo from "../assets/img/logo.png";
+import {
+  Input,
+  Label,
+  Select,
+  Button,
+  HelperText,
+  Textarea,
+} from "@windmill/react-ui";
 import { Checkmark } from "react-checkmark";
 
 import { MailIcon } from "../icons";
 import { UserDetails } from "../userDetails";
 import Modal from "./Modal";
+import ReactToPrint from "react-to-print";
 import axios from "axios";
 
 function Profile() {
+  const elementRef = useRef();
   const [fname, setFName] = useState("");
   const [mname, setMName] = useState("");
   const [lname, setLName] = useState("");
@@ -20,11 +30,13 @@ function Profile() {
   const [level, setLevel] = useState("");
   const [dob, setDob] = useState("");
   const [phone, setPhone] = useState("");
+  const [size, setSize] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
   const [error, setError] = useState(false);
   const [wrongId, setWrongId] = useState(false);
   const [wrongEmail, setWrongEmail] = useState(false);
   const [wrongPhone, setWrongPhone] = useState(false);
+  const [complain, setComplain] = useState("");
 
   const [stdId, setStdId] = useState("");
 
@@ -41,11 +53,13 @@ function Profile() {
     axios
       .get("http://localhost:3000/profile/" + UserDetails.studentId)
       .then((res) => {
+        console.log(res);
         setFName(res.data.rows[0].first_name);
         setMName(res.data.rows[0].middle_name);
         setLName(res.data.rows[0].last_name);
         setEmail(res.data.rows[0].email);
         setGender(res.data.rows[0].gender);
+        setSize(res.data.rows[0].size);
         setDob(res.data.rows[0].dob);
         setPhone(res.data.rows[0].phone_number);
         setLevel(res.data.rows[0].level);
@@ -86,7 +100,6 @@ function Profile() {
         "http://localhost:3000/updateProfile",
         {
           id: UserDetails.studentId.toUpperCase(),
-          stdId: stdId.toUpperCase(),
           firstName: fname,
           middleName: mname,
           lastName: lname,
@@ -187,7 +200,6 @@ function Profile() {
           <span> Middle Name</span>
           <Input
             className='mt-1'
-            placeholder='Jane Doe'
             value={mname}
             disabled={!editable ? true : false}
             onChange={(e) => setMName(e.target.value)}
@@ -229,14 +241,22 @@ function Profile() {
             className='mt-1'
             placeholder='Jane Doe'
             value={stdId}
-            disabled={!editable ? true : false}
-            onChange={(e) => setStdId(e.target.value.toUpperCase())}
+            disabled
+          />
+        </Label>
+        <Label>
+          <span>T-Shirt size</span>
+          <Input
+            className='mt-1'
+            placeholder='Jane Doe'
+            value={size}
+            disabled
           />
         </Label>
         <HelperText valid={false}>
           {wrongId && "Incorrect Student Id"}
         </HelperText>
-        <Label className='mt-4'>
+        <Label className='mt-1'>
           <span>Gender</span>
           <Select
             className='mt-1'
@@ -247,7 +267,7 @@ function Profile() {
             <option>Female</option>
           </Select>
         </Label>
-        <Label className='mt-4'>
+        <Label className='mt-1'>
           <span>Level</span>
           <Select
             className='mt-1'
@@ -349,6 +369,64 @@ function Profile() {
             </Label>
           )}
         </div>
+      </div>
+      <div className='px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800'>
+        <PageTitle>Submit a Complain</PageTitle>
+        <Label>
+          <span>Name</span>
+          <Input className='mt-1' value={`${fname} ${mname} ${lname}`} />
+        </Label>
+        <Label>
+          <span>Contact</span>
+          <Input className='mt-1' value={phone} />
+        </Label>
+        <Label>
+          <span>Student ID</span>
+          <Input className='mt-1' value={stdId} />
+        </Label>
+        <Label>
+          <span>Complain</span>
+          <Textarea
+            className='mt-1'
+            rows='10'
+            onChange={(e) => setComplain(e.target.value)}
+          />
+        </Label>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "start",
+          }}>
+          {/* <Label className='mt-3'>
+            <Modal
+              handleClick={handleSubmitFile}
+              ModalTitle={"Submit"}
+              ModalHead={"Upload Image"}
+              ModalContent={"Are you sure you want to upload image?"}
+            />
+          </Label> */}
+          <Label className='mt-3 ml-5'>
+            <ReactToPrint
+              content={() => elementRef.current}
+              trigger={() => <Button className='mt-3'>Print to PDF!</Button>}
+            />
+          </Label>
+          {updated2 && (
+            <Label className='mt-6 ml-5'>
+              <Checkmark />
+            </Label>
+          )}
+        </div>
+      </div>
+      <div
+        ref={elementRef}
+        className='px-4 py-3 mb-8 bg-white rounded-lg dark:bg-gray-800 dark:text-gray-200'>
+        <img src={Logo} className='mb-4' />
+        <h1>Student ID: {`${stdId}`}</h1>
+        <h1>Name: {`${fname}`}</h1>
+        <h1>Contact: {`${phone}`}</h1>
+        <h2 style={{ marginTop: "20px", marginBottom: "15px" }}>Complain:</h2>
+        <p>{complain}</p>
       </div>
     </>
   );

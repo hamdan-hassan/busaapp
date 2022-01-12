@@ -22,59 +22,67 @@ function Dashboard() {
       <PageTitle>Dashboard</PageTitle>
 
       {/* <!-- Cards --> */}
-      {window.localStorage.getItem("admin") ? (
-        <div className='grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4'>
-          <Card image={Members} title='Registered Students' link='/app/admin' />
-          <Card
-            image={Article}
-            title='Publish an article'
-            link='/app/article'
-          />
-          <Card image={Stats} title='View Students Stats' link='/app/stats' />
-          <Card
-            image={Handout}
-            title='Upload Handouts'
-            link='/app/upload-handouts'
-          />
-          <Card
-            image={Question}
-            title='Upload Past Questions'
-            link='/app/upload-past-questions'
-          />
-          <Card image={ID} title='Upload Student IDs' link='/app/uploadids' />
-        </div>
-      ) : (
-        <div className='grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4'>
-          <Card
-            image={Register}
-            title='Register Membership'
-            link='/app/registration'
-          />
-          <Card
-            image={User}
-            title='View and Edit Profile'
-            link='/app/profile'
-          />
-          <Card image={Icon} title='Dues' link='/app/dues' />
-          <Card image={Books} title='Sourverneirs' link='/app/souverniers' />
-          <Card
-            image={Announcements}
-            title='Announcements'
-            link='/app/announcements'
-          />
-          <Card
-            image={Password}
-            title='Change Password'
-            link='/app/change-password'
-          />
-          <Card image={Handout} title='Handouts' link='/app/handouts' />
-          <Card
-            image={Question}
-            title='Past Questions'
-            link='/app/past-questions'
-          />
-        </div>
-      )}
+      {
+        // Admin route
+        window.localStorage.getItem("admin") ? (
+          <div className='grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4'>
+            <Card
+              image={Members}
+              title='Registered Students'
+              link='/app/admin'
+            />
+            <Card
+              image={Article}
+              title='Publish an article'
+              link='/app/article'
+            />
+            <Card image={Stats} title='View Students Stats' link='/app/stats' />
+            <Card
+              image={Handout}
+              title='Upload Handouts'
+              link='/app/upload-handouts'
+            />
+            <Card
+              image={Question}
+              title='Upload Past Questions'
+              link='/app/upload-past-questions'
+            />
+            <Card image={ID} title='Upload Student IDs' link='/app/uploadids' />
+          </div>
+        ) : (
+          // User route
+          <div className='grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4'>
+            <Card
+              image={Register}
+              title='Register Membership'
+              link='/app/registration'
+            />
+            <Card
+              image={User}
+              title='View and Edit Profile'
+              link='/app/profile'
+            />
+            <Card image={Icon} title='Dues' link='/app/dues' />
+            <Card image={Books} title='Sourverneirs' link='/app/souverniers' />
+            <Card
+              image={Announcements}
+              title='Announcements'
+              link='/app/announcements'
+            />
+            <Card
+              image={Password}
+              title='Change Password'
+              link='/app/change-password'
+            />
+            <Card image={Handout} title='Handouts' link='/app/handouts' />
+            <Card
+              image={Question}
+              title='Past Questions'
+              link='/app/past-questions'
+            />
+          </div>
+        )
+      }
     </>
   );
 }

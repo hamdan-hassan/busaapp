@@ -36,14 +36,12 @@ import ViewColumn from "@material-ui/icons/ViewColumn";
 import React, { forwardRef, useState, useEffect } from "react";
 
 const Admin = () => {
+  // Table Icons
   const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
     Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
     Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
     Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
-    DetailPanel: forwardRef((props, ref) => (
-      <ChevronRight {...props} ref={ref} />
-    )),
     Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
     Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
     Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
@@ -58,16 +56,13 @@ const Admin = () => {
     SortArrow: forwardRef((props, ref) => (
       <ArrowDownward {...props} ref={ref} />
     )),
-    ThirdStateCheck: forwardRef((props, ref) => (
-      <Remove {...props} ref={ref} />
-    )),
-    ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
   };
   const [data, setData] = useState([]);
-  const [level, setLevel] = useState(100);
+  const [level, setLevel] = useState("100");
 
   const [columns, setColumns] = useState([
     { title: "Student ID", field: "std_id", editable: "never" },
+    { title: "Registered", field: "registered", editable: "never" },
     {
       title: "Level",
       field: "level",
@@ -105,11 +100,12 @@ const Admin = () => {
     { title: "Name", field: "first_name", hidden: true },
   ]);
 
+  // Fetch All Students from api
   useEffect(() => {
     axios
       .get("http://localhost:3000/getStudents")
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         setData(res.data);
       })
       .catch((err) => console.log(err));
@@ -149,7 +145,7 @@ const Admin = () => {
       .catch((err) => console.log(err));
   };
   return (
-    <div>
+    <div style={{ overflow: "hidden" }}>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <h1>{id}</h1>
         <ModalHeader>Student Contact</ModalHeader>
@@ -248,13 +244,14 @@ const Admin = () => {
             }),
           onRowDelete: (oldData) =>
             new Promise((resolve, reject) => {
+              console.log(oldData.std_id);
               setTimeout(() => {
                 axios
                   .delete(
                     "http://localhost:3000/remove/" +
                       oldData.std_id +
                       "/" +
-                      null
+                      "null"
                   )
                   .then((res) => console.log(res))
                   .catch((err) => console.log(err));
@@ -264,7 +261,7 @@ const Admin = () => {
                     "http://localhost:3000/remove-register/" +
                       oldData.std_id +
                       "/" +
-                      null
+                      "null"
                   )
                   .then((res) => console.log(res))
                   .catch((err) => console.log(err));
@@ -274,7 +271,7 @@ const Admin = () => {
                     "http://localhost:3000/remove-login/" +
                       oldData.std_id +
                       "/" +
-                      null
+                      "null"
                   )
                   .then((res) => console.log(res))
                   .catch((err) => console.log(err));

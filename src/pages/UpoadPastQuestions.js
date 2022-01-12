@@ -128,6 +128,8 @@ const UploadPastQuestions = () => {
             onChange={(e) => {
               setProgramme(e.target.value);
             }}>
+            <option>BCom(Level 100)</option>
+            <option>BCom(Level 200)</option>
             <option>BCom(Human Resource Management)</option>
             <option>BCom(Accounting)</option>
             <option>BCom(Banking and Finance)</option>

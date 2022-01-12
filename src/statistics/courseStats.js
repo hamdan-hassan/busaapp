@@ -18,9 +18,10 @@ const options = {
 
 const CourseStats = () => {
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/courseStats")
-      .then((res) => setCourse(res.data));
+    axios.get("http://localhost:3000/courseStats").then((res) => {
+      setCourse(res.data);
+      console.log(res);
+    });
   }, []);
   const [course, setCourse] = useState([]);
 

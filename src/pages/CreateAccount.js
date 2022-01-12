@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Logo from "../assets/img/images.jpeg";
 import axios from "axios";
+import Loader from "../loader/loader";
 import Particles from "react-tsparticles";
 
 // import ImageDark from "../assets/img/create-account-office-dark.jpeg";
@@ -26,6 +27,7 @@ function CreateAccount() {
   const [wrongPhone, setWrongPhone] = useState(false);
   const [minPass, setMinPass] = useState(false);
   const [exist, setExist] = useState(false);
+  const [loading, setLoading] = useState(false);
   const emailValidation =
     /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   // const idValidation = /^(UG0|UD0)[0-9]{4}(19|20|21|22)$/i;
@@ -39,6 +41,7 @@ function CreateAccount() {
     setWrongId(false);
     setExist(false);
     setWrongPhone(false);
+    setLoading(true);
     if (
       fName.length === 0 ||
       lName.length === 0 ||
@@ -51,6 +54,7 @@ function CreateAccount() {
       email.length === 0 ||
       password.length === 0
     ) {
+      setLoading(false);
       return setError(true);
     }
 
@@ -60,15 +64,18 @@ function CreateAccount() {
     // }
 
     if (emailValidation.test(email) === false) {
+      setLoading(false);
       setError(true);
       return setWrongEmail(true);
     }
 
     if (phoneValidation.test(phone) === false) {
+      setLoading(false);
       setError(true);
       return setWrongPhone(true);
     }
     if (password.length < 6) {
+      setLoading(false);
       return setMinPass(true);
     }
 
@@ -88,6 +95,7 @@ function CreateAccount() {
       .then((res) => {
         console.log(res);
         if (res.data === "false") {
+          setLoading(false);
           setError(true);
           return setWrongId(true);
         } else {
@@ -115,8 +123,10 @@ function CreateAccount() {
             )
             .then((response) => {
               if (response.data === "already exist") {
+                setLoading(false);
                 return setExist(true);
               }
+              setLoading(false);
               window.localStorage.setItem("level", level);
               history.push("/login");
               setError(false);
@@ -131,19 +141,49 @@ function CreateAccount() {
                   }
                 )
                 .then((res) => {
+                  setLoading(false);
                   console.log(res);
                 })
                 .catch((err) => {
+                  setLoading(false);
+                  console.log(err);
+                });
+
+              axios
+                .post(
+                  "http://localhost:3000/create-registration",
+                  {
+                    FirstName: fName,
+                    MiddleName: MName,
+                    LastName: lName,
+                    StudentID: studId,
+                    Gender: gender,
+                    Level: level,
+                  },
+                  {
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                  }
+                )
+                .then((res) => {
+                  setLoading(false);
+                  console.log(res);
+                })
+                .catch((err) => {
+                  setLoading(false);
                   console.log(err);
                 });
             })
             .catch((error) => {
+              setLoading(false);
               setError(true);
               console.log(error);
             });
         }
       })
       .catch((err) => {
+        setLoading(false);
         console.log(err);
       });
   };
@@ -226,179 +266,178 @@ function CreateAccount() {
               src={Logo}
               alt='Office'
             />
-            {/* <img
-              aria-hidden='true'
-              className='hidden object-cover w-full h-full dark:block'
-              src={ImageDark}
-              alt='Office'
-            /> */}
           </div>
           <main className='flex items-center justify-center p-6 sm:p-12 md:w-1/2'>
-            <div className='w-full'>
-              <h1 className='mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200'>
-                Create account
-              </h1>
-              <Label>
-                <span>First Name</span>
-                <Input
-                  className='mt-1'
-                  required
-                  type='text'
-                  placeholder='John'
-                  onChange={(e) => setFName(e.target.value)}
-                />
-              </Label>
-              <Label>
-                <span>Middle Name (Optional)</span>
-                <Input
-                  className='mt-1'
-                  type='text'
-                  placeholder='John'
-                  onChange={(e) => setMName(e.target.value)}
-                />
-              </Label>
-              <Label>
-                <span>Last Name</span>
-                <Input
-                  className='mt-1'
-                  type='text'
-                  placeholder='Doe'
-                  onChange={(e) => setLName(e.target.value)}
-                />
-              </Label>
-              <Label>
-                <span>Student ID</span>
-                <Input
-                  className='mt-1'
-                  type='text'
-                  placeholder='UGxxxxx'
-                  onChange={(e) => setStudId(e.target.value.toUpperCase())}
-                />
-              </Label>
-              <HelperText valid={false}>
-                {wrongId &&
-                  `Student ID ${studId} of Level ${level} not found. Please check your ID and Level again`}
-              </HelperText>
-              <Label>
-                <span>Date of Birth</span>
-                <Input
-                  className='mt-1'
-                  type='date'
-                  placeholder='john@doe.com'
-                  onChange={(e) => setDob(e.target.value)}
-                />
-              </Label>
-              <Label className='mt-4'>
-                <span>Select Gender</span>
-                <Select
-                  className='mt-1'
-                  onChange={(e) => setGender(e.target.value)}>
-                  <option>Male</option>
-                  <option>Female</option>
-                </Select>
-              </Label>
-              <Label className='mt-4'>
-                <span>Select Level</span>
-                <Select
-                  className='mt-1'
-                  onChange={(e) => setLevel(e.target.value)}>
-                  <option>100</option>
-                  <option>200</option>
-                  <option>300</option>
-                  <option>400</option>
-                </Select>
-              </Label>
-              <Label className='mt-4'>
-                <span>Select Programme</span>
-                <Select
-                  className='mt-1'
-                  onChange={(e) => setProgramme(e.target.value)}>
-                  <option>BCom(Human Resource Management)</option>
-                  <option>BCom(Accounting)</option>
-                  <option>BCom(Banking and Finance)</option>
-                  <option>BCom(Marketing)</option>
-                  <option>Bsc Acounting</option>
-                  <option>Bsc Accounting and Finance</option>
-                  <option>BA Integreated Business Studies</option>
-                  <option>BA Accounting</option>
-                  <option>BA Management</option>
-                  <option>Diploma Integrated Business Studies</option>
-                </Select>
-              </Label>
-              <Label>
-                <span>Phone Number</span>
-                <Input
-                  className='mt-1'
-                  type='number'
-                  placeholder='0547645986'
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </Label>
-              <HelperText valid={false}>
-                {wrongPhone && "Please enter a valid Phone number"}
-              </HelperText>
-              <Label>
-                <span>Email</span>
-                <Input
-                  className='mt-1'
-                  type='email'
-                  placeholder='example@gmail.com'
-                  onChange={(e) => setEmail(e.target.value.toLowerCase())}
-                />
-              </Label>
-              <HelperText valid={false}>
-                {wrongEmail && "Please enter a valid email"}
-              </HelperText>
-              <Label className='mt-4'>
-                <span>Password</span>
-                <Input
-                  className='mt-1'
-                  placeholder='***************'
-                  type='password'
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+            {!loading && (
+              <div className='w-full'>
+                <h1 className='mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200'>
+                  Create account
+                </h1>
+                <Label>
+                  <span>First Name</span>
+                  <Input
+                    className='mt-1'
+                    required
+                    type='text'
+                    placeholder='John'
+                    onChange={(e) => setFName(e.target.value)}
+                  />
+                </Label>
+                <Label>
+                  <span>Middle Name (Optional)</span>
+                  <Input
+                    className='mt-1'
+                    type='text'
+                    placeholder=''
+                    onChange={(e) => setMName(e.target.value)}
+                  />
+                </Label>
+                <Label>
+                  <span>Last Name</span>
+                  <Input
+                    className='mt-1'
+                    type='text'
+                    placeholder='Doe'
+                    onChange={(e) => setLName(e.target.value)}
+                  />
+                </Label>
+                <Label>
+                  <span>Student ID</span>
+                  <Input
+                    className='mt-1'
+                    type='text'
+                    placeholder='UGxxxxx'
+                    onChange={(e) =>
+                      setStudId(e.target.value.toUpperCase().trim())
+                    }
+                  />
+                </Label>
                 <HelperText valid={false}>
-                  {minPass && "Password have atleast 6 characters"}
+                  {wrongId &&
+                    `Student ID ${studId} of Level ${level} not found. Please check your ID and Level again`}
                 </HelperText>
-              </Label>
-              <HelperText valid={false}>
-                {error && "Please fill in your information correctly"}
-              </HelperText>
-              <HelperText valid={false}>
-                {exist && "Email or Student ID already exist"}
-              </HelperText>
+                <Label>
+                  <span>Date of Birth</span>
+                  <Input
+                    className='mt-1'
+                    type='date'
+                    placeholder='john@doe.com'
+                    onChange={(e) => setDob(e.target.value)}
+                  />
+                </Label>
+                <Label className='mt-4'>
+                  <span>Select Gender</span>
+                  <Select
+                    className='mt-1'
+                    onChange={(e) => setGender(e.target.value)}>
+                    <option>Male</option>
+                    <option>Female</option>
+                  </Select>
+                </Label>
+                <Label className='mt-4'>
+                  <span>Select Level</span>
+                  <Select
+                    className='mt-1'
+                    onChange={(e) => setLevel(e.target.value)}>
+                    <option>100</option>
+                    <option>200</option>
+                    <option>300</option>
+                    <option>400</option>
+                  </Select>
+                </Label>
+                <Label className='mt-4'>
+                  <span>Select Programme</span>
+                  <Select
+                    className='mt-1'
+                    onChange={(e) => setProgramme(e.target.value)}>
+                    <option>BCom(Human Resource Management)</option>
+                    <option>BCom(Accounting)</option>
+                    <option>BCom(Banking and Finance)</option>
+                    <option>BCom(Marketing)</option>
+                    <option>Bsc Acounting</option>
+                    <option>Bsc Accounting and Finance</option>
+                    <option>BA Integreated Business Studies</option>
+                    <option>BA Accounting</option>
+                    <option>BA Management</option>
+                    <option>Diploma Integrated Business Studies</option>
+                  </Select>
+                </Label>
+                <Label>
+                  <span>Phone Number</span>
+                  <Input
+                    className='mt-1'
+                    type='number'
+                    placeholder='0547645986'
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </Label>
+                <HelperText valid={false}>
+                  {wrongPhone && "Please enter a valid Phone number"}
+                </HelperText>
+                <Label>
+                  <span>Email</span>
+                  <Input
+                    className='mt-1'
+                    type='email'
+                    placeholder='example@gmail.com'
+                    onChange={(e) => setEmail(e.target.value.toLowerCase())}
+                  />
+                </Label>
+                <HelperText valid={false}>
+                  {wrongEmail && "Please enter a valid email"}
+                </HelperText>
+                <Label className='mt-4'>
+                  <span>Password</span>
+                  <Input
+                    className='mt-1'
+                    placeholder='***************'
+                    type='password'
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <HelperText valid={false}>
+                    {minPass && "Password have atleast 6 characters"}
+                  </HelperText>
+                </Label>
+                <HelperText valid={false}>
+                  {error && "Please fill in your information correctly"}
+                </HelperText>
+                <HelperText valid={false}>
+                  {exist && "Email or Student ID already exist"}
+                </HelperText>
 
-              <Button
-                block
-                className='mt-4'
-                onClick={() =>
-                  handleSubmit(
-                    fName,
-                    MName,
-                    lName,
-                    studId,
-                    dob,
-                    gender,
-                    level,
-                    programme,
-                    phone,
-                    email,
-                    password
-                  )
-                }>
-                Create account
-              </Button>
+                <Button
+                  block
+                  className='mt-4'
+                  onClick={() =>
+                    handleSubmit(
+                      fName,
+                      MName,
+                      lName,
+                      studId,
+                      dob,
+                      gender,
+                      level,
+                      programme,
+                      phone,
+                      email,
+                      password
+                    )
+                  }>
+                  Create account
+                </Button>
 
-              <hr className='my-8' />
+                <hr className='my-8' />
 
-              <p className='mt-4'>
-                <Link
-                  className='text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline'
-                  to='/login'>
-                  Already have an account? Login
-                </Link>
-              </p>
-            </div>
+                <p className='mt-4'>
+                  <Link
+                    className='text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline'
+                    to='/login'>
+                    Already have an account? Login
+                  </Link>
+                </p>
+              </div>
+            )}
+            {loading && <Loader />}
           </main>
         </div>
       </div>

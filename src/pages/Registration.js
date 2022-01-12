@@ -27,7 +27,7 @@ function Registration() {
     axios
       .get("http://localhost:3000/isRegistered/" + UserDetails.studentId)
       .then((res) => {
-        if (res.data[0].registered) {
+        if (res.data[0].registered === "true") {
           setRegistered(true);
           setUserName(res.data[0].first_name);
         }
@@ -55,7 +55,7 @@ function Registration() {
     console.log(isValid);
 
     axios
-      .post(
+      .put(
         "http://localhost:3000/register",
         {
           FirstName: fName,
@@ -121,15 +121,15 @@ function Registration() {
               <span>Fisrt Name</span>
               <Input
                 className='mt-1'
-                placeholder='Jane Doe'
+                placeholder='Jane'
                 onChange={(e) => setFName(e.target.value)}
               />
             </Label>
             <Label>
-              <span> Middle Name</span>
+              <span>Middle Name (Optional)</span>
               <Input
                 className='mt-1'
-                placeholder='Jane Doe'
+                placeholder=''
                 onChange={(e) => setMName(e.target.value)}
               />
             </Label>
@@ -137,7 +137,7 @@ function Registration() {
               <span>Last Name</span>
               <Input
                 className='mt-1'
-                placeholder='Jane Doe'
+                placeholder='Doe'
                 onChange={(e) => setLName(e.target.value)}
               />
             </Label>
@@ -145,7 +145,7 @@ function Registration() {
               <span>Student ID</span>
               <Input
                 className='mt-1'
-                placeholder='Jane Doe'
+                placeholder='UGxxxxxx'
                 onChange={(e) => setStudId(e.target.value.toUpperCase())}
               />
             </Label>

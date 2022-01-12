@@ -9,7 +9,9 @@ const Article = () => {
   const [content, setContent] = useState("");
   const [published, setPublished] = useState(false);
 
+  // Publish Article
   const handleSubmit = () => {
+    console.log(content);
     setPublished(false);
     axios
       .put(
@@ -52,7 +54,19 @@ const Article = () => {
         className='mt-1'
         rows='10'
         placeholder='...'
-        onChange={(e) => setContent(e.target.value)}
+        onChange={(e) =>
+          setContent(
+            e.target.value
+              .split("")
+              .map((item) => {
+                if (item === "'") {
+                  return item + "'";
+                }
+                return item;
+              })
+              .join("")
+          )
+        }
       />
 
       <Modal

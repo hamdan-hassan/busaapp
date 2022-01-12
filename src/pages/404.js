@@ -9,6 +9,8 @@ function Page404() {
   const goBack = () => {
     history.goBack();
   };
+
+  // Not found component
   return (
     <div className='flex flex-col items-center'>
       <ForbiddenIcon

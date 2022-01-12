@@ -125,7 +125,7 @@ const UploadIDs = () => {
       .catch((err) => console.log(err));
   };
   return (
-    <div className='mt-6'>
+    <div className='mt-6 dark:text-gray-200'>
       <h1 style={{ fontSize: "20px" }}>Upload Students IDs</h1>
       <Label className='mt-4' onChange={(e) => setLevel(e.target.value)}>
         <span>Select Level</span>
