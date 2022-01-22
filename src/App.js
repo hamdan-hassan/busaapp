@@ -8,6 +8,7 @@ import {
 import AccessibleNavigationAnnouncer from "./components/AccessibleNavigationAnnouncer";
 import ProtectedExpired from "./ProtectedExpired";
 import ProtectedRoute from "./ProtectedRoute";
+import auth from "./auth";
 
 const Layout = lazy(() => import("./containers/Layout"));
 const Login = lazy(() => import("./pages/Login"));
@@ -26,7 +27,9 @@ function App() {
           <Route path='/login' component={Login} />
           <Route path='/create-account' component={CreateAccount} />
           <Route path='/forgot-password' component={ForgotPassword} />
-          <Route path='/reset/:id/:token' component={ResetPassword} />
+          {window.localStorage.getItem("reset") && (
+            <Route path='/reset/:id/:token' component={ResetPassword} />
+          )}
 
           {/* Place new routes over this */}
           <ProtectedExpired path={"/expired-link"} component={Expired} />

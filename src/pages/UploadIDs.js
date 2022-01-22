@@ -1,7 +1,7 @@
 import React, { forwardRef, useState, useEffect } from "react";
 import axios from "axios";
 import { Checkmark } from "react-checkmark";
-import { Textarea, Label, Select, Button } from "@windmill/react-ui";
+import { Textarea, Label, Select } from "@windmill/react-ui";
 import Modal from "./Modal";
 import MaterialTable from "material-table";
 import AddBox from "@material-ui/icons/AddBox";
@@ -84,7 +84,7 @@ const UploadIDs = () => {
     setUploaded(false);
     setError(false);
 
-    if (content.length === 0) {
+    if (/^ *$/.test(content)) {
       return setError(true);
     } else {
       axios
@@ -176,7 +176,7 @@ const UploadIDs = () => {
               fontSize: 40,
             }}>
             Error uploading IDs. Make sure that the IDs are all unique and have
-            not been uploaded before
+            not been uploaded before. Also make sure that the field is not empty
           </h1>
         </div>
       )}

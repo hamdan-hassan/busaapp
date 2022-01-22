@@ -4,6 +4,7 @@ import ImageLight from "../assets/img/forgot-password-office.jpeg";
 import ImageDark from "../assets/img/forgot-password-office-dark.jpeg";
 import { Label, Input, Button, Card, CardBody } from "@windmill/react-ui";
 import axios from "axios";
+import auth from "../auth";
 import { Checkmark } from "react-checkmark";
 
 const ForgotPassword = () => {
@@ -28,10 +29,12 @@ const ForgotPassword = () => {
           setText(true);
           return;
         }
-
-        setText(false);
-        console.log(res.data);
-        setSent(true);
+        auth.reset(() => {
+          setText(false);
+          console.log(res.data);
+          setSent(true);
+          console.log(auth.isReset());
+        });
       })
       .catch((err) => {
         console.log(err);

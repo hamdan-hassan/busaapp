@@ -14,6 +14,7 @@ class Auth {
 
   reset(cb) {
     this.isreset = true;
+    window.localStorage.setItem("reset", this.isreset);
     cb();
   }
   expired(cb) {

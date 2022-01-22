@@ -35,6 +35,7 @@ function ResetPassword() {
           }
           setText(false);
           setUpdated(true);
+          window.localStorage.removeItem("reset");
         })
         .catch((err) => {
           console.log(err);

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import Logo from "../assets/img/images.jpeg";
+import Logo from "../assets/img/ubids.jpg";
 import axios from "axios";
 import Loader from "../loader/loader";
 import Particles from "react-tsparticles";
@@ -43,8 +43,8 @@ function CreateAccount() {
     setWrongPhone(false);
     setLoading(true);
     if (
-      fName.length === 0 ||
-      lName.length === 0 ||
+      /^ *$/.test(fName) ||
+      /^ *$/.test(lName) ||
       studId.length === 0 ||
       dob.length === 0 ||
       gender.length === 0 ||

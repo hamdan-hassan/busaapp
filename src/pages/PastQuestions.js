@@ -28,7 +28,7 @@ const PastQuestions = () => {
     axios
       .get("http://localhost:3000/isRegistered/" + UserDetails.studentId)
       .then((res) => {
-        if (res.data[0].registered) {
+        if (res.data[0].registered === "true") {
           setRegistered(true);
         }
       })

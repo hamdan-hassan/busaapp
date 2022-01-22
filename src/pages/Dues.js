@@ -9,21 +9,15 @@ import {
   TableRow,
   TableCell,
   Badge,
-  Label,
-  Select,
-  Button,
-  Input,
-  HelperText,
 } from "@windmill/react-ui";
 import axios from "axios";
-import { Checkmark } from "react-checkmark";
 import { UserDetails } from "../userDetails";
 function Dues() {
   const [l100, setL100] = useState("");
   const [l200, setL200] = useState("");
   const [l300, setL300] = useState("");
   const [l400, setL400] = useState("");
-  const [amount, setAmount] = useState("50");
+  // const [amount, setAmount] = useState("50");
 
   const [l100badge, setL100Badge] = useState("danger");
   const [l200badge, setL200Badge] = useState("danger");

@@ -50,11 +50,14 @@ const UploadHandouts = () => {
   };
 
   const [data, setData] = useState([]);
-  const [programme, setProgramme] = useState("BCom(Human Resource Management)");
-  const [level, setLevel] = useState("100");
+  const [removeLevel, setRemoveLevel] = useState(false);
+  const [disableLevel, setDisableLevel] = useState(true);
+  const [programme, setProgramme] = useState("BCom(Level 100)");
+  const [level, setLevel] = useState("300");
   const [trimester, setTrimester] = useState("First");
   const [courseName, setCourseName] = useState("");
   const [url, setUrl] = useState("");
+  const [error, setError] = useState(false);
   const [published, setPublished] = useState(false);
 
   const [columns, setColumns] = useState([
@@ -93,30 +96,35 @@ const UploadHandouts = () => {
 
   const handleUpload = () => {
     setPublished(false);
-    axios
-      .post(
-        "http://localhost:3000/upload-handouts",
-        {
-          Programme: programme,
-          Level: level,
-          Trimester: trimester,
-          CourseName: courseName,
-          Url: url,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
+
+    if (/^ *$/.test(courseName) || /^ *$/.test(url)) {
+      return setError(true);
+    } else {
+      axios
+        .post(
+          "http://localhost:3000/upload-handouts",
+          {
+            Programme: programme,
+            Level: level,
+            Trimester: trimester,
+            CourseName: courseName,
+            Url: url,
           },
-        }
-      )
-      .then((res) => {
-        setPublished(true);
-        setCourseName("");
-        setUrl("");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          setPublished(true);
+          setCourseName("");
+          setUrl("");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
   return (
     <div>
@@ -128,7 +136,30 @@ const UploadHandouts = () => {
           <Select
             className='mt-1'
             onChange={(e) => {
+              setRemoveLevel(false);
               setProgramme(e.target.value);
+              if (e.target.value === "BCom(Level 100)") {
+                setLevel("100");
+
+                return setDisableLevel(true);
+              }
+
+              if (e.target.value === "BCom(Level 200)") {
+                setLevel("200");
+
+                return setDisableLevel(true);
+              }
+
+              if (
+                e.target.value === "BCom(Human Resource Management)" ||
+                e.target.value === "BCom(Accounting)" ||
+                e.target.value === "BCom(Banking and Finance)" ||
+                e.target.value === "BCom(Marketing)"
+              ) {
+                setRemoveLevel(true);
+              }
+
+              return setDisableLevel(false);
             }}>
             <option>BCom(Level 100)</option>
             <option>BCom(Level 200)</option>
@@ -144,15 +175,18 @@ const UploadHandouts = () => {
             <option>Diploma Integrated Business Studies</option>
           </Select>
         </Label>
-        <Label className='mt-4'>
+        <Label
+          style={{ display: disableLevel ? "none" : null }}
+          className='mt-4'>
           <span>Select Level</span>
           <Select
             className='mt-1'
             onChange={(e) => {
               setLevel(e.target.value);
             }}>
-            <option>100</option>
-            <option>200</option>
+            {!removeLevel && <option>100</option>}
+            {!removeLevel && <option>200</option>}
+
             <option>300</option>
             <option>400</option>
           </Select>
@@ -208,6 +242,21 @@ const UploadHandouts = () => {
           </div>
         )}
       </div>
+      {error && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}>
+          <h1
+            style={{
+              fontSize: 40,
+            }}>
+            Error uploading Handouts. Make sure that the Course Name or Url is
+            not empty.
+          </h1>
+        </div>
+      )}
 
       <MaterialTable
         icons={tableIcons}
@@ -217,7 +266,7 @@ const UploadHandouts = () => {
           exportButton: true,
         }}
         data={data}
-        onRowClick={(event, rowData) => alert(rowData.sno)}
+        onRowClick={(event, rowData) => {}}
         editable={{
           onRowAdd: (newData) =>
             new Promise((resolve, reject) => {

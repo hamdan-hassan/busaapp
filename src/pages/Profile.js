@@ -70,8 +70,8 @@ function Profile() {
 
   const handleUpdate = () => {
     if (
-      fname.length === 0 ||
-      lname.length === 0 ||
+      /^ *$/.test(fname) ||
+      /^ *$/.test(lname) ||
       stdId.length === 0 ||
       dob.length === 0 ||
       gender.length === 0 ||
@@ -191,7 +191,7 @@ function Profile() {
           <Input
             className='mt-1'
             placeholder='Jane Doe'
-            value={fname}
+            defaultValue={fname}
             disabled={!editable ? true : false}
             onChange={(e) => setFName(e.target.value)}
           />
@@ -200,7 +200,7 @@ function Profile() {
           <span> Middle Name</span>
           <Input
             className='mt-1'
-            value={mname}
+            defaultValue={mname}
             disabled={!editable ? true : false}
             onChange={(e) => setMName(e.target.value)}
           />
@@ -210,7 +210,7 @@ function Profile() {
           <Input
             className='mt-1'
             placeholder='Jane Doe'
-            value={lname}
+            defaultValue={lname}
             disabled={!editable ? true : false}
             onChange={(e) => setLName(e.target.value)}
           />
@@ -222,7 +222,7 @@ function Profile() {
             <input
               className='block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input'
               placeholder='Jane Doe'
-              value={email}
+              defaultValue={email}
               disabled={!editable ? true : false}
               onChange={(e) => setEmail(e.target.value.toLowerCase())}
             />
@@ -240,7 +240,7 @@ function Profile() {
           <Input
             className='mt-1'
             placeholder='Jane Doe'
-            value={stdId}
+            defaultValue={stdId}
             disabled
           />
         </Label>
@@ -249,7 +249,7 @@ function Profile() {
           <Input
             className='mt-1'
             placeholder='Jane Doe'
-            value={size}
+            defaultValue={size}
             disabled
           />
         </Label>
@@ -260,7 +260,7 @@ function Profile() {
           <span>Gender</span>
           <Select
             className='mt-1'
-            value={gender}
+            defaultValue={gender}
             disabled={!editable ? true : false}
             onChange={(e) => setGender(e.target.value)}>
             <option>Male</option>
@@ -271,7 +271,7 @@ function Profile() {
           <span>Level</span>
           <Select
             className='mt-1'
-            value={level}
+            defaultValue={level}
             disabled={!editable ? true : false}
             onChange={(e) => setLevel(e.target.value)}>
             <option>100</option>
@@ -286,7 +286,7 @@ function Profile() {
             type='date'
             className='mt-1'
             placeholder='Jane Doe'
-            value={dob}
+            defaultValue={dob}
             disabled={!editable ? true : false}
             onChange={(e) => setDob(e.target.value)}
           />
@@ -297,7 +297,7 @@ function Profile() {
             type='number'
             className='mt-1'
             placeholder='Jane Doe'
-            value={phone}
+            defaultValue={phone}
             disabled={!editable ? true : false}
             onChange={(e) => setPhone(e.target.value)}
           />
@@ -374,15 +374,15 @@ function Profile() {
         <PageTitle>Submit a Complain</PageTitle>
         <Label>
           <span>Name</span>
-          <Input className='mt-1' value={`${fname} ${mname} ${lname}`} />
+          <Input className='mt-1' defaultValue={`${fname}`} />
         </Label>
         <Label>
           <span>Contact</span>
-          <Input className='mt-1' value={phone} />
+          <Input className='mt-1' defaultValue={phone} />
         </Label>
         <Label>
           <span>Student ID</span>
-          <Input className='mt-1' value={stdId} />
+          <Input className='mt-1' defaultValue={stdId} />
         </Label>
         <Label>
           <span>Complain</span>
@@ -397,14 +397,6 @@ function Profile() {
             display: "flex",
             justifyContent: "start",
           }}>
-          {/* <Label className='mt-3'>
-            <Modal
-              handleClick={handleSubmitFile}
-              ModalTitle={"Submit"}
-              ModalHead={"Upload Image"}
-              ModalContent={"Are you sure you want to upload image?"}
-            />
-          </Label> */}
           <Label className='mt-3 ml-5'>
             <ReactToPrint
               content={() => elementRef.current}
@@ -421,7 +413,7 @@ function Profile() {
       <div
         ref={elementRef}
         className='px-4 py-3 mb-8 bg-white rounded-lg dark:bg-gray-800 dark:text-gray-200'>
-        <img src={Logo} className='mb-4' />
+        <img src={Logo} className='mb-4' alt='busa logo' />
         <h1>Student ID: {`${stdId}`}</h1>
         <h1>Name: {`${fname}`}</h1>
         <h1>Contact: {`${phone}`}</h1>

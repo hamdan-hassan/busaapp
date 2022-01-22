@@ -38,8 +38,8 @@ function Registration() {
   let isValid = false;
   const handleSubmit = () => {
     if (
-      fName.length === 0 ||
-      lName.length === 0 ||
+      /^ *$/.test(fName) ||
+      /^ *$/.test(lName) ||
       studId.length === 0 ||
       gender.length === 0 ||
       0
