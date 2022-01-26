@@ -36,7 +36,7 @@ const Summary = () => {
     return item.count;
   });
   return (
-    <Card className='flex-col h-70'>
+    <Card className='flex-col h-70 dark:text-gray-200'>
       <CardBody>
         <PageTitle>Summary</PageTitle>
         <div>

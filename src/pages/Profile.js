@@ -37,7 +37,7 @@ function Profile() {
   const [wrongEmail, setWrongEmail] = useState(false);
   const [wrongPhone, setWrongPhone] = useState(false);
   const [complain, setComplain] = useState("");
-
+  const [registered, setRegistered] = useState(false);
   const [stdId, setStdId] = useState("");
 
   const [editable, setEditable] = useState(false);
@@ -64,6 +64,14 @@ function Profile() {
         setPhone(res.data.rows[0].phone_number);
         setLevel(res.data.rows[0].level);
         setStdId(res.data.rows[0].std_id.toUpperCase());
+      })
+      .catch((err) => console.log(err));
+    axios
+      .get("http://localhost:3000/isRegistered/" + UserDetails.studentId)
+      .then((res) => {
+        if (res.data[0].registered === "true") {
+          setRegistered(true);
+        }
       })
       .catch((err) => console.log(err));
   }, []);
@@ -244,7 +252,7 @@ function Profile() {
             disabled
           />
         </Label>
-        <Label>
+        <Label style={{ display: !registered ? "none" : null }}>
           <span>T-Shirt size</span>
           <Input
             className='mt-1'
@@ -411,14 +419,19 @@ function Profile() {
         </div>
       </div>
       <div
-        ref={elementRef}
-        className='px-4 py-3 mb-8 bg-white rounded-lg dark:bg-gray-800 dark:text-gray-200'>
-        <img src={Logo} className='mb-4' alt='busa logo' />
-        <h1>Student ID: {`${stdId}`}</h1>
-        <h1>Name: {`${fname}`}</h1>
-        <h1>Contact: {`${phone}`}</h1>
-        <h2 style={{ marginTop: "20px", marginBottom: "15px" }}>Complain:</h2>
-        <p>{complain}</p>
+        style={{
+          display: "none",
+        }}>
+        <div
+          ref={elementRef}
+          className='px-4 py-3 mb-8 bg-white rounded-lg dark:bg-gray-800 dark:text-gray-200'>
+          <img src={Logo} className='mb-4' alt='busa logo' />
+          <h1>Student ID: {`${stdId}`}</h1>
+          <h1>Name: {`${fname}`}</h1>
+          <h1>Contact: {`${phone}`}</h1>
+          <h2 style={{ marginTop: "20px", marginBottom: "15px" }}>Complain:</h2>
+          <p>{complain}</p>
+        </div>
       </div>
     </>
   );

@@ -66,7 +66,7 @@ const PastQuestions = () => {
     <>
       {!registered ? (
         <div
-          className='dark:bg-gray-800'
+          className='dark:text-gray-200'
           style={{
             marginTop: "50px",
             fontSize: "2rem",
