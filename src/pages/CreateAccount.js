@@ -81,7 +81,7 @@ function CreateAccount() {
 
     axios
       .post(
-        "http://localhost:3000/validateid",
+        "http://localhost:3000/api/validateid",
         {
           ID: studId,
           Level: level,
@@ -101,7 +101,7 @@ function CreateAccount() {
         } else {
           axios
             .post(
-              "http://localhost:3000/create-account",
+              "http://localhost:3000/api/create-account",
               {
                 FirstName: fName,
                 MiddleName: MName,
@@ -132,7 +132,7 @@ function CreateAccount() {
               setError(false);
               axios
                 .post(
-                  "http://localhost:3000/create-profile-img",
+                  "http://localhost:3000/api/create-profile-img",
                   { StudentID: studId, Level: level },
                   {
                     headers: {
@@ -151,7 +151,7 @@ function CreateAccount() {
 
               axios
                 .post(
-                  "http://localhost:3000/create-registration",
+                  "http://localhost:3000/api/create-registration",
                   {
                     FirstName: fName,
                     MiddleName: MName,

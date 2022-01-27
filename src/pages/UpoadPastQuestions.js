@@ -74,7 +74,7 @@ const UploadPastQuestions = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/uploaded-past-questions")
+      .get("http://localhost:3000/api/uploaded-past-questions")
       .then((res) => {
         setData(res.data);
       })
@@ -91,7 +91,7 @@ const UploadPastQuestions = () => {
     } else {
       axios
         .post(
-          "http://localhost:3000/upload-past-questions",
+          "http://localhost:3000/api/upload-past-questions",
           {
             Programme: programme,
             Level: level,

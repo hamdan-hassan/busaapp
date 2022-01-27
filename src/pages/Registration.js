@@ -25,7 +25,7 @@ function Registration() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/isRegistered/" + UserDetails.studentId)
+      .get("http://localhost:3000/api/isRegistered/" + UserDetails.studentId)
       .then((res) => {
         if (res.data[0].registered === "true") {
           setRegistered(true);
@@ -56,7 +56,7 @@ function Registration() {
 
     axios
       .put(
-        "http://localhost:3000/register",
+        "http://localhost:3000/api/register",
         {
           FirstName: fName,
           MiddleName: MName,

@@ -102,7 +102,7 @@ const Admin = () => {
   // Fetch All Students from api
   useEffect(() => {
     axios
-      .get("http://localhost:3000/getStudents")
+      .get("http://localhost:3000/api/getStudents")
       .then((res) => {
         console.log(res.data);
         setData(res.data);
@@ -129,17 +129,17 @@ const Admin = () => {
 
   const handleDeleteIDs = () => {
     axios
-      .delete("http://localhost:3000/remove-register/" + null + "/" + level)
+      .delete("http://localhost:3000/api/remove-register/" + null + "/" + level)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
 
     axios
-      .delete("http://localhost:3000/remove/" + null + "/" + level)
+      .delete("http://localhost:3000/api/remove/" + null + "/" + level)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
 
     axios
-      .delete("http://localhost:3000/remove-login/" + null + "/" + level)
+      .delete("http://localhost:3000/api/remove-login/" + null + "/" + level)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
@@ -221,7 +221,7 @@ const Admin = () => {
 
                 axios
                   .put(
-                    "http://localhost:3000/update",
+                    "http://localhost:3000/api/update",
                     {
                       stdid: stdid,
                       level100: level100,
@@ -247,7 +247,7 @@ const Admin = () => {
               setTimeout(() => {
                 axios
                   .delete(
-                    "http://localhost:3000/remove/" +
+                    "http://localhost:3000/api/remove/" +
                       oldData.std_id +
                       "/" +
                       "null"
@@ -257,7 +257,7 @@ const Admin = () => {
 
                 axios
                   .delete(
-                    "http://localhost:3000/remove-register/" +
+                    "http://localhost:3000/api/remove-register/" +
                       oldData.std_id +
                       "/" +
                       "null"
@@ -267,7 +267,7 @@ const Admin = () => {
 
                 axios
                   .delete(
-                    "http://localhost:3000/remove-login/" +
+                    "http://localhost:3000/api/remove-login/" +
                       oldData.std_id +
                       "/" +
                       "null"

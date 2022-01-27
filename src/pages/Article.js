@@ -15,7 +15,7 @@ const Article = () => {
     setPublished(false);
     axios
       .put(
-        "http://localhost:3000/article",
+        "http://localhost:3000/api/article",
         {
           Title: title,
           Content: content,

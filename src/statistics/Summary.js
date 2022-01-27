@@ -6,25 +6,25 @@ import axios from "axios";
 const Summary = () => {
   useEffect(() => {
     axios
-      .get("http://localhost:3000/tshirtStats")
+      .get("http://localhost:3000/api/tshirtStats")
       .then((res) => setCourse(res.data));
   }, []);
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/totalStduents")
+      .get("http://localhost:3000/api/totalStduents")
       .then((res) => setStd(res.data[0].count));
   }, []);
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/registered-students")
+      .get("http://localhost:3000/api/registered-students")
       .then((res) => setRegistered(res.data[0].count));
   }, []);
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/not-registered-students")
+      .get("http://localhost:3000/api/not-registered-students")
       .then((res) => setNotRegistered(res.data[0].count));
   }, []);
   const [course, setCourse] = useState([]);

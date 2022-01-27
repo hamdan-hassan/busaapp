@@ -26,7 +26,7 @@ const PastQuestions = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/isRegistered/" + UserDetails.studentId)
+      .get("http://localhost:3000/api/isRegistered/" + UserDetails.studentId)
       .then((res) => {
         if (res.data[0].registered === "true") {
           setRegistered(true);
@@ -38,7 +38,7 @@ const PastQuestions = () => {
   const handleSearch = () => {
     axios
       .post(
-        "http://localhost:3000/get-past-questions",
+        "http://localhost:3000/api/get-past-questions",
         {
           Programme: programme,
           Level: level,

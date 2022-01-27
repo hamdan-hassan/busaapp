@@ -71,7 +71,7 @@ const UploadIDs = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/uploaded-ids")
+      .get("http://localhost:3000/api/uploaded-ids")
       .then((res) => {
         setData(res.data);
       })
@@ -89,7 +89,7 @@ const UploadIDs = () => {
     } else {
       axios
         .post(
-          "http://localhost:3000/uploadids",
+          "http://localhost:3000/api/uploadids",
           {
             IDs: content,
             Level: level,
@@ -117,7 +117,7 @@ const UploadIDs = () => {
   const handleDeleteIDs = () => {
     setDeleted(false);
     axios
-      .delete("http://localhost:3000/delete-ids/" + deleteLevel)
+      .delete("http://localhost:3000/api/delete-ids/" + deleteLevel)
       .then((res) => {
         setDeleted(true);
         console.log(res);
@@ -204,7 +204,9 @@ const UploadIDs = () => {
               new Promise((resolve, reject) => {
                 setTimeout(() => {
                   axios
-                    .delete("http://localhost:3000/delete-id/" + oldData.std_id)
+                    .delete(
+                      "http://localhost:3000/api/delete-id/" + oldData.std_id
+                    )
                     .then((res) => console.log(res))
                     .catch((err) => console.log(err));
 

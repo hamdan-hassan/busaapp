@@ -85,7 +85,7 @@ const UploadHandouts = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/uploaded-handouts")
+      .get("http://localhost:3000/api/uploaded-handouts")
       .then((res) => {
         setData(res.data);
       })
@@ -102,7 +102,7 @@ const UploadHandouts = () => {
     } else {
       axios
         .post(
-          "http://localhost:3000/upload-handouts",
+          "http://localhost:3000/api/upload-handouts",
           {
             Programme: programme,
             Level: level,

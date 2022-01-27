@@ -14,7 +14,7 @@ const ForgotPassword = () => {
   const handleSubmit = () => {
     axios
       .post(
-        "http://localhost:3000/forgot-password",
+        "http://localhost:3000/api/forgot-password",
         {
           email: email,
         },

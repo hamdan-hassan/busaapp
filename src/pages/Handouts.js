@@ -28,7 +28,7 @@ const Handouts = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/isRegistered/" + UserDetails.studentId)
+      .get("http://localhost:3000/api/isRegistered/" + UserDetails.studentId)
       .then((res) => {
         if (res.data[0].registered === "true") {
           setRegistered(true);
@@ -41,7 +41,7 @@ const Handouts = () => {
     console.log(level);
     axios
       .post(
-        "http://localhost:3000/get-handouts",
+        "http://localhost:3000/api/get-handouts",
         {
           Programme: programme,
           Level: level,

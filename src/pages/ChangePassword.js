@@ -20,7 +20,7 @@ const ChangePassword = () => {
   const handleUpdate = () => {
     axios
       .put(
-        "http://localhost:3000/updatePassword",
+        "http://localhost:3000/api/updatePassword",
         {
           id: UserDetails.studentId,
           password: oldPass,

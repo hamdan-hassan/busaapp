@@ -7,7 +7,7 @@ import axios from "axios";
 const TShirtStats = () => {
   useEffect(() => {
     axios
-      .get("http://localhost:3000/tshirtStats")
+      .get("http://localhost:3000/api/tshirtStats")
       .then((res) => setCourse(res.data));
   }, []);
   const [course, setCourse] = useState([]);

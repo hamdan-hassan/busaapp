@@ -23,7 +23,8 @@ function Sourverniers() {
   useEffect(() => {
     axios
       .get(
-        "http://localhost:3000/souvenirs/" + UserDetails.studentId.toUpperCase()
+        "http://localhost:3000/api/souvenirs/" +
+          UserDetails.studentId.toUpperCase()
       )
       .then((res) => {
         setBooks(res.data[0].books);

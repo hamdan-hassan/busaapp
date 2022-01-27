@@ -11,7 +11,7 @@ function Announcements() {
   // Fetch Published Annoucement
   useEffect(() => {
     axios
-      .get("http://localhost:3000/getArticle")
+      .get("http://localhost:3000/api/getArticle")
       .then((res) => setData(res.data.rows[0]))
       .catch((err) => console.log(err));
   }, []);

@@ -26,7 +26,9 @@ function Dues() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/dues/" + UserDetails.studentId.toUpperCase())
+      .get(
+        "http://localhost:3000/api/dues/" + UserDetails.studentId.toUpperCase()
+      )
       .then((res) => {
         console.log(UserDetails.studentId);
         console.log(UserDetails.level);

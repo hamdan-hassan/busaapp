@@ -38,7 +38,7 @@ function Header() {
   useEffect(() => {
     axios
       .post(
-        "http://localhost:3000/img",
+        "http://localhost:3000/api/img",
         {
           Id: UserDetails.studentId,
         },

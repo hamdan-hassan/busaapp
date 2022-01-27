@@ -51,7 +51,7 @@ function Profile() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/profile/" + UserDetails.studentId)
+      .get("http://localhost:3000/api/profile/" + UserDetails.studentId)
       .then((res) => {
         console.log(res);
         setFName(res.data.rows[0].first_name);
@@ -67,7 +67,7 @@ function Profile() {
       })
       .catch((err) => console.log(err));
     axios
-      .get("http://localhost:3000/isRegistered/" + UserDetails.studentId)
+      .get("http://localhost:3000/api/isRegistered/" + UserDetails.studentId)
       .then((res) => {
         if (res.data[0].registered === "true") {
           setRegistered(true);
@@ -105,7 +105,7 @@ function Profile() {
     }
     axios
       .put(
-        "http://localhost:3000/updateProfile",
+        "http://localhost:3000/api/updateProfile",
         {
           id: UserDetails.studentId.toUpperCase(),
           firstName: fname,
@@ -147,7 +147,7 @@ function Profile() {
     reader.onloadend = () => {
       axios
         .put(
-          "http://localhost:3000/upload",
+          "http://localhost:3000/api/upload",
           {
             ImageData: reader.result,
             Id: UserDetails.studentId.toUpperCase(),
@@ -174,7 +174,7 @@ function Profile() {
 
   const handleDeleteFile = () => {
     axios
-      .put("http://localhost:3000/remove-img/", {
+      .put("http://localhost:3000/api/remove-img/", {
         Id: UserDetails.studentId.toUpperCase(),
       })
       .then((res) => {

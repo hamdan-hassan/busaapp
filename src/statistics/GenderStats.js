@@ -19,7 +19,7 @@ const options = {
 const GenderStats = () => {
   useEffect(() => {
     axios
-      .get("http://localhost:3000/genderStats")
+      .get("http://localhost:3000/api/genderStats")
       .then((res) => setCourse(res.data));
   }, []);
   const [course, setCourse] = useState([]);

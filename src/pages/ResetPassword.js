@@ -24,7 +24,7 @@ function ResetPassword() {
       }
 
       axios
-        .post(`http://localhost:3000/reset/${id}/${newPass}/${token}`)
+        .post(`http://localhost:3000/api/reset/${id}/${newPass}/${token}`)
         .then((res) => {
           if (res.data === "expired") {
             Auth.expired(() => {
