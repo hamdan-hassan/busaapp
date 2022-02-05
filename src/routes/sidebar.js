@@ -37,9 +37,9 @@ const routes = [
     name: "Announcements",
   },
   {
-    path: "/app/change-password",
-    icon: "Password",
-    name: "Change Password",
+    path: "/app/executivesandpatrons",
+    icon: "Executives",
+    name: "Executives and Patrons",
   },
   {
     path: "/app/handouts",

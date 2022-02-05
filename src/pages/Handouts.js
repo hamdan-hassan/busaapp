@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 
 const Handouts = () => {
   const [programme, setProgramme] = useState("BCom(Level 100)");
-  const [level, setLevel] = useState("300");
+  const [level, setLevel] = useState("100");
   const [disableLevel, setDisableLevel] = useState(true);
   const [removeLevel, setRemoveLevel] = useState(false);
   const [trimester, setTrimester] = useState("First");
@@ -210,11 +210,16 @@ const Handouts = () => {
                           <span className='text-sm'>{item.course_name}</span>
                         </TableCell>
                         <TableCell>
-                          <span className='text-sm'>PDF</span>
+                          <span className='text-sm'>{item.doc}</span>
                         </TableCell>
                         <TableCell>
                           <Button>
-                            <a href={item.url}>View and Download</a>
+                            <a
+                              href={item.url}
+                              target='_blank'
+                              rel='noopener noreferrer'>
+                              View and Download
+                            </a>
                           </Button>
                         </TableCell>
                       </TableRow>

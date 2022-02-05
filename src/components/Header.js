@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { SidebarContext } from "../context/SidebarContext";
-import User from "../assets/img/user.png";
+import Male from "../assets/img/male.png";
+import Female from "../assets/img/female.png";
 import {
   MoonIcon,
   SunIcon,
@@ -94,7 +95,7 @@ function Header() {
               aria-haspopup='true'>
               <Avatar
                 className='align-middle'
-                src={img || User}
+                src={img || (UserDetails.gender !== "Male" ? Male : Female)}
                 alt=''
                 aria-hidden='true'
               />

@@ -53,15 +53,16 @@ const UploadHandouts = () => {
   const [removeLevel, setRemoveLevel] = useState(false);
   const [disableLevel, setDisableLevel] = useState(true);
   const [programme, setProgramme] = useState("BCom(Level 100)");
-  const [level, setLevel] = useState("300");
+  const [level, setLevel] = useState("100");
   const [trimester, setTrimester] = useState("First");
   const [courseName, setCourseName] = useState("");
+  const [doc, setDoc] = useState("PDF");
   const [url, setUrl] = useState("");
   const [error, setError] = useState(false);
   const [published, setPublished] = useState(false);
 
   const [columns, setColumns] = useState([
-    { title: "Serial", field: "sno", hidden: "true" },
+    { title: "Serial", field: "sno", hidden: true },
 
     {
       title: "Level",
@@ -108,6 +109,7 @@ const UploadHandouts = () => {
             Level: level,
             Trimester: trimester,
             CourseName: courseName,
+            Doc: doc,
             Url: url,
           },
           {
@@ -213,6 +215,18 @@ const UploadHandouts = () => {
             }}
           />
         </Label>
+        <Label className='mt-4'>
+          <span>Select Doc Type</span>
+          <Select
+            className='mt-1'
+            onChange={(e) => {
+              setDoc(e.target.value);
+            }}>
+            <option>PDF</option>
+            <option>Word</option>
+            <option>PPT</option>
+          </Select>
+        </Label>
         <Label>
           <span>File Url</span>
           <Input
@@ -281,7 +295,9 @@ const UploadHandouts = () => {
             new Promise((resolve, reject) => {
               setTimeout(() => {
                 axios
-                  .delete("http://localhost:3000/delete-handout/" + oldData.sno)
+                  .delete(
+                    "http://localhost:3000/api/delete-handout/" + oldData.sno
+                  )
                   .then((res) => console.log(res))
                   .catch((err) => console.log(err));
 

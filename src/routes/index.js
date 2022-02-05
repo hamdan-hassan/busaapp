@@ -48,7 +48,7 @@ const routes = [
     component: Announcements,
   },
   {
-    path: "/change-password",
+    path: "/executivesandpatrons",
     component: ChangePassword,
   },
   {
@@ -59,6 +59,7 @@ const routes = [
     path: "/past-questions",
     component: PastQuestions,
   },
+
   {
     path: "/404",
     component: Page404,

@@ -199,7 +199,7 @@ const PastQuestions = () => {
                           </div>
                         </TableCell>
                         <TableCell>
-                          <span className='text-sm'>PDF</span>
+                          <span className='text-sm'>{item.doc}</span>
                         </TableCell>
                         <TableCell>
                           <Button>

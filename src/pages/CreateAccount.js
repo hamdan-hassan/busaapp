@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import Logo from "../assets/img/ubids.jpg";
+import Logo from "../assets/img/ubids6.jpeg";
 import axios from "axios";
 import Loader from "../loader/loader";
 import Particles from "react-tsparticles";
@@ -128,6 +128,7 @@ function CreateAccount() {
               }
               setLoading(false);
               window.localStorage.setItem("level", level);
+              window.localStorage.setItem("gender", gender);
               history.push("/login");
               setError(false);
               axios

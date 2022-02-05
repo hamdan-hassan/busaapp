@@ -4,6 +4,8 @@ import React, { useEffect, useState, useRef } from "react";
 import PageTitle from "../components/Typography/PageTitle";
 import SectionTitle from "../components/Typography/SectionTitle";
 import Logo from "../assets/img/logo.png";
+import Male from "../assets/img/male.png";
+import Female from "../assets/img/female.png";
 import {
   Input,
   Label,
@@ -39,6 +41,14 @@ function Profile() {
   const [complain, setComplain] = useState("");
   const [registered, setRegistered] = useState(false);
   const [stdId, setStdId] = useState("");
+  const [img, setimg] = useState("");
+
+  const [oldPass, setOldPass] = useState("");
+  const [newPass, setNewPass] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
+  const [wrongPass, setWrongPass] = useState(false);
+  const [passMatch, setPassMatch] = useState(false);
+  const [updated3, setUpdated3] = useState(false);
 
   const [editable, setEditable] = useState(false);
   const [updated, setUpdated] = useState(false);
@@ -74,6 +84,27 @@ function Profile() {
         }
       })
       .catch((err) => console.log(err));
+
+    axios
+      .post(
+        "http://localhost:3000/api/img",
+        {
+          Id: UserDetails.studentId,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        if (res.data.length > 0) {
+          setimg(res.data[0].img_data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   const handleUpdate = () => {
@@ -126,6 +157,40 @@ function Profile() {
         setTimeout(() => {
           setUpdated(false);
         }, 5000);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handlePasswordUpdate = () => {
+    axios
+      .put(
+        "http://localhost:3000/api/updatePassword",
+        {
+          id: UserDetails.studentId,
+          password: oldPass,
+          newPass: newPass,
+          confirmPass: confirmPass,
+        },
+        { headers: { "Content-Type": "application/json" } }
+      )
+      .then((res) => {
+        console.log(res);
+        if (res.data === "wrong") {
+          setWrongPass(false);
+          return setPassMatch(true);
+        }
+        if (res.data === "wrong password") {
+          setPassMatch(false);
+          return setWrongPass(true);
+        }
+        if (res.data === "updated") {
+          setWrongPass(false);
+          setPassMatch(false);
+          setUpdated3(true);
+          setTimeout(() => {
+            setUpdated3(false);
+          }, 5000);
+        }
       })
       .catch((err) => console.log(err));
   };
@@ -189,8 +254,31 @@ function Profile() {
 
   return (
     <>
-      <PageTitle>Profile</PageTitle>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginBottom: "1s0px",
+          marginTop: "10px",
+        }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
 
+            marginBottom: "30px",
+            marginTop: "30px",
+          }}>
+          <img
+            src={img || (gender === "Male" ? Male : Female)}
+            style={{ borderRadius: "50%", height: "200px", width: "200px" }}
+          />
+          <div className='text-center'>
+            <PageTitle>{fname}</PageTitle>
+          </div>
+        </div>
+      </div>
       <SectionTitle>Update Details</SectionTitle>
 
       <div className='px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800'>
@@ -268,9 +356,12 @@ function Profile() {
           <span>Gender</span>
           <Select
             className='mt-1'
-            defaultValue={gender}
+            value={gender}
             disabled={!editable ? true : false}
-            onChange={(e) => setGender(e.target.value)}>
+            onChange={(e) => {
+              setGender(e.target.value);
+              window.localStorage.setItem("gender", gender);
+            }}>
             <option>Male</option>
             <option>Female</option>
           </Select>
@@ -279,7 +370,7 @@ function Profile() {
           <span>Level</span>
           <Select
             className='mt-1'
-            defaultValue={level}
+            value={level}
             disabled={!editable ? true : false}
             onChange={(e) => setLevel(e.target.value)}>
             <option>100</option>
@@ -373,6 +464,59 @@ function Profile() {
           </Label>
           {updated2 && (
             <Label className='mt-6 ml-5'>
+              <Checkmark />
+            </Label>
+          )}
+        </div>
+      </div>
+      <div>
+        <div className='px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800'>
+          <p className='mb-5'>Change Password</p>
+          <Label>
+            <span>Old Password</span>
+            <Input
+              type='password'
+              className='mt-1'
+              placeholder='*****'
+              onChange={(e) => setOldPass(e.target.value)}
+            />
+          </Label>
+          <Label>
+            <span> New Password</span>
+            <Input
+              type='password'
+              className='mt-1'
+              placeholder='******'
+              onChange={(e) => setNewPass(e.target.value)}
+            />
+          </Label>
+          <Label>
+            <span>Confirm New Password</span>
+            <Input
+              type='password'
+              className='mt-1'
+              placeholder='******'
+              onChange={(e) => setConfirmPass(e.target.value)}
+            />
+          </Label>
+          <HelperText valid={false}>
+            {passMatch && "Password do not match"}
+          </HelperText>
+          <Label>
+            <Label>
+              <HelperText valid={false}>
+                {wrongPass && "Wrong old Password"}
+              </HelperText>
+            </Label>
+            <Modal
+              handleClick={handlePasswordUpdate}
+              ModalTitle={"Update"}
+              ModalHead={"Update Password"}
+              ModalContent={"Are you sure you want to update your password?"}
+            />
+          </Label>
+          {updated3 && (
+            <Label className='mt-4'>
               <Checkmark />
             </Label>
           )}

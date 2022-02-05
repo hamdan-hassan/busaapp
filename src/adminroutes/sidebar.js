@@ -41,6 +41,11 @@ const routes = [
     icon: "IDs",
     name: "Upload Student IDs",
   },
+  {
+    path: "/app/uploadexecutivesandpatrons",
+    icon: "Executives",
+    name: "Executives and Patrons",
+  },
 ];
 
 export default routes;

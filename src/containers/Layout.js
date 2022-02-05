@@ -1,6 +1,5 @@
 import React, { useContext, Suspense, useEffect, lazy } from "react";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
-// import routes from "../routes";
 import routes from "../routes";
 import routes2 from "../adminroutes/index";
 import Sidebar from "../components/Sidebar";

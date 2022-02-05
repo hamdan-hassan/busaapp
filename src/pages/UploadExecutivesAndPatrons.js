@@ -1,6 +1,7 @@
 import React, { forwardRef, useState, useEffect } from "react";
-import PageTitle from "../components/Typography/PageTitle";
+import Modal from "./Modal";
 import { Label, Button, Select, Input } from "@windmill/react-ui";
+import PageTitle from "../components/Typography/PageTitle";
 import MaterialTable from "material-table";
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
@@ -20,7 +21,7 @@ import ViewColumn from "@material-ui/icons/ViewColumn";
 import axios from "axios";
 import { Checkmark } from "react-checkmark";
 
-const UploadPastQuestions = () => {
+const UploadExecutivesAndPatrons = () => {
   const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
     Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -49,33 +50,25 @@ const UploadPastQuestions = () => {
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
   };
   const [data, setData] = useState([]);
-  const [programme, setProgramme] = useState("BCom(Level 100)");
-  const [level, setLevel] = useState("300");
-  const [disableLevel, setDisableLevel] = useState(true);
-  const [removeLevel, setRemoveLevel] = useState(false);
-  const [doc, setDoc] = useState("PDF");
-  const [trimester, setTrimester] = useState("First");
-  const [url, setUrl] = useState("");
+  const [name, setName] = useState("");
+  const [position, setPosition] = useState("Dean, School of Business");
+
   const [error, setError] = useState(false);
   const [published, setPublished] = useState(false);
+  const [selectedFile, setSelectedFile] = useState("");
 
   const [columns, setColumns] = useState([
-    { title: "Serial", field: "sno", hidden: "true" },
+    { title: "Serial", field: "sno", hidden: true },
     {
-      title: "Level",
-      field: "level",
-      type: "numeric",
+      title: "Name",
+      field: "name",
     },
-    { title: "Programme", field: "programme", editable: "never" },
-    {
-      title: "Trimester",
-      field: "trimester",
-    },
+    { title: "Position", field: "position" },
   ]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/uploaded-past-questions")
+      .get("http://localhost:3000/api/uploaded-key-people")
       .then((res) => {
         setData(res.data);
       })
@@ -84,139 +77,96 @@ const UploadPastQuestions = () => {
       });
   }, []);
 
-  const handleUpload = () => {
-    setPublished(false);
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
 
-    if (/^ *$/.test(url)) {
-      return setError(true);
-    } else {
+    setSelectedFile(file);
+  };
+
+  const handleSubmitFile = () => {
+    setError(false);
+    if (!selectedFile) return;
+    const reader = new FileReader();
+    reader.readAsDataURL(selectedFile);
+    reader.onloadend = () => {
+      if (/^ *$/.test(name)) {
+        return setError(true);
+      }
       axios
         .post(
-          "http://localhost:3000/api/upload-past-questions",
+          "http://localhost:3000/api/upload-key-people",
           {
-            Programme: programme,
-            Level: level,
-            Trimester: trimester,
-            Doc: doc,
-            Url: url,
+            ImageData: reader.result,
+            Name: name,
+            Position: position,
           },
           {
-            headers: {
-              "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
           }
         )
         .then((res) => {
           setPublished(true);
-          setUrl("");
+          setTimeout(() => {
+            setPublished(false);
+          }, 5000);
         })
         .catch((err) => {
           console.log(err);
         });
-    }
+    };
+    reader.onerror = () => {
+      console.error("AHHHHHHHH!!");
+    };
   };
+
   return (
     <div>
-      <PageTitle>Upload Past Questions</PageTitle>
+      <PageTitle>Upload Executives and Patrons</PageTitle>
 
       <div className='px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800'>
         <Label className='mt-4'>
-          <span>Select Programme</span>
+          <span>Select Position</span>
           <Select
             className='mt-1'
             onChange={(e) => {
-              setRemoveLevel(false);
-              setProgramme(e.target.value);
-              if (e.target.value === "BCom(Level 100)") {
-                setLevel("100");
-
-                return setDisableLevel(true);
-              }
-
-              if (e.target.value === "BCom(Level 200)") {
-                setLevel("200");
-
-                return setDisableLevel(true);
-              }
-
-              if (
-                e.target.value === "BCom(Human Resource Management)" ||
-                e.target.value === "BCom(Accounting)" ||
-                e.target.value === "BCom(Banking and Finance)" ||
-                e.target.value === "BCom(Marketing)"
-              ) {
-                setRemoveLevel(true);
-              }
-
-              return setDisableLevel(false);
+              setPosition(e.target.value);
             }}>
-            <option>BCom(Level 100)</option>
-            <option>BCom(Level 200)</option>
-            <option>BCom(Human Resource Management)</option>
-            <option>BCom(Accounting)</option>
-            <option>BCom(Banking and Finance)</option>
-            <option>BCom(Marketing)</option>
-            <option>Bsc Acounting</option>
-            <option>Bsc Accounting and Finance</option>
-            <option>BA Integreated Business Studies</option>
-            <option>BA Accounting</option>
-            <option>BA Management</option>
-            <option>Diploma Integrated Business Studies</option>
-          </Select>
-        </Label>
-        <Label
-          style={{ display: disableLevel ? "none" : null }}
-          className='mt-4'>
-          <span>Select Level</span>
-          <Select
-            className='mt-1'
-            onChange={(e) => {
-              setLevel(e.target.value);
-            }}>
-            {!removeLevel && <option>100</option>}
-            {!removeLevel && <option>200</option>}
-            <option>300</option>
-            <option>400</option>
-          </Select>
-        </Label>
-        <Label className='mt-4'>
-          <span>Select Trimester</span>
-          <Select
-            className='mt-1'
-            onChange={(e) => {
-              setTrimester(e.target.value);
-            }}>
-            <option>First</option>
-            <option>Second</option>
-          </Select>
-        </Label>
-        <Label className='mt-4'>
-          <span>Select Doc Type</span>
-          <Select
-            className='mt-1'
-            onChange={(e) => {
-              setDoc(e.target.value);
-            }}>
-            <option>PDF</option>
-            <option>Word</option>
-            <option>PPT</option>
+            <option>Dean, School of Business</option>
+            <option>Patron</option>
+            <option>President</option>
+            <option>Vice President</option>
+            <option>Financial Secretary</option>
+            <option>Financial Treasurer</option>
+            <option>Organiser</option>
+            <option>General Secretary</option>
+            <option>Public relations officer (PRO)</option>
+            <option>Women Commissioner (Wocom)</option>
           </Select>
         </Label>
         <Label>
-          <span>File Url</span>
+          <span>Name</span>
           <Input
-            value={url}
-            placeholder='https://'
             className='mt-1'
             onChange={(e) => {
-              setUrl(e.target.value);
+              setName(e.target.value);
             }}
           />
         </Label>
         <Label>
-          <Button className='mt-5' onClick={handleUpload}>
-            Upload
-          </Button>
+          <span>Upload Image</span>
+          <Input
+            type='file'
+            className='mt-1'
+            onChange={(e) => handleFileInputChange(e)}
+          />
+        </Label>
+        <Label className='mt-1'>
+          <Modal
+            handleClick={handleSubmitFile}
+            ModalTitle={"Upload"}
+            ModalHead={"Upload Image"}
+            ModalContent={"Are you sure you want to upload image?"}
+          />
         </Label>
         {published && (
           <div
@@ -241,19 +191,18 @@ const UploadPastQuestions = () => {
             style={{
               fontSize: 40,
             }}>
-            Error uploading Past Questions. Make sure that the Url is not empty.
+            Error uploading. Make sure that the name is not empty.
           </h1>
         </div>
       )}
       <MaterialTable
         icons={tableIcons}
-        title='Uploaded Past Questions'
+        title='Uploaded'
         columns={columns}
         options={{
           exportButton: true,
         }}
         data={data}
-        onRowClick={(event, rowData) => alert(rowData)}
         editable={{
           onRowAdd: (newData) =>
             new Promise((resolve, reject) => {
@@ -263,13 +212,44 @@ const UploadPastQuestions = () => {
                 resolve();
               }, 1000);
             }),
+          onRowUpdate: (newData, oldData) =>
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                const dataUpdate = [...data];
+                const index = oldData.tableData.id;
+                const name = newData.name;
+                console.log(oldData.sno);
 
+                const config = {
+                  headers: { "Content-Type": "application/json" },
+                };
+
+                axios
+                  .put(
+                    "http://localhost:3000/api/update-key-people",
+                    {
+                      Sno: oldData.sno,
+                      Name: name,
+                    },
+                    config
+                  )
+                  .then((res) => {
+                    console.log(res);
+                  })
+                  .catch((err) => console.log(err));
+                dataUpdate[index] = newData;
+                setData([...dataUpdate]);
+
+                resolve();
+              }, 1000);
+            }),
           onRowDelete: (oldData) =>
             new Promise((resolve, reject) => {
+              console.log(oldData.name);
               setTimeout(() => {
                 axios
                   .delete(
-                    "http://localhost:3000/delete-past-question/" + oldData.sno
+                    "http://localhost:3000/api/delete-key-people/" + oldData.sno
                   )
                   .then((res) => console.log(res))
                   .catch((err) => console.log(err));
@@ -288,4 +268,4 @@ const UploadPastQuestions = () => {
   );
 };
 
-export default UploadPastQuestions;
+export default UploadExecutivesAndPatrons;

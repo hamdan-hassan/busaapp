@@ -36,6 +36,7 @@ import { ReactComponent as Password } from "./password.svg";
 import { ReactComponent as Handout } from "./handout.svg";
 import { ReactComponent as Questions } from "./questions.svg";
 import { ReactComponent as IDs } from "./id.svg";
+import { ReactComponent as Executives } from "./executives.svg";
 export {
   ButtonsIcon,
   CardsIcon,
@@ -75,4 +76,5 @@ export {
   Handout,
   Questions,
   IDs,
+  Executives,
 };

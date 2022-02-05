@@ -4,10 +4,22 @@ import { Link } from "react-router-dom";
 
 function InfoCard({ image, title, link }) {
   return (
-    <Card className='flex-col h-70'>
-      <img className='object-cover w-1/1' src={image} />
+    <Card
+      className='flex-col h-25'
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}>
+      <img
+        className='object-cover'
+        src={image}
+        width={150}
+        height={20}
+        alt='card'
+      />
       <CardBody>
-        <Button className=''>
+        <Button>
           <Link to={link}>{title}</Link>
         </Button>
       </CardBody>
