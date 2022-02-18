@@ -23,7 +23,6 @@ import ReactToPrint from "react-to-print";
 import axios from "axios";
 
 function Profile() {
-  const elementRef = useRef();
   const [fname, setFName] = useState("");
   const [mname, setMName] = useState("");
   const [lname, setLName] = useState("");
@@ -39,6 +38,10 @@ function Profile() {
   const [wrongEmail, setWrongEmail] = useState(false);
   const [wrongPhone, setWrongPhone] = useState(false);
   const [complain, setComplain] = useState("");
+  const [subject, setSubject] = useState("");
+
+  const [complainError, setComplainError] = useState(false);
+  const [sent, setSent] = useState(false);
   const [registered, setRegistered] = useState(false);
   const [stdId, setStdId] = useState("");
   const [img, setimg] = useState("");
@@ -63,7 +66,6 @@ function Profile() {
     axios
       .get("http://localhost:3000/api/profile/" + UserDetails.studentId)
       .then((res) => {
-        console.log(res);
         setFName(res.data.rows[0].first_name);
         setMName(res.data.rows[0].middle_name);
         setLName(res.data.rows[0].last_name);
@@ -250,6 +252,61 @@ function Profile() {
         }, 5000);
       })
       .catch((err) => console.log(err));
+  };
+
+  const handleCompalin = () => {
+    setComplainError(false);
+    if (/^ *$/.test(subject) || /^ *$/.test(complain)) {
+      return setComplainError(true);
+    }
+
+    const date = new Date(Date.now()).toISOString().slice(0, 10);
+
+    axios
+      .post(
+        "http://localhost:3000/api/send-complain",
+        {
+          Date: date,
+          Id: stdId,
+          Name: fname,
+          Contact: phone,
+          Subject: subject,
+          Complain: complain,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        return console.log(err);
+      });
+
+    axios
+      .post(
+        "http://localhost:3000/api/complains-count",
+        {
+          Id: stdId,
+          Count: 1,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        setSent(true);
+        setSubject("");
+        setComplain("");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -526,19 +583,28 @@ function Profile() {
         <PageTitle>Submit a Complain</PageTitle>
         <Label>
           <span>Name</span>
-          <Input className='mt-1' defaultValue={`${fname}`} />
+          <Input className='mt-1' value={fname} disabled />
         </Label>
         <Label>
           <span>Contact</span>
-          <Input className='mt-1' defaultValue={phone} />
+          <Input className='mt-1' value={phone} disabled />
         </Label>
         <Label>
           <span>Student ID</span>
-          <Input className='mt-1' defaultValue={stdId} />
+          <Input className='mt-1' value={stdId} disabled />
+        </Label>
+        <Label>
+          <span>Subject</span>
+          <Input
+            value={subject}
+            className='mt-1'
+            onChange={(e) => setSubject(e.target.value)}
+          />
         </Label>
         <Label>
           <span>Complain</span>
           <Textarea
+            value={complain}
             className='mt-1'
             rows='10'
             onChange={(e) => setComplain(e.target.value)}
@@ -550,19 +616,34 @@ function Profile() {
             justifyContent: "start",
           }}>
           <Label className='mt-3 ml-5'>
-            <ReactToPrint
+            {/* <ReactToPrint
               content={() => elementRef.current}
               trigger={() => <Button className='mt-3'>Print to PDF!</Button>}
+            /> */}
+            <Modal
+              handleClick={handleCompalin}
+              ModalTitle={"Submit"}
+              ModalHead={"Submit a Complain"}
+              ModalContent={"Are you sure you want to submit your complain?"}
             />
           </Label>
-          {updated2 && (
-            <Label className='mt-6 ml-5'>
-              <Checkmark />
-            </Label>
-          )}
+
+          <Label className='mt-6'>
+            {sent && (
+              <>
+                <Checkmark />
+                <p className='text-center text-base'>Complain Sent</p>
+              </>
+            )}
+          </Label>
         </div>
+        {complainError && (
+          <HelperText className='mt-5' valid={false}>
+            Please don't leave any field empty
+          </HelperText>
+        )}
       </div>
-      <div
+      {/* <div
         style={{
           display: "none",
         }}>
@@ -576,7 +657,7 @@ function Profile() {
           <h2 style={{ marginTop: "20px", marginBottom: "15px" }}>Complain:</h2>
           <p>{complain}</p>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

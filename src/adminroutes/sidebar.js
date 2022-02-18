@@ -46,6 +46,11 @@ const routes = [
     icon: "Executives",
     name: "Executives and Patrons",
   },
+  {
+    path: "/app/complains",
+    icon: "Complain",
+    name: "Complains",
+  },
 ];
 
 export default routes;

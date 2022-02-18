@@ -37,10 +37,12 @@ import { ReactComponent as Handout } from "./handout.svg";
 import { ReactComponent as Questions } from "./questions.svg";
 import { ReactComponent as IDs } from "./id.svg";
 import { ReactComponent as Executives } from "./executives.svg";
+import { ReactComponent as Complain } from "./complain.svg";
 export {
   ButtonsIcon,
   CardsIcon,
   ChartsIcon,
+  Complain,
   FormsIcon,
   HomeIcon,
   ModalsIcon,

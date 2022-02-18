@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardBody, Button } from "@windmill/react-ui";
 import { Link } from "react-router-dom";
 
-function InfoCard({ image, title, link }) {
+function InfoCard({ image, title, link, handleClick }) {
   return (
     <Card
       className='flex-col h-25'
@@ -19,7 +19,7 @@ function InfoCard({ image, title, link }) {
         alt='card'
       />
       <CardBody>
-        <Button>
+        <Button onClick={handleClick}>
           <Link to={link}>{title}</Link>
         </Button>
       </CardBody>

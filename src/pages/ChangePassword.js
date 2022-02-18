@@ -28,6 +28,7 @@ const ChangePassword = () => {
     axios
       .get("http://localhost:3000/api/uploaded-key-people")
       .then((res) => {
+        console.log(res.data);
         setData(res.data);
       })
       .catch((err) => {
@@ -40,13 +41,15 @@ const ChangePassword = () => {
         <PageTitle>Key People</PageTitle>
       </div>
       <div className='grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4'>
-        {data.map((item) => {
+        {data.map((item, i) => {
           if (
             item.position === "Patron" ||
-            item.position === "Dean, School of Business"
+            item.position === "Dean, School of Business" ||
+            item.position.includes("HOD")
           ) {
             return (
               <Card
+                key={i}
                 className='flex-col h-25'
                 style={{
                   display: "flex",
@@ -71,7 +74,7 @@ const ChangePassword = () => {
               </Card>
             );
           }
-          return;
+          return null;
         })}
         {/* <Card
           className='flex-col h-25'
@@ -174,32 +177,42 @@ const ChangePassword = () => {
         <PageTitle>Meet your Executives</PageTitle>
       </div>
       <div className='grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4'>
-        <Card
-          className='flex-col h-25'
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}>
-          <img
-            style={{
-              borderRadius: "50%",
-              height: "200px",
-              width: "200px",
-            }}
-            className='object-cover'
-            src={President}
-            width={150}
-            height={20}
-            alt='card'
-          />
+        {data.map((item, i) => {
+          if (
+            item.position !== "Patron" &&
+            item.position !== "Dean, School of Business"
+          ) {
+            return (
+              <Card
+                key={i}
+                className='flex-col h-25'
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}>
+                <img
+                  style={{
+                    borderRadius: "50%",
+                    height: "200px",
+                    width: "200px",
+                  }}
+                  className='object-cover'
+                  src={item.img_data || Icon}
+                  alt='card'
+                />
 
-          <CardBody className='dark:text-gray-200'>
-            <h1>Dagua A. Fatawu</h1>
-            <h1>President</h1>
-          </CardBody>
-        </Card>
-        <Card
+                <CardBody className='dark:text-gray-200'>
+                  <h1>{item.name}</h1>
+                  <h1>{item.position}</h1>
+                </CardBody>
+              </Card>
+            );
+          }
+          return null;
+        })}
+
+        {/* <Card
           className='flex-col h-25'
           style={{
             display: "flex",
@@ -367,7 +380,7 @@ const ChangePassword = () => {
             <h1>Anonomous</h1>
             <h1>Wocom</h1>
           </CardBody>
-        </Card>
+        </Card> */}
       </div>
     </>
   );

@@ -11,6 +11,7 @@ const UploadIDs = lazy(() => import("../pages/UploadIDs"));
 const UploadExecutivesAndPatrons = lazy(() =>
   import("../pages/UploadExecutivesAndPatrons")
 );
+const Complains = lazy(() => import("../pages/Complains"));
 
 /**
  * ⚠ These are internal routes!
@@ -55,6 +56,10 @@ const routes = [
   {
     path: "/uploadexecutivesandpatrons",
     component: UploadExecutivesAndPatrons,
+  },
+  {
+    path: "/complains",
+    component: Complains,
   },
 ];
 

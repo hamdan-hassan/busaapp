@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import Souvenirs from "../assets/img/souvenirs.png";
 import Cedis from "../assets/img/cedis.png";
@@ -13,11 +13,40 @@ import Announcements from "../assets/img/announcements.png";
 import Password from "../assets/img/password.png";
 import Handout from "../assets/img/handout.png";
 import Question from "../assets/img/question.png";
+import Complains from "../assets/img/complains.png";
 import PageTitle from "../components/Typography/PageTitle";
 
 import Card from "../components/Card/Card";
+import axios from "axios";
 
 function Dashboard() {
+  const [complains, setComplains] = useState(0);
+
+  useEffect(() => {
+    window.localStorage.getItem("admin") &&
+      axios
+        .get("http://localhost:3000/api/get-complains-count")
+        .then((res) => {
+          const result = res.data[0].count;
+          setComplains(result);
+          console.log(complains);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  });
+
+  const removeNewMessage = () => {
+    axios
+      .delete("http://localhost:3000/api/remove-complains-count")
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <PageTitle>Dashboard</PageTitle>
@@ -54,6 +83,25 @@ function Dashboard() {
               title='Executives and Patrons'
               link='/app/uploadexecutivesandpatrons'
             />
+            <div className='relative'>
+              <div className='absolute bottom-0 right-0 h-16 w-20 text-center text-white'>
+                <p
+                  className='bg-red-600'
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "50%",
+                  }}>
+                  {complains}
+                </p>
+              </div>
+              <Card
+                image={Complains}
+                title='Complains'
+                link='/app/complains'
+                handleClick={removeNewMessage}
+              />
+            </div>
           </div>
         ) : (
           // User route
@@ -71,7 +119,7 @@ function Dashboard() {
             <Card image={Cedis} title='Dues' link='/app/dues' />
             <Card
               image={Souvenirs}
-              title='Sourverneirs'
+              title='Sourvernirs'
               link='/app/souverniers'
             />
             <Card

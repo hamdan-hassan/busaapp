@@ -96,7 +96,7 @@ const UploadExecutivesAndPatrons = () => {
         .post(
           "http://localhost:3000/api/upload-key-people",
           {
-            ImageData: reader.result,
+            ImageData: reader.result || "",
             Name: name,
             Position: position,
           },
@@ -133,6 +133,10 @@ const UploadExecutivesAndPatrons = () => {
             }}>
             <option>Dean, School of Business</option>
             <option>Patron</option>
+            <option>HOD, Management Studies</option>
+            <option>HOD, Banking and Finance</option>
+            <option>HOD, Accountancy</option>
+            <option>HOD, Procurement and Marketing</option>
             <option>President</option>
             <option>Vice President</option>
             <option>Financial Secretary</option>

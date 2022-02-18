@@ -11,6 +11,7 @@ const Announcements = lazy(() => import("../pages/Announcements.js"));
 const ChangePassword = lazy(() => import("../pages/ChangePassword.js"));
 const Handouts = lazy(() => import("../pages/Handouts"));
 const PastQuestions = lazy(() => import("../pages/PastQuestions"));
+const Messages = lazy(() => import("../pages/Messages"));
 
 /**
  * ⚠ These are internal routes!
@@ -58,6 +59,10 @@ const routes = [
   {
     path: "/past-questions",
     component: PastQuestions,
+  },
+  {
+    path: "/messages",
+    component: Messages,
   },
 
   {
