@@ -24,7 +24,7 @@
     "@testing-library/user-event": "7.2.1",
     "@windmill/react-ui": "0.3.1",
     "axios": "^0.24.0",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "classnames": "2.2.6",
     "material-table": "^1.69.3",
     "react": "^16.13.1",
