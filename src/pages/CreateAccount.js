@@ -20,12 +20,14 @@ function CreateAccount() {
   const [programme, setProgramme] = useState("BCom(Human Resource Management)");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [programmeType, setProgrammeType] = useState("Degree")
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [wrongId, setWrongId] = useState(false);
   const [wrongEmail, setWrongEmail] = useState(false);
   const [wrongPhone, setWrongPhone] = useState(false);
   const [minPass, setMinPass] = useState(false);
+  const [removeLevel, setRemoveLevel] = useState(false)
   const [exist, setExist] = useState(false);
   const [loading, setLoading] = useState(false);
   const emailValidation =
@@ -84,7 +86,7 @@ function CreateAccount() {
         "http://localhost:3000/api/validateid",
         {
           ID: studId,
-          Level: level,
+
         },
         {
           headers: {
@@ -93,12 +95,13 @@ function CreateAccount() {
         }
       )
       .then((res) => {
-        console.log(res);
+
         if (res.data === "false") {
           setLoading(false);
           setError(true);
           return setWrongId(true);
         } else {
+
           axios
             .post(
               "http://localhost:3000/api/create-account",
@@ -114,6 +117,7 @@ function CreateAccount() {
                 Email: email,
                 Password: password,
                 Programme: programme,
+                ProgrammeType: programmeType
               },
               {
                 headers: {
@@ -134,7 +138,7 @@ function CreateAccount() {
               axios
                 .post(
                   "http://localhost:3000/api/create-profile-img",
-                  { StudentID: studId, Level: level },
+                  { StudentID: studId, Level: level, ProgrammeType: programmeType },
                   {
                     headers: {
                       "Content-Type": "application/json",
@@ -160,6 +164,7 @@ function CreateAccount() {
                     StudentID: studId,
                     Gender: gender,
                     Level: level,
+                    ProgrammeType: programmeType
                   },
                   {
                     headers: {
@@ -315,7 +320,7 @@ function CreateAccount() {
                 </Label>
                 <HelperText valid={false}>
                   {wrongId &&
-                    `Student ID ${studId} of Level ${level} not found. Please check your ID and Level again`}
+                    `Student ID ${studId} not found.`}
                 </HelperText>
                 <Label>
                   <span>Date of Birth</span>
@@ -342,25 +347,35 @@ function CreateAccount() {
                     onChange={(e) => setLevel(e.target.value)}>
                     <option>100</option>
                     <option>200</option>
-                    <option>300</option>
-                    <option>400</option>
+                    {!removeLevel && <option>300</option>}
+                    {!removeLevel && <option>400</option>}
                   </Select>
                 </Label>
                 <Label className='mt-4'>
                   <span>Select Programme</span>
                   <Select
                     className='mt-1'
-                    onChange={(e) => setProgramme(e.target.value)}>
+                    onChange={(e) => {
+
+                      setProgramme(e.target.value)
+                      if (e.target.value !== "Diploma in Business Studies") {
+                        setProgrammeType("Degree")
+                        setRemoveLevel(false)
+                      }
+                      else {
+                        setProgrammeType("Diploma")
+                        setRemoveLevel(true)
+                      }
+                    }}>
                     <option>BCom(Human Resource Management)</option>
                     <option>BCom(Accounting)</option>
                     <option>BCom(Banking and Finance)</option>
                     <option>BCom(Marketing)</option>
-                    <option>Bsc Acounting</option>
+                    <option>BCom(Procurement and Supply Chain Management)</option>
+                    <option>Bsc Accounting</option>
                     <option>Bsc Accounting and Finance</option>
-                    <option>BA Integreated Business Studies</option>
-                    <option>BA Accounting</option>
                     <option>BA Management</option>
-                    <option>Diploma Integrated Business Studies</option>
+                    <option>Diploma in Business Studies</option>
                   </Select>
                 </Label>
                 <Label>

@@ -28,6 +28,7 @@ function Profile() {
   const [lname, setLName] = useState("");
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
+  const [programme, setProgramme] = useState("")
   const [level, setLevel] = useState("");
   const [dob, setDob] = useState("");
   const [phone, setPhone] = useState("");
@@ -69,6 +70,7 @@ function Profile() {
         setFName(res.data.rows[0].first_name);
         setMName(res.data.rows[0].middle_name);
         setLName(res.data.rows[0].last_name);
+        setProgramme(res.data.rows[0].programme)
         setEmail(res.data.rows[0].email);
         setGender(res.data.rows[0].gender);
         setSize(res.data.rows[0].size);
@@ -124,16 +126,16 @@ function Profile() {
     }
 
     if (idValidation.test(stdId) === false) {
-      setError(true);
+
       return setWrongId(true);
     }
 
     if (emailValidation.test(email) === false) {
-      setError(true);
+
       return setWrongEmail(true);
     }
     if (phoneValidation.test(phone) === false) {
-      setError(true);
+
       return setWrongPhone(true);
     }
     axios
@@ -317,7 +319,8 @@ function Profile() {
           justifyContent: "center",
           marginBottom: "1s0px",
           marginTop: "10px",
-        }}>
+        }}
+      >
         <div
           style={{
             display: "flex",
@@ -326,24 +329,25 @@ function Profile() {
 
             marginBottom: "30px",
             marginTop: "30px",
-          }}>
+          }}
+        >
           <img
             src={img || (gender === "Male" ? Male : Female)}
             style={{ borderRadius: "50%", height: "200px", width: "200px" }}
           />
-          <div className='text-center'>
+          <div className="text-center">
             <PageTitle>{fname}</PageTitle>
           </div>
         </div>
       </div>
       <SectionTitle>Update Details</SectionTitle>
 
-      <div className='px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800'>
+      <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <Label>
           <span>Fisrt Name</span>
           <Input
-            className='mt-1'
-            placeholder='Jane Doe'
+            className="mt-1"
+            placeholder="Jane Doe"
             defaultValue={fname}
             disabled={!editable ? true : false}
             onChange={(e) => setFName(e.target.value)}
@@ -352,7 +356,7 @@ function Profile() {
         <Label>
           <span> Middle Name</span>
           <Input
-            className='mt-1'
+            className="mt-1"
             defaultValue={mname}
             disabled={!editable ? true : false}
             onChange={(e) => setMName(e.target.value)}
@@ -361,26 +365,34 @@ function Profile() {
         <Label>
           <span>Last Name</span>
           <Input
-            className='mt-1'
-            placeholder='Jane Doe'
+            className="mt-1"
+            placeholder="Jane Doe"
             defaultValue={lname}
             disabled={!editable ? true : false}
             onChange={(e) => setLName(e.target.value)}
           />
         </Label>
         <Label>
+          <span>Programme</span>
+          <Input
+            className="mt-1"
+            defaultValue={programme}
+            disabled
+          />
+        </Label>
+        <Label>
           <span>Email</span>
           {/* <!-- focus-within sets the color for the icon when input is focused --> */}
-          <div className='relative text-gray-500 focus-within:text-purple-600 dark:focus-within:text-purple-400'>
+          <div className="relative text-gray-500 focus-within:text-purple-600 dark:focus-within:text-purple-400">
             <input
-              className='block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input'
-              placeholder='Jane Doe'
+              className="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
+              placeholder="Jane Doe"
               defaultValue={email}
               disabled={!editable ? true : false}
               onChange={(e) => setEmail(e.target.value.toLowerCase())}
             />
-            <div className='absolute inset-y-0 flex items-center ml-3 pointer-events-none'>
-              <MailIcon className='w-5 h-5' aria-hidden='true' />
+            <div className="absolute inset-y-0 flex items-center ml-3 pointer-events-none">
+              <MailIcon className="w-5 h-5" aria-hidden="true" />
             </div>
           </div>
           <HelperText valid={false}>
@@ -391,8 +403,7 @@ function Profile() {
         <Label>
           <span>Student ID</span>
           <Input
-            className='mt-1'
-            placeholder='Jane Doe'
+            className="mt-1"
             defaultValue={stdId}
             disabled
           />
@@ -400,8 +411,8 @@ function Profile() {
         <Label style={{ display: !registered ? "none" : null }}>
           <span>T-Shirt size</span>
           <Input
-            className='mt-1'
-            placeholder='Jane Doe'
+            className="mt-1"
+            placeholder="Jane Doe"
             defaultValue={size}
             disabled
           />
@@ -409,27 +420,29 @@ function Profile() {
         <HelperText valid={false}>
           {wrongId && "Incorrect Student Id"}
         </HelperText>
-        <Label className='mt-1'>
+        <Label className="mt-1">
           <span>Gender</span>
           <Select
-            className='mt-1'
+            className="mt-1"
             value={gender}
             disabled={!editable ? true : false}
             onChange={(e) => {
               setGender(e.target.value);
               window.localStorage.setItem("gender", gender);
-            }}>
+            }}
+          >
             <option>Male</option>
             <option>Female</option>
           </Select>
         </Label>
-        <Label className='mt-1'>
+        <Label className="mt-1">
           <span>Level</span>
           <Select
-            className='mt-1'
+            className="mt-1"
             value={level}
             disabled={!editable ? true : false}
-            onChange={(e) => setLevel(e.target.value)}>
+            onChange={(e) => setLevel(e.target.value)}
+          >
             <option>100</option>
             <option>200</option>
             <option>300</option>
@@ -439,9 +452,9 @@ function Profile() {
         <Label>
           <span>Birthday</span>
           <Input
-            type='date'
-            className='mt-1'
-            placeholder='Jane Doe'
+            type="date"
+            className="mt-1"
+            placeholder="Jane Doe"
             defaultValue={dob}
             disabled={!editable ? true : false}
             onChange={(e) => setDob(e.target.value)}
@@ -450,9 +463,9 @@ function Profile() {
         <Label>
           <span>Phone Number</span>
           <Input
-            type='number'
-            className='mt-1'
-            placeholder='Jane Doe'
+            type="number"
+            className="mt-1"
+            placeholder="Jane Doe"
             defaultValue={phone}
             disabled={!editable ? true : false}
             onChange={(e) => setPhone(e.target.value)}
@@ -469,7 +482,8 @@ function Profile() {
             display: "flex",
             justifyContent: "space-between",
             width: "250px",
-          }}>
+          }}
+        >
           <Label>
             <Modal
               handleClick={handleUpdate}
@@ -478,22 +492,22 @@ function Profile() {
               ModalContent={"Are you sure you want to update your information?"}
             />
           </Label>
-          <Label className='mt-6'>
+          <Label className="mt-6">
             <Button onClick={handleEdit}>Edit</Button>
           </Label>
           {updated && (
-            <Label className='mt-4'>
+            <Label className="mt-4">
               <Checkmark />
             </Label>
           )}
         </div>
       </div>
-      <div className='px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800'>
+      <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <Label>
           <span>Upload Profile Image</span>
           <Input
-            type='file'
-            className='mt-1'
+            type="file"
+            className="mt-1"
             onChange={(e) => handleFileInputChange(e)}
           />
         </Label>
@@ -502,8 +516,9 @@ function Profile() {
           style={{
             display: "flex",
             justifyContent: "start",
-          }}>
-          <Label className='mt-3'>
+          }}
+        >
+          <Label className="mt-3">
             <Modal
               handleClick={handleSubmitFile}
               ModalTitle={"Upload"}
@@ -511,7 +526,7 @@ function Profile() {
               ModalContent={"Are you sure you want to upload image?"}
             />
           </Label>
-          <Label className='mt-3 ml-5'>
+          <Label className="mt-3 ml-5">
             <Modal
               handleClick={handleDeleteFile}
               ModalTitle={"Remove Image"}
@@ -520,51 +535,52 @@ function Profile() {
             />
           </Label>
           {updated2 && (
-            <Label className='mt-6 ml-5'>
+            <Label className="mt-6 ml-5">
               <Checkmark />
             </Label>
           )}
         </div>
       </div>
       <div>
-        <div className='px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800'>
-          <p className='mb-5'>Change Password</p>
+        <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <p className="mb-5">Change Password</p>
           <Label>
             <span>Old Password</span>
             <Input
-              type='password'
-              className='mt-1'
-              placeholder='*****'
+              type="password"
+              className="mt-1"
+              placeholder="*****"
               onChange={(e) => setOldPass(e.target.value)}
             />
           </Label>
           <Label>
             <span> New Password</span>
             <Input
-              type='password'
-              className='mt-1'
-              placeholder='******'
+              type="password"
+              className="mt-1"
+              placeholder="******"
               onChange={(e) => setNewPass(e.target.value)}
             />
           </Label>
           <Label>
             <span>Confirm New Password</span>
             <Input
-              type='password'
-              className='mt-1'
-              placeholder='******'
+              type="password"
+              className="mt-1"
+              placeholder="******"
               onChange={(e) => setConfirmPass(e.target.value)}
             />
           </Label>
           <HelperText valid={false}>
             {passMatch && "Password do not match"}
           </HelperText>
+
           <Label>
-            <Label>
-              <HelperText valid={false}>
-                {wrongPass && "Wrong old Password"}
-              </HelperText>
-            </Label>
+            <HelperText valid={false}>
+              {wrongPass && "Wrong old Password"}
+            </HelperText>
+          </Label>
+          <Label className="w-2">
             <Modal
               handleClick={handlePasswordUpdate}
               ModalTitle={"Update"}
@@ -572,32 +588,33 @@ function Profile() {
               ModalContent={"Are you sure you want to update your password?"}
             />
           </Label>
+
           {updated3 && (
-            <Label className='mt-4'>
+            <Label className="mt-4">
               <Checkmark />
             </Label>
           )}
         </div>
       </div>
-      <div className='px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800'>
+      <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <PageTitle>Submit a Complain</PageTitle>
         <Label>
           <span>Name</span>
-          <Input className='mt-1' value={fname} disabled />
+          <Input className="mt-1" value={fname} disabled />
         </Label>
         <Label>
           <span>Contact</span>
-          <Input className='mt-1' value={phone} disabled />
+          <Input className="mt-1" value={phone} disabled />
         </Label>
         <Label>
           <span>Student ID</span>
-          <Input className='mt-1' value={stdId} disabled />
+          <Input className="mt-1" value={stdId} disabled />
         </Label>
         <Label>
           <span>Subject</span>
           <Input
             value={subject}
-            className='mt-1'
+            className="mt-1"
             onChange={(e) => setSubject(e.target.value)}
           />
         </Label>
@@ -605,8 +622,8 @@ function Profile() {
           <span>Complain</span>
           <Textarea
             value={complain}
-            className='mt-1'
-            rows='10'
+            className="mt-1"
+            rows="10"
             onChange={(e) => setComplain(e.target.value)}
           />
         </Label>
@@ -614,12 +631,9 @@ function Profile() {
           style={{
             display: "flex",
             justifyContent: "start",
-          }}>
-          <Label className='mt-3 ml-5'>
-            {/* <ReactToPrint
-              content={() => elementRef.current}
-              trigger={() => <Button className='mt-3'>Print to PDF!</Button>}
-            /> */}
+          }}
+        >
+          <Label className="mt-3 ml-5">
             <Modal
               handleClick={handleCompalin}
               ModalTitle={"Submit"}
@@ -628,17 +642,17 @@ function Profile() {
             />
           </Label>
 
-          <Label className='mt-6'>
+          <Label className="mt-6">
             {sent && (
               <>
                 <Checkmark />
-                <p className='text-center text-base'>Complain Sent</p>
+                <p className="text-center text-base">Complain Sent</p>
               </>
             )}
           </Label>
         </div>
         {complainError && (
-          <HelperText className='mt-5' valid={false}>
+          <HelperText className="mt-5" valid={false}>
             Please don't leave any field empty
           </HelperText>
         )}

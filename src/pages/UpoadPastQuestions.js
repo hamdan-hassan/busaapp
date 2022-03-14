@@ -213,7 +213,7 @@ const UploadPastQuestions = () => {
             }}
           />
         </Label>
-        <Label>
+        <Label className="w-2">
           <Button className='mt-5' onClick={handleUpload}>
             Upload
           </Button>

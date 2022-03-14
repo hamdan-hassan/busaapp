@@ -53,6 +53,7 @@ const UploadIDs = () => {
   const [deleteLevel, setDeleteLevel] = useState("100");
   const [content, setContent] = useState("");
   const [data, setData] = useState([]);
+  const [programmeType, setProgrammeType] = useState("Degree");
   const [uploaded, setUploaded] = useState(false);
   const [deleted, setDeleted] = useState(false);
   const [error, setError] = useState(false);
@@ -65,6 +66,12 @@ const UploadIDs = () => {
       title: "Level",
       field: "level",
       type: "numeric",
+      //   editable: "never",
+    },
+    {
+      title: "Programme Type",
+      field: "programme",
+
       //   editable: "never",
     },
   ]);
@@ -93,6 +100,7 @@ const UploadIDs = () => {
           {
             IDs: content,
             Level: level,
+            ProgrammeType: programmeType
           },
           {
             headers: {
@@ -124,9 +132,29 @@ const UploadIDs = () => {
       })
       .catch((err) => console.log(err));
   };
+
+  const handleDeleteDiplomaIDs = () => {
+    setDeleted(false)
+    axios
+      .delete("http://localhost:3000/api/delete-diploma-ids/" + deleteLevel)
+      .then((res) => {
+        setDeleted(true);
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className='mt-6 dark:text-gray-200'>
       <h1 style={{ fontSize: "20px" }}>Upload Students IDs</h1>
+      <Label className='mt-4' onChange={(e) => setProgrammeType(e.target.value)}>
+        <span>Select Programme type</span>
+        <Select className='mt-1'>
+          <option>Degree</option>
+          <option>Diploma</option>
+        </Select>
+      </Label>
+
       <Label className='mt-4' onChange={(e) => setLevel(e.target.value)}>
         <span>Select Level</span>
         <Select className='mt-1'>
@@ -222,7 +250,7 @@ const UploadIDs = () => {
         />
 
         <Label className='mt-4 mb-5' onChange={(e) => setLevel(e.target.value)}>
-          <h1 style={{ fontSize: "20px" }}>Delete All IDs</h1>
+          <h1 style={{ fontSize: "20px" }}>Delete All IDs (Degree)</h1>
           <span>Select Level</span>
           <Select
             className='mt-1'
@@ -237,6 +265,27 @@ const UploadIDs = () => {
 
           <Modal
             handleClick={handleDeleteIDs}
+            ModalTitle={"Delete IDs"}
+            ModalHead={"Delete Student IDs"}
+            ModalContent={"Are you sure you want to delete all IDs the?"}
+          />
+          {deleted && <Checkmark />}
+        </Label>
+
+        <Label className='mt-4 mb-5' onChange={(e) => setLevel(e.target.value)}>
+          <h1 style={{ fontSize: "20px" }}>Delete All IDs (Diploma)</h1>
+          <span>Select Level</span>
+          <Select
+            className='mt-1'
+            onChange={(e) => {
+              setDeleteLevel(e.target.value);
+            }}>
+            <option>100</option>
+            <option>200</option>
+          </Select>
+
+          <Modal
+            handleClick={handleDeleteDiplomaIDs}
             ModalTitle={"Delete IDs"}
             ModalHead={"Delete Student IDs"}
             ModalContent={"Are you sure you want to delete all IDs the?"}

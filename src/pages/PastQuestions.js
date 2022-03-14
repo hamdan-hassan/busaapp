@@ -50,6 +50,7 @@ const PastQuestions = () => {
         }
       )
       .then((res) => {
+        console.log(res);
         if (res.data.rows.length === 0) {
           setNoData(true);
           return;
@@ -66,14 +67,15 @@ const PastQuestions = () => {
     <>
       {!registered ? (
         <div
-          className='dark:text-gray-200'
+          className="dark:text-gray-200"
           style={{
             marginTop: "50px",
             fontSize: "2rem",
             display: "flex",
             justifyContent: "center",
             flexDirection: "column",
-          }}>
+          }}
+        >
           <h1>
             Please register as a member in order to get access to this page
           </h1>
@@ -82,13 +84,15 @@ const PastQuestions = () => {
               display: "flex",
               justifyContent: "center",
               marginTop: 50,
-            }}>
+            }}
+          >
             <Button
               tag={Link}
-              to='/app/registration'
+              to="/app/registration"
               style={{
                 width: 200,
-              }}>
+              }}
+            >
               Go to Registration
             </Button>
           </div>
@@ -97,22 +101,22 @@ const PastQuestions = () => {
         <div>
           <PageTitle>Past Questions</PageTitle>
 
-          <div className='px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800'>
-            <Label className='mt-4'>
+          <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+            <Label className="mt-4">
               <span>Select Programme</span>
               <Select
-                className='mt-1'
+                className="mt-1"
                 onChange={(e) => {
                   setRemoveLevel(false);
                   setProgramme(e.target.value);
                   if (e.target.value === "BCom(Level 100)") {
-                    setLevel("100");
+                    setLevel(100);
 
                     return setDisableLevel(true);
                   }
 
                   if (e.target.value === "BCom(Level 200)") {
-                    setLevel("200");
+                    setLevel(200);
 
                     return setDisableLevel(true);
                   }
@@ -121,36 +125,39 @@ const PastQuestions = () => {
                     e.target.value === "BCom(Human Resource Management)" ||
                     e.target.value === "BCom(Accounting)" ||
                     e.target.value === "BCom(Banking and Finance)" ||
-                    e.target.value === "BCom(Marketing)"
+                    e.target.value === "BCom(Marketing)" ||
+                    e.target.value === "BCom(Procurement and Supply Chain Management)"
                   ) {
                     setRemoveLevel(true);
                   }
 
                   return setDisableLevel(false);
-                }}>
+                }}
+              >
                 <option>BCom(Level 100)</option>
                 <option>BCom(Level 200)</option>
                 <option>BCom(Human Resource Management)</option>
                 <option>BCom(Accounting)</option>
                 <option>BCom(Banking and Finance)</option>
                 <option>BCom(Marketing)</option>
-                <option>Bsc Acounting</option>
+                <option>BCom(Procurement and Supply Chain Management)</option>
+                <option>Bsc Accounting</option>
                 <option>Bsc Accounting and Finance</option>
-                <option>BA Integreated Business Studies</option>
-                <option>BA Accounting</option>
                 <option>BA Management</option>
-                <option>Diploma Integrated Business Studies</option>
+                <option>Diploma in Business Studies</option>
               </Select>
             </Label>
             <Label
-              className='mt-4'
-              style={{ display: disableLevel ? "none" : null }}>
+              className="mt-4"
+              style={{ display: disableLevel ? "none" : null }}
+            >
               <span>Select Level</span>
               <Select
-                className='mt-1'
+                className="mt-1"
                 onChange={(e) => {
                   setLevel(e.target.value);
-                }}>
+                }}
+              >
                 {!removeLevel && <option>100</option>}
                 {!removeLevel && <option>200</option>}
                 <option>300</option>
@@ -159,7 +166,7 @@ const PastQuestions = () => {
             </Label>
 
             <Label>
-              <Button className='mt-5' onClick={handleSearch}>
+              <Button className="mt-5" onClick={handleSearch}>
                 Search
               </Button>
             </Label>
@@ -192,14 +199,14 @@ const PastQuestions = () => {
                     return (
                       <TableRow key={index}>
                         <TableCell>
-                          <div className='flex items-center text-sm'>
-                            <span className='font-semibold ml-2'>
+                          <div className="flex items-center text-sm">
+                            <span className="font-semibold ml-2">
                               {item.trimester}
                             </span>
                           </div>
                         </TableCell>
                         <TableCell>
-                          <span className='text-sm'>{item.doc}</span>
+                          <span className="text-sm">{item.doc}</span>
                         </TableCell>
                         <TableCell>
                           <Button>

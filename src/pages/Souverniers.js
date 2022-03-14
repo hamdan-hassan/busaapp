@@ -40,7 +40,7 @@ function Sourverniers() {
 
   return (
     <>
-      <PageTitle>Souverniers</PageTitle>
+      <PageTitle>Souvenirs</PageTitle>
       <div className='grid gap-6 mb-8 md:grid-cols-2'>
         <TableContainer>
           <Table>

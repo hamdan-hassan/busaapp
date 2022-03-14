@@ -99,7 +99,7 @@ const Handouts = () => {
           </div>
         </div>
       ) : (
-        <div>
+        <div style={{ overflow: "hidden" }}>
           <PageTitle>Handouts</PageTitle>
 
           <div className='px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800'>
@@ -126,7 +126,8 @@ const Handouts = () => {
                     e.target.value === "BCom(Human Resource Management)" ||
                     e.target.value === "BCom(Accounting)" ||
                     e.target.value === "BCom(Banking and Finance)" ||
-                    e.target.value === "BCom(Marketing)"
+                    e.target.value === "BCom(Marketing)" ||
+                    e.target.value === "BCom(Procurement and Supply Chain Management)"
                   ) {
                     setRemoveLevel(true);
                   }
@@ -139,12 +140,11 @@ const Handouts = () => {
                 <option>BCom(Accounting)</option>
                 <option>BCom(Banking and Finance)</option>
                 <option>BCom(Marketing)</option>
-                <option>Bsc Acounting</option>
+                <option>BCom(Procurement and Supply Chain Management)</option>
+                <option>Bsc Accounting</option>
                 <option>Bsc Accounting and Finance</option>
-                <option>BA Integreated Business Studies</option>
-                <option>BA Accounting</option>
                 <option>BA Management</option>
-                <option>Diploma Integrated Business Studies</option>
+                <option>Diploma in Business Studies</option>
               </Select>
             </Label>
             <Label

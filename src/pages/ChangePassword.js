@@ -6,16 +6,7 @@ import { Input, Label, HelperText } from "@windmill/react-ui";
 import { Checkmark } from "react-checkmark";
 import { Card, CardBody } from "@windmill/react-ui";
 import Icon from "../assets/img/male.png";
-import Dean from "../assets/img/dean.jpg";
-import Patron from "../assets/img/patron.jpg";
-import President from "../assets/img/president.jpg";
-import Vice from "../assets/img/vice.jpg";
-import FinancialSec from "../assets/img/financial sec.jpg";
-import Treasurer from "../assets/img/treasurer.jpg";
-import Organiser from "../assets/img/organiser.jpg";
-import Genearal from "../assets/img/general sec.jpg";
-import PRO from "../assets/img/pro.jpg";
-import Wocom from "../assets/img/wocom.jpg";
+
 
 import Modal from "./Modal";
 import axios from "axios";

@@ -8,7 +8,7 @@ import "./Announcements.css";
 function Announcements() {
   const [data, setData] = useState("");
 
-  // Fetch Published Annoucement
+  // Fetch Published Announcement
   useEffect(() => {
     axios
       .get("http://localhost:3000/api/getArticle")

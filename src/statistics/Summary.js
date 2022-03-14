@@ -48,7 +48,7 @@ const Summary = () => {
             Not Registered Students: {notRegisteered}
           </h1>
           <h1 style={{ marginBottom: "10px" }}>
-            Total number of Programmmes: {10}
+            Total number of Programmmes: {9}
           </h1>
           <h1 style={{ marginBottom: "10px" }}>
             Student T-Shirt size(Small): {result[0]}

@@ -156,7 +156,8 @@ const UploadHandouts = () => {
                 e.target.value === "BCom(Human Resource Management)" ||
                 e.target.value === "BCom(Accounting)" ||
                 e.target.value === "BCom(Banking and Finance)" ||
-                e.target.value === "BCom(Marketing)"
+                e.target.value === "BCom(Marketing)" ||
+                e.target.value === "BCom(Procurement and Supply Chain Management)"
               ) {
                 setRemoveLevel(true);
               }
@@ -169,12 +170,11 @@ const UploadHandouts = () => {
             <option>BCom(Accounting)</option>
             <option>BCom(Banking and Finance)</option>
             <option>BCom(Marketing)</option>
-            <option>Bsc Acounting</option>
+            <option>BCom(Procurement and Supply Chain Management)</option>
+            <option>Bsc Accounting</option>
             <option>Bsc Accounting and Finance</option>
-            <option>BA Integreated Business Studies</option>
-            <option>BA Accounting</option>
             <option>BA Management</option>
-            <option>Diploma Integrated Business Studies</option>
+            <option>Diploma in Business Studies</option>
           </Select>
         </Label>
         <Label
@@ -238,7 +238,7 @@ const UploadHandouts = () => {
             }}
           />
         </Label>
-        <Label>
+        <Label className="w-2">
           <Button className='mt-5' onClick={handleUpload}>
             Upload
           </Button>
@@ -280,7 +280,7 @@ const UploadHandouts = () => {
           exportButton: true,
         }}
         data={data}
-        onRowClick={(event, rowData) => {}}
+        onRowClick={(event, rowData) => { }}
         editable={{
           onRowAdd: (newData) =>
             new Promise((resolve, reject) => {

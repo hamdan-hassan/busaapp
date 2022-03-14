@@ -31,7 +31,7 @@ import SaveAlt from "@material-ui/icons/SaveAlt";
 import axios from "axios";
 
 import Search from "@material-ui/icons/Search";
-
+import { Checkmark } from "react-checkmark";
 import React, { forwardRef, useState, useEffect } from "react";
 
 const Admin = () => {
@@ -113,6 +113,8 @@ const Admin = () => {
   const [id, setId] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [delDiploma, setDelDiploma] = useState(false)
+  const [delDegree, setDelDegree] = useState(false)
   const [name, setName] = useState("");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -130,19 +132,43 @@ const Admin = () => {
   const handleDeleteIDs = () => {
     axios
       .delete("http://localhost:3000/api/remove-register/" + null + "/" + level)
-      .then((res) => console.log(res))
+      .then((res) => {
+        axios
+          .delete("http://localhost:3000/api/remove/" + null + "/" + level)
+          .then((res) => {
+            axios
+              .delete("http://localhost:3000/api/remove-login/" + null + "/" + level)
+              .then((res) => setDelDegree(true))
+              .catch((err) => console.log(err));
+          })
+          .catch((err) => console.log(err));
+
+      })
       .catch((err) => console.log(err));
 
-    axios
-      .delete("http://localhost:3000/api/remove/" + null + "/" + level)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
 
+
+  };
+
+
+  const handleDeleteDiplomaIDs = () => {
     axios
-      .delete("http://localhost:3000/api/remove-login/" + null + "/" + level)
-      .then((res) => console.log(res))
+      .delete("http://localhost:3000/api/remove-register-diploma/" + level)
+      .then((res) => {
+        axios
+          .delete("http://localhost:3000/api/remove-diploma/" + level)
+          .then((res) => {
+            axios
+              .delete("http://localhost:3000/api/remove-login-diploma/" + level)
+              .then((res) => setDelDiploma(true))
+              .catch((err) => console.log(err));
+          })
+          .catch((err) => console.log(err));
+
+      })
       .catch((err) => console.log(err));
   };
+
   return (
     <div style={{ overflow: "hidden" }}>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
@@ -186,7 +212,7 @@ const Admin = () => {
       </Modal>
       <MaterialTable
         icons={tableIcons}
-        title='Students Informations'
+        title="Students information's"
         columns={columns}
         options={{
           exportButton: true,
@@ -248,9 +274,9 @@ const Admin = () => {
                 axios
                   .delete(
                     "http://localhost:3000/api/remove/" +
-                      oldData.std_id +
-                      "/" +
-                      "null"
+                    oldData.std_id +
+                    "/" +
+                    "null"
                   )
                   .then((res) => console.log(res))
                   .catch((err) => console.log(err));
@@ -258,9 +284,9 @@ const Admin = () => {
                 axios
                   .delete(
                     "http://localhost:3000/api/remove-register/" +
-                      oldData.std_id +
-                      "/" +
-                      "null"
+                    oldData.std_id +
+                    "/" +
+                    "null"
                   )
                   .then((res) => console.log(res))
                   .catch((err) => console.log(err));
@@ -268,9 +294,9 @@ const Admin = () => {
                 axios
                   .delete(
                     "http://localhost:3000/api/remove-login/" +
-                      oldData.std_id +
-                      "/" +
-                      "null"
+                    oldData.std_id +
+                    "/" +
+                    "null"
                   )
                   .then((res) => console.log(res))
                   .catch((err) => console.log(err));
@@ -286,7 +312,7 @@ const Admin = () => {
         }}
       />
       <Label className='mt-4 mb-5'>
-        <h1 style={{ fontSize: "20px" }}>Delete All IDs</h1>
+        <h1 style={{ fontSize: "20px" }}>Delete All IDs (Degree)</h1>
         <span>Select Level</span>
         <Select className='mt-1' onChange={(e) => setLevel(e.target.value)}>
           <option>100</option>
@@ -300,6 +326,23 @@ const Admin = () => {
           ModalHead={"Delete Student IDs"}
           ModalContent={"Are you sure you want to delete all IDs the?"}
         />
+        {delDegree && <Checkmark />}
+      </Label>
+
+      <Label className='mt-4 mb-5'>
+        <h1 style={{ fontSize: "20px" }}>Delete All IDs (Diploma)</h1>
+        <span>Select Level</span>
+        <Select className='mt-1' onChange={(e) => setLevel(e.target.value)}>
+          <option>100</option>
+          <option>200</option>
+        </Select>
+        <CustomModal
+          handleClick={handleDeleteDiplomaIDs}
+          ModalTitle={"Delete IDs"}
+          ModalHead={"Delete Student IDs"}
+          ModalContent={"Are you sure you want to delete all IDs the?"}
+        />
+        {delDiploma && <Checkmark />}
       </Label>
     </div>
   );

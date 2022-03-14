@@ -35,12 +35,11 @@ const CourseStats = () => {
       "BCom(Accounting)",
       "BCom(Banking and Finance)",
       "BCom(Marketing)",
-      "Bsc Acounting",
+      "BCom(Procurement and Supply Chain Management)",
+      "Bsc Accounting",
       "Bsc Accounting and Finance",
-      "BA Integreated Business Studies",
-      "BA Accounting",
       "BA Management",
-      "Diploma Integrated Business Studies",
+      "Diploma in Business Studies",
     ],
     datasets: [
       {

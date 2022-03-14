@@ -32,6 +32,7 @@ function Dues() {
       .then((res) => {
         console.log(UserDetails.studentId);
         console.log(UserDetails.level);
+        console.log(res)
         setL100(res.data[0].level_100);
         if (res.data[0].level_100.toLowerCase() !== "Pending".toLowerCase()) {
           setL100Badge("success");
@@ -73,7 +74,7 @@ function Dues() {
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span className='text-sm'>50 ₵</span>
+                  <span className='text-sm'>65 ₵</span>
                 </TableCell>
                 <TableCell>
                   <Badge type={l100badge}>{l100}</Badge>
@@ -86,7 +87,7 @@ function Dues() {
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span className='text-sm'>40 ₵</span>
+                  <span className='text-sm'>30 ₵</span>
                 </TableCell>
                 <TableCell>
                   <Badge type={l200badge}>{l200}</Badge>
@@ -112,7 +113,7 @@ function Dues() {
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span className='text-sm'>20 ₵</span>
+                  <span className='text-sm'>30 ₵</span>
                 </TableCell>
                 <TableCell>
                   <Badge type={l400badge}>{l400}</Badge>
