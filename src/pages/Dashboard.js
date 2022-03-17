@@ -129,7 +129,7 @@ function Dashboard() {
             />
             <Card
               image={Executives}
-              title='Executives and Patrons'
+              title='Management & Executives'
               link='/app/executivesandpatrons'
             />
             <Card image={Handout} title='Handouts' link='/app/handouts' />

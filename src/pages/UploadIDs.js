@@ -50,6 +50,7 @@ const UploadIDs = () => {
   };
 
   const [level, setLevel] = useState("100");
+  const [disableLevel, setDisableLevel] = useState(false)
   const [deleteLevel, setDeleteLevel] = useState("100");
   const [content, setContent] = useState("");
   const [data, setData] = useState([]);
@@ -147,8 +148,16 @@ const UploadIDs = () => {
   return (
     <div className='mt-6 dark:text-gray-200'>
       <h1 style={{ fontSize: "20px" }}>Upload Students IDs</h1>
-      <Label className='mt-4' onChange={(e) => setProgrammeType(e.target.value)}>
-        <span>Select Programme type</span>
+      <Label className='mt-4' onChange={(e) => {
+        setProgrammeType(e.target.value)
+        if (e.target.value === 'Diploma') {
+          setDisableLevel(true)
+        }
+        else {
+          setDisableLevel(false)
+        }
+      }}>
+        <span>Select Programme type</span>}
         <Select className='mt-1'>
           <option>Degree</option>
           <option>Diploma</option>
@@ -160,8 +169,8 @@ const UploadIDs = () => {
         <Select className='mt-1'>
           <option>100</option>
           <option>200</option>
-          <option>300</option>
-          <option>400</option>
+          {!disableLevel && <option>300</option>}
+          {!disableLevel && <option>400</option>}
         </Select>
       </Label>
       <Textarea
