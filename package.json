@@ -40,11 +40,11 @@
     "react-to-print": "^2.14.3",
     "react-transition-group": "4.4.1",
     "react-tsparticles": "^1.37.5",
-    "tailwindcss": "1.4.6"
+    "tailwindcss": "1.4.6",
+    "@svgr/webpack": "^5.4.0"
   },
   "devDependencies": {
     "@release-it/conventional-changelog": "1.1.4",
-    "@svgr/webpack": "^5.4.0",
     "commitizen": "4.1.2",
     "cross-env": "7.0.2",
     "cssnano": "4.1.10",
