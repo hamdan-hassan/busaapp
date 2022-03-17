@@ -154,7 +154,7 @@ function Login() {
             {!loading && (
               <div className='w-full'>
                 <h1 className='mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200'>
-                  Login
+                  Login test
                 </h1>
                 <Label>
                   <span>Email</span>
