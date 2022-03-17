@@ -51,7 +51,7 @@
     "cz-conventional-changelog": "3.2.0",
     "react-app-rewired": "^2.1.9",
     "react-axe": "3.5.2",
-    "release-it": "13.6.4",
+    "release-it": "13.6.4"
     
   },
   "keywords": [
