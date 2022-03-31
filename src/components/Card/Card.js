@@ -19,7 +19,9 @@ function InfoCard({ image, title, link, handleClick }) {
         alt='card'
       />
       <CardBody>
-        <Button onClick={handleClick}>
+        <Button
+          style={{ background: "green" }}
+          onClick={handleClick}>
           <Link to={link}>{title}</Link>
         </Button>
       </CardBody>

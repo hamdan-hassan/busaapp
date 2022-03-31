@@ -301,6 +301,13 @@ const Admin = () => {
                   .then((res) => console.log(res))
                   .catch((err) => console.log(err));
 
+                axios
+                  .delete(
+                    "http://localhost:3000/api/delete-complain/" + oldData.std_id + "/" + null
+                  )
+                  .then((res) => console.log(res))
+                  .catch((err) => console.log(err));
+
                 const dataDelete = [...data];
                 const index = oldData.tableData.id;
                 dataDelete.splice(index, 1);

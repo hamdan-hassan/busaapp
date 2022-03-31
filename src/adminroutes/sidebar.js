@@ -27,6 +27,16 @@ const routes = [
     name: "Statistics",
   },
   {
+    path: "/app/uploadexecutivesandpatrons",
+    icon: "Executives",
+    name: "Executives and Patrons",
+  },
+  {
+    path: "/app/complains",
+    icon: "Complain",
+    name: "Complains",
+  },
+  {
     path: "/app/upload-handouts",
     icon: "Handout",
     name: "Upload Handouts",
@@ -41,16 +51,7 @@ const routes = [
     icon: "IDs",
     name: "Upload Student IDs",
   },
-  {
-    path: "/app/uploadexecutivesandpatrons",
-    icon: "Executives",
-    name: "Executives and Patrons",
-  },
-  {
-    path: "/app/complains",
-    icon: "Complain",
-    name: "Complains",
-  },
+
 ];
 
 export default routes;

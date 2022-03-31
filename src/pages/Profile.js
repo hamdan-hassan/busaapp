@@ -3,7 +3,6 @@ import React, { useEffect, useState, useRef } from "react";
 
 import PageTitle from "../components/Typography/PageTitle";
 import SectionTitle from "../components/Typography/SectionTitle";
-import Logo from "../assets/img/logo.png";
 import Male from "../assets/img/male.png";
 import Female from "../assets/img/female.png";
 import {
@@ -40,6 +39,7 @@ function Profile() {
   const [wrongPhone, setWrongPhone] = useState(false);
   const [complain, setComplain] = useState("");
   const [subject, setSubject] = useState("");
+  const [receiver, setReceiver] = useState("Busa")
 
   const [complainError, setComplainError] = useState(false);
   const [sent, setSent] = useState(false);
@@ -158,6 +158,7 @@ function Profile() {
         setEditable(false);
         setUpdated(true);
         window.localStorage.setItem("id", stdId);
+        window.localStorage.setItem("gender", gender);
         setTimeout(() => {
           setUpdated(false);
         }, 5000);
@@ -274,6 +275,7 @@ function Profile() {
           Contact: phone,
           Subject: subject,
           Complain: complain,
+          Receiver: receiver
         },
         {
           headers: {
@@ -294,6 +296,7 @@ function Profile() {
         {
           Id: stdId,
           Count: 1,
+          Receiver: receiver
         },
         {
           headers: {
@@ -428,7 +431,7 @@ function Profile() {
             disabled={!editable ? true : false}
             onChange={(e) => {
               setGender(e.target.value);
-              window.localStorage.setItem("gender", gender);
+
             }}
           >
             <option>Male</option>
@@ -493,7 +496,9 @@ function Profile() {
             />
           </Label>
           <Label className="mt-6">
-            <Button onClick={handleEdit}>Edit</Button>
+            <Button
+              style={{ background: "#15d125" }}
+              onClick={handleEdit}>Edit</Button>
           </Label>
           {updated && (
             <Label className="mt-4">
@@ -543,7 +548,7 @@ function Profile() {
       </div>
       <div>
         <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-          <p className="mb-5">Change Password</p>
+          <p className="mb-5 dark:text-gray-300">Change Password</p>
           <Label>
             <span>Old Password</span>
             <Input
@@ -605,6 +610,22 @@ function Profile() {
         <Label>
           <span>Contact</span>
           <Input className="mt-1" value={phone} disabled />
+        </Label>
+        <Label className="mt-1">
+          <span>To: </span>
+          <Select
+            className="mt-1"
+            onChange={(e) => {
+              setReceiver(e.target.value)
+            }}
+
+          >
+            <option>Busa</option>
+            <option>Department of Management Studies</option>
+            <option>Department of Banking and Finance</option>
+            <option>Department of Accountancy</option>
+            <option>Department of Procurement and Marketing</option>
+          </Select>
         </Label>
         <Label>
           <span>Student ID</span>

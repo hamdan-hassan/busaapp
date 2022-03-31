@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 
-import Souvenirs from "../assets/img/souvenirs.png";
-import Cedis from "../assets/img/cedis.png";
+import Souvenirs from "../assets/img/souvenirs2.png";
+import Cedis from "../assets/img/cedis2.png";
 import Stats from "../assets/img/statistics.png";
 import ID from "../assets/img/images_600x600.png";
 import Members from "../assets/img/members.svg";
 import Article from "../assets/img/article.png";
 import Executives from "../assets/img/executives.png";
-import Register from "../assets/img/register.png";
-import User from "../assets/img/user.png";
+import Register from "../assets/img/register1.png";
+import User from "../assets/img/user2.png";
 import Announcements from "../assets/img/announcements.png";
-import Password from "../assets/img/password.png";
 import Handout from "../assets/img/handout.png";
 import Question from "../assets/img/question.png";
 import Complains from "../assets/img/complains.png";
@@ -21,24 +20,60 @@ import axios from "axios";
 
 function Dashboard() {
   const [complains, setComplains] = useState(0);
+  const [receiver, setReceiver] = useState("")
 
   useEffect(() => {
-    window.localStorage.getItem("admin") &&
+    if (window.localStorage.getItem("role")) {
+
+      switch (window.localStorage.getItem("role")) {
+
+        case 'admin':
+          setReceiver("Busa")
+          break;
+        case 'marketing':
+          setReceiver("Department of Procurement and Marketing")
+          break;
+        case 'management':
+          setReceiver("Department of Management Studies")
+          break;
+        case 'banking and finance':
+          setReceiver("Department of Banking and Finance")
+          break;
+        case 'accountancy':
+          setReceiver("Department of Accountancy")
+          break;
+
+      }
+
       axios
-        .get("http://localhost:3000/api/get-complains-count")
+        .post("http://localhost:3000/api/get-complains-count",
+          {
+            Receiver: receiver
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
         .then((res) => {
           const result = res.data[0].count;
           setComplains(result);
-          console.log(complains);
+          console.log(result)
+
         })
         .catch((err) => {
           console.log(err);
         });
+
+    }
+
+
   });
 
   const removeNewMessage = () => {
     axios
-      .delete("http://localhost:3000/api/remove-complains-count")
+      .delete("http://localhost:3000/api/remove-complains-count/" + receiver)
       .then((res) => {
         console.log(res);
       })
@@ -53,9 +88,12 @@ function Dashboard() {
 
       {/* <!-- Cards --> */}
       {
-        // Admin route
+
+
+
         window.localStorage.getItem("admin") ? (
-          <div className='grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4'>
+
+          (window.localStorage.getItem("role") === 'admin' ? <div className='grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4'>
             <Card
               image={Members}
               title='Registered Students'
@@ -102,7 +140,41 @@ function Dashboard() {
                 handleClick={removeNewMessage}
               />
             </div>
-          </div>
+          </div> : <div className='grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4'>
+            <Card
+              image={Members}
+              title='Registered Students'
+              link='/app/admin'
+            />
+            <Card
+              image={Article}
+              title='Publish an article'
+              link='/app/article'
+            />
+            <Card image={Stats} title='View Students Stats' link='/app/stats' />
+
+            <div className='relative'>
+              <div className='absolute bottom-0 right-0 h-16 w-20 text-center text-white'>
+                <p
+                  className='bg-red-600'
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    borderRadius: "50%",
+                  }}>
+                  {complains}
+                </p>
+              </div>
+              <Card
+                image={Complains}
+                title='Complains'
+                link='/app/complains'
+                handleClick={removeNewMessage}
+              />
+            </div>
+          </div>)
+
+
         ) : (
           // User route
           <div className='grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4'>
@@ -129,7 +201,7 @@ function Dashboard() {
             />
             <Card
               image={Executives}
-              title='Management & Executives'
+              title='Management'
               link='/app/executivesandpatrons'
             />
             <Card image={Handout} title='Handouts' link='/app/handouts' />

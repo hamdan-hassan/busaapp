@@ -23,14 +23,17 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { UserDetails } from "../userDetails";
 
+
 function Header() {
   const { mode, toggleMode } = useContext(WindmillContext);
   const { toggleSidebar } = useContext(SidebarContext);
   const [img, setimg] = useState("");
 
   const [message, setMessage] = useState(0);
+  // const [receiver, setReceiver] = useState("")
   const [newMessage, setNewMessage] = useState(false);
   const [complains, setComplains] = useState(0);
+
 
   const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -44,10 +47,42 @@ function Header() {
   }
 
   useEffect(() => {
-    window.localStorage.getItem("admin") &&
+
+    if (window.localStorage.getItem("role")) {
+
+      switch (window.localStorage.getItem("role")) {
+
+        case 'admin':
+          window.localStorage.setItem("receiver", "Busa")
+          break;
+        case 'marketing':
+          window.localStorage.setItem("receiver", "Department of Procurement and Marketing")
+          break;
+        case 'management':
+          window.localStorage.setItem("receiver", "Department of Management Studies")
+          break;
+        case 'banking and finance':
+          window.localStorage.setItem("receiver", "Department of Banking and Finance")
+          break;
+        case 'accountancy':
+          window.localStorage.setItem("receiver", "Department of Accountancy")
+          break;
+
+      }
+
       axios
-        .get("http://localhost:3000/api/get-complains-count")
+        .post("http://localhost:3000/api/get-complains-count",
+          {
+            Receiver: window.localStorage.getItem("receiver")
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
         .then((res) => {
+          console.log(res.data)
           if (res.data[0].count > 0) {
             setNewMessage(true);
           }
@@ -56,8 +91,9 @@ function Header() {
         .catch((err) => {
           console.log(err);
         });
+    }
 
-    window.localStorage.getItem("auth") &&
+    else {
       axios
         .post(
           "http://localhost:3000/api/get-message-count",
@@ -81,31 +117,33 @@ function Header() {
           console.log(err);
         });
 
-    axios
-      .post(
-        "http://localhost:3000/api/img",
-        {
-          Id: UserDetails.studentId,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
+      axios
+        .post(
+          "http://localhost:3000/api/img",
+          {
+            Id: UserDetails.studentId,
           },
-        }
-      )
-      .then((res) => {
-        if (res.data.length > 0) {
-          setimg(res.data[0].img_data);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data.length > 0) {
+            setimg(res.data[0].img_data);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
   }, []);
 
   const removeAdminNewMessage = () => {
     axios
-      .delete("http://localhost:3000/api/remove-complains-count")
+      .delete("http://localhost:3000/api/remove-complains-count/" + window.localStorage.getItem("receiver"))
       .then((res) => {
         console.log(res);
       })
@@ -140,10 +178,13 @@ function Header() {
       <div className='container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300'>
         {/* <!-- Mobile hamburger --> */}
         <button
+
           className='p-1 mr-5 -ml-1 rounded-md lg:hidden focus:outline-none focus:shadow-outline-purple'
           onClick={toggleSidebar}
           aria-label='Menu'>
-          <MenuIcon className='w-6 h-6' aria-hidden='true' />
+          <MenuIcon
+            style={{ color: "green" }}
+            className='w-6 h-6' aria-hidden='true' />
         </button>
         {/* <!-- Search input --> */}
         <div className='flex justify-center flex-1 lg:mr-32'></div>
@@ -155,7 +196,9 @@ function Header() {
               onClick={handleNotificationsClick}
               aria-label='Notifications'
               aria-haspopup='true'>
-              <BellIcon className='w-5 h-5' aria-hidden='true' />
+              <BellIcon
+                style={{ color: "green" }}
+                className='w-5 h-5' aria-hidden='true' />
               {/* <!-- Notification badge --> */}
 
               {newMessage && (
@@ -203,7 +246,9 @@ function Header() {
               {mode === "dark" ? (
                 <SunIcon className='w-5 h-5' aria-hidden='true' />
               ) : (
-                <MoonIcon className='w-5 h-5' aria-hidden='true' />
+                <MoonIcon
+                  style={{ color: "green" }}
+                  className='w-5 h-5' aria-hidden='true' />
               )}
             </button>
           </li>
@@ -217,7 +262,7 @@ function Header() {
               aria-haspopup='true'>
               <Avatar
                 className='align-middle'
-                src={img || (UserDetails.gender !== "Male" ? Male : Female)}
+                src={img || (UserDetails.gender !== "Male" ? Female : Male)}
                 alt=''
                 aria-hidden='true'
               />
@@ -245,8 +290,8 @@ function Header() {
                   to='/login'
                   onClick={() => {
                     window.localStorage.removeItem("auth") ||
-                      window.localStorage.removeItem("admin");
-
+                      window.localStorage.removeItem("admin") || window.localStorage.removeItem("role");
+                    window.localStorage.removeItem("receiver")
                     window.localStorage.removeItem("id");
                     window.localStorage.removeItem("level");
                   }}>

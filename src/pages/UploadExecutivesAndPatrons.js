@@ -1,6 +1,6 @@
 import React, { forwardRef, useState, useEffect } from "react";
 import Modal from "./Modal";
-import { Label, Button, Select, Input } from "@windmill/react-ui";
+import { Label, Select, Input } from "@windmill/react-ui";
 import PageTitle from "../components/Typography/PageTitle";
 import MaterialTable from "material-table";
 import AddBox from "@material-ui/icons/AddBox";
@@ -132,6 +132,8 @@ const UploadExecutivesAndPatrons = () => {
               setPosition(e.target.value);
             }}>
             <option>Dean, School of Business</option>
+            <option>Faculty Officer, School of Business</option>
+            <option>Vice Dean, School of Business/Patron</option>
             <option>Patron</option>
             <option>HOD, Management Studies</option>
             <option>HOD, Banking and Finance</option>

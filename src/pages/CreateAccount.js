@@ -81,6 +81,31 @@ function CreateAccount() {
       return setMinPass(true);
     }
 
+    if (email === 'info.busa99@gmail.com'
+    ) {
+      setLoading(false)
+      return setExist(true)
+    }
+
+    if (email === 'd.accountancy@gmail.com') {
+      setLoading(false)
+      return setExist(true)
+    }
+
+    if (email === 'd.bankingfinance@gmail.com') {
+      setLoading(false)
+      return setExist(true)
+    }
+
+    if (email === 'd.management@gmail.com') {
+      setLoading(false)
+      return setExist(true)
+    }
+
+    if (email === 'd.marketing@gmail.com') {
+      setLoading(false)
+      return setExist(true)
+    }
     axios
       .post(
         "http://localhost:3000/api/validateid",
@@ -265,7 +290,7 @@ function CreateAccount() {
       />
       <div className='flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800'>
         <div className='flex flex-col overflow-y-auto md:flex-row'>
-          <div className='h-32 md:h-auto md:w-1/2'>
+          <div className='h-25 md:h-auto md:w-1/2'>
             <img
               aria-hidden='true'
               className='object-cover w-full h-full'
@@ -283,6 +308,7 @@ function CreateAccount() {
                   <span>First Name</span>
                   <Input
                     className='mt-1'
+                    value={fName}
                     required
                     type='text'
                     placeholder='John'
@@ -293,6 +319,7 @@ function CreateAccount() {
                   <span>Middle Name (Optional)</span>
                   <Input
                     className='mt-1'
+                    value={MName}
                     type='text'
                     placeholder=''
                     onChange={(e) => setMName(e.target.value)}
@@ -302,6 +329,7 @@ function CreateAccount() {
                   <span>Last Name</span>
                   <Input
                     className='mt-1'
+                    value={lName}
                     type='text'
                     placeholder='Doe'
                     onChange={(e) => setLName(e.target.value)}
@@ -311,6 +339,7 @@ function CreateAccount() {
                   <span>Student ID</span>
                   <Input
                     className='mt-1'
+                    value={studId}
                     type='text'
                     placeholder='UGxxxxx'
                     onChange={(e) =>
@@ -326,6 +355,7 @@ function CreateAccount() {
                   <span>Date of Birth</span>
                   <Input
                     className='mt-1'
+                    value={dob}
                     type='date'
                     placeholder='john@doe.com'
                     onChange={(e) => setDob(e.target.value)}
@@ -334,6 +364,7 @@ function CreateAccount() {
                 <Label className='mt-4'>
                   <span>Select Gender</span>
                   <Select
+                    value={gender}
                     className='mt-1'
                     onChange={(e) => setGender(e.target.value)}>
                     <option>Male</option>
@@ -343,6 +374,7 @@ function CreateAccount() {
                 <Label className='mt-4'>
                   <span>Select Level</span>
                   <Select
+                    value={level}
                     className='mt-1'
                     onChange={(e) => setLevel(e.target.value)}>
                     <option>100</option>
@@ -354,6 +386,7 @@ function CreateAccount() {
                 <Label className='mt-4'>
                   <span>Select Programme</span>
                   <Select
+                    value={programme}
                     className='mt-1'
                     onChange={(e) => {
 
@@ -381,6 +414,7 @@ function CreateAccount() {
                 <Label>
                   <span>Phone Number</span>
                   <Input
+                    value={phone}
                     className='mt-1'
                     type='number'
                     placeholder='0547645986'
@@ -393,6 +427,7 @@ function CreateAccount() {
                 <Label>
                   <span>Email</span>
                   <Input
+
                     className='mt-1'
                     type='email'
                     placeholder='example@gmail.com'
@@ -405,6 +440,7 @@ function CreateAccount() {
                 <Label className='mt-4'>
                   <span>Password</span>
                   <Input
+                    value={password}
                     className='mt-1'
                     placeholder='***************'
                     type='password'
@@ -422,6 +458,7 @@ function CreateAccount() {
                 </HelperText>
 
                 <Button
+                  style={{ background: "green" }}
                   block
                   className='mt-4'
                   onClick={() =>
@@ -446,7 +483,7 @@ function CreateAccount() {
 
                 <p className='mt-4'>
                   <Link
-                    className='text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline'
+                    className='text-sm font-medium text-green-600 dark:text-green-400 hover:underline'
                     to='/login'>
                     Already have an account? Login
                   </Link>

@@ -55,6 +55,7 @@ const Complains = () => {
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
   };
 
+  const [receiver, setReceiver] = useState("")
   const [data, setData] = useState([]);
   const [subject, setSubject] = useState("");
   const [id, setId] = useState("");
@@ -113,8 +114,17 @@ const Complains = () => {
   }
 
   useEffect(() => {
+
     axios
-      .get("http://localhost:3000/api/get-complains")
+      .post("http://localhost:3000/api/get-complains", {
+        Receiver: window.localStorage.getItem("role")
+      },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => {
         setData(res.data);
         console.log(res);
@@ -196,7 +206,7 @@ const Complains = () => {
               setTimeout(() => {
                 axios
                   .delete(
-                    "http://localhost:3000/api/delete-complain/" + oldData.sno
+                    "http://localhost:3000/api/delete-complain/" + null + "/" + oldData.sno
                   )
                   .then((res) => console.log(res))
                   .catch((err) => console.log(err));

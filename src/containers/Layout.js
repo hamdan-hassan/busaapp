@@ -2,6 +2,7 @@ import React, { useContext, Suspense, useEffect, lazy } from "react";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import routes from "../routes";
 import routes2 from "../adminroutes/index";
+import routes3 from '../hodroutes/index'
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import Main from "../containers/Main";
@@ -20,9 +21,8 @@ function Layout() {
 
   return (
     <div
-      className={`flex h-screen bg-gray-50 dark:bg-gray-900 ${
-        isSidebarOpen && "overflow-hidden"
-      }`}>
+      className={`flex h-screen bg-gray-50 dark:bg-gray-900 ${isSidebarOpen && "overflow-hidden"
+        }`}>
       <Sidebar />
 
       <div className='flex flex-col flex-1 w-full'>
@@ -30,7 +30,7 @@ function Layout() {
         <Main>
           <Suspense fallback={<ThemedSuspense />}>
             <Switch>
-              {(window.localStorage.getItem("auth") ? routes : routes2).map(
+              {(window.localStorage.getItem("auth") ? routes : (window.localStorage.getItem("role") === 'admin') ? routes2 : routes3).map(
                 (route, i) => {
                   return route.component ? (
                     <Route

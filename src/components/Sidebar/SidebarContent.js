@@ -1,6 +1,7 @@
 import React from "react";
 import routes from "../../routes/sidebar";
 import routes2 from "../../adminroutes/sidebar";
+import routes3 from '../../hodroutes/sidebar'
 
 import { Link, NavLink, Route } from "react-router-dom";
 import * as Icons from "../../icons";
@@ -28,7 +29,7 @@ function SidebarContent() {
         </div>
       </Link>
       <ul className='mt-6'>
-        {(window.localStorage.getItem("auth") ? routes : routes2).map((route) =>
+        {(window.localStorage.getItem("auth") ? routes : (window.localStorage.getItem("role") === 'admin') ? routes2 : routes3).map((route) =>
           route.routes ? (
             <SidebarSubmenu route={route} key={route.name} />
           ) : (
@@ -40,6 +41,7 @@ function SidebarContent() {
                 activeClassName='text-gray-800 dark:text-gray-100'>
                 <Route path={route.path} exact={route.exact}>
                   <span
+                    style={{ background: "green" }}
                     className='absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg'
                     aria-hidden='true'></span>
                 </Route>
@@ -58,10 +60,13 @@ function SidebarContent() {
         <Link to='/login'>
           {" "}
           <Button
+            style={{ background: "green" }}
             onClick={() => {
               window.localStorage.removeItem("auth") ||
                 window.localStorage.removeItem("admin");
 
+              window.localStorage.removeItem("role")
+              window.localStorage.removeItem("receiver")
               window.localStorage.removeItem("id");
               window.localStorage.removeItem("level");
             }}>

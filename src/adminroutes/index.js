@@ -40,6 +40,16 @@ const routes = [
     path: "/stats", // the url
     component: Stats, // view rendered
   },
+
+  {
+    path: "/uploadexecutivesandpatrons",
+    component: UploadExecutivesAndPatrons,
+  },
+  {
+    path: "/complains",
+    component: Complains,
+
+  },
   {
     path: "/upload-handouts", // the url
     component: UploadHandouts, // view rendered
@@ -52,14 +62,6 @@ const routes = [
   {
     path: "/uploadids", // the url
     component: UploadIDs, // view rendered
-  },
-  {
-    path: "/uploadexecutivesandpatrons",
-    component: UploadExecutivesAndPatrons,
-  },
-  {
-    path: "/complains",
-    component: Complains,
   },
 ];
 

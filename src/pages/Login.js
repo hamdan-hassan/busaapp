@@ -20,9 +20,10 @@ function Login() {
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
-
+    window.localStorage.removeItem("receiver")
     window.localStorage.removeItem("auth");
     window.localStorage.removeItem("admin");
+    window.localStorage.removeItem("role")
 
     return () => {
       document.body.style.overflow = "auto";
@@ -49,12 +50,14 @@ function Login() {
           setLoading(false);
           return setText(true);
         }
-        if (response.data.role === "admin") {
+        if (response.data.role === "admin" || response.data.role === "marketing" || response.data.role === "management" || response.data.role === "banking and finance" || response.data.role === "accountancy") {
+          window.localStorage.setItem("role", response.data.role)
           auth.admin(() => {
             history.push("/app");
           });
         } else {
           auth.login(() => {
+
             window.localStorage.setItem("id", response.data[0].std_id);
             window.localStorage.setItem("level", response.data[0].level);
             UserDetails.studentId = response.data[0].std_id;
@@ -142,7 +145,7 @@ function Login() {
       />
       <div className='flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800'>
         <div className='flex flex-col overflow-y-auto md:flex-row'>
-          <div className='h-32 md:h-auto md:w-1/2'>
+          <div className='h-25 md:h-auto md:w-1/2'>
             <img
               aria-hidden='true'
               className='object-cover w-full h-full '
@@ -176,7 +179,9 @@ function Login() {
                   />
                 </Label>
 
-                <Button className='mt-4' block onClick={() => handleSubmit()}>
+                <Button
+                  style={{ background: "green" }}
+                  className='mt-4' block onClick={() => handleSubmit()}>
                   Log in
                 </Button>
 
@@ -190,14 +195,14 @@ function Login() {
 
                 <p className='mt-4'>
                   <Link
-                    className='text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline'
+                    className='text-sm font-medium text-green-600 dark:text-green-400 hover:underline'
                     to='/forgot-password'>
                     Forgot your password?
                   </Link>
                 </p>
                 <p className='mt-1'>
                   <Link
-                    className='text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline'
+                    className='text-sm font-medium text-green-600 dark:text-green-400 hover:underline'
                     to='/create-account'>
                     Create account
                   </Link>

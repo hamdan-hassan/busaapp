@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from "react";
 
 import PageTitle from "../components/Typography/PageTitle";
-import SectionTitle from "../components/Typography/SectionTitle";
-import { Input, Label, HelperText } from "@windmill/react-ui";
-import { Checkmark } from "react-checkmark";
+
 import { Card, CardBody } from "@windmill/react-ui";
 import Icon from "../assets/img/male.png";
 
-
-import Modal from "./Modal";
 import axios from "axios";
-import { UserDetails } from "../userDetails";
 
 const ChangePassword = () => {
   const [data, setData] = useState([]);
@@ -36,6 +31,9 @@ const ChangePassword = () => {
           if (
             item.position === "Patron" ||
             item.position === "Dean, School of Business" ||
+            item.position === "Vice Dean, School of Business/Patron" ||
+            item.position === "Faculty Officer, School of Business" ||
+            item.position === "HOD, Banking and Finance" ||
             item.position.includes("HOD")
           ) {
             return (
@@ -78,7 +76,12 @@ const ChangePassword = () => {
         {data.map((item, i) => {
           if (
             item.position !== "Patron" &&
-            item.position !== "Dean, School of Business"
+            item.position !== "Dean, School of Business" &&
+            item.position !== "Vice Dean, School of Business/Patron" &&
+            item.position !== "Faculty Officer, School of Business" &&
+            !item.position.includes("HOD")
+
+
           ) {
             return (
               <Card

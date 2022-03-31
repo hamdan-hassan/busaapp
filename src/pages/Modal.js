@@ -21,7 +21,9 @@ function ModalPage({ handleClick, ModalTitle, ModalHead, ModalContent }) {
   return (
     <>
       <div>
-        <Button className='mt-6' onClick={openModal}>
+        <Button
+          style={{ background: "#15d125" }}
+          className='mt-6' onClick={openModal}>
           {ModalTitle}
         </Button>
       </div>
@@ -35,7 +37,9 @@ function ModalPage({ handleClick, ModalTitle, ModalHead, ModalContent }) {
             onClick={closeModal}>
             Cancel
           </Button>
-          <Button onClick={submitClose} className='w-full sm:w-auto'>
+          <Button
+            style={{ background: "#15d125" }}
+            onClick={submitClose} className='w-full sm:w-auto'>
             Accept
           </Button>
         </ModalFooter>

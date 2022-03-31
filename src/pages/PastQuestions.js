@@ -166,7 +166,9 @@ const PastQuestions = () => {
             </Label>
 
             <Label>
-              <Button className="mt-5" onClick={handleSearch}>
+              <Button
+                style={{ background: "#21c42a" }}
+                className="mt-5" onClick={handleSearch}>
                 Search
               </Button>
             </Label>
@@ -209,7 +211,9 @@ const PastQuestions = () => {
                           <span className="text-sm">{item.doc}</span>
                         </TableCell>
                         <TableCell>
-                          <Button>
+                          <Button
+                            style={{ background: "#21c42a" }}
+                          >
                             <a href={item.url}>View and Download</a>
                           </Button>
                         </TableCell>

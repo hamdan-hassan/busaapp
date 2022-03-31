@@ -93,6 +93,7 @@ const Handouts = () => {
               to='/app/registration'
               style={{
                 width: 200,
+                background: "#21c42a"
               }}>
               Go to Registration
             </Button>
@@ -175,7 +176,9 @@ const Handouts = () => {
               </Select>
             </Label>
             <Label>
-              <Button className='mt-5' onClick={handleSearch}>
+              <Button
+                style={{ background: "#21c42a" }}
+                className='mt-5' onClick={handleSearch}>
                 Search
               </Button>
             </Label>
@@ -213,8 +216,11 @@ const Handouts = () => {
                           <span className='text-sm'>{item.doc}</span>
                         </TableCell>
                         <TableCell>
-                          <Button>
+                          <Button
+                            style={{ background: "#21c42a" }}
+                          >
                             <a
+
                               href={item.url}
                               target='_blank'
                               rel='noopener noreferrer'>

@@ -157,7 +157,7 @@ const UploadIDs = () => {
           setDisableLevel(false)
         }
       }}>
-        <span>Select Programme type</span>}
+        <span>Select Programme type</span>
         <Select className='mt-1'>
           <option>Degree</option>
           <option>Diploma</option>
