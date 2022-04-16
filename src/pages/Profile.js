@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 import React, { useEffect, useState, useRef } from "react";
 
 import PageTitle from "../components/Typography/PageTitle";
@@ -227,7 +226,8 @@ function Profile() {
           }
         )
         .then((res) => {
-          console.log(res);
+          console.log(res)
+          console.log(reader.result)
           setUpdated2(true);
           setTimeout(() => {
             setUpdated2(false);

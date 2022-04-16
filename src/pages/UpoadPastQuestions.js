@@ -50,7 +50,8 @@ const UploadPastQuestions = () => {
   };
   const [data, setData] = useState([]);
   const [programme, setProgramme] = useState("BCom(Level 100)");
-  const [level, setLevel] = useState("300");
+  const [courseName, setCourseName] = useState("");
+  const [level, setLevel] = useState("100");
   const [disableLevel, setDisableLevel] = useState(true);
   const [removeLevel, setRemoveLevel] = useState(false);
   const [doc, setDoc] = useState("PDF");
@@ -67,6 +68,10 @@ const UploadPastQuestions = () => {
       type: "numeric",
     },
     { title: "Programme", field: "programme", editable: "never" },
+    {
+      title: "Course Name",
+      field: "course_name",
+    },
     {
       title: "Trimester",
       field: "trimester",
@@ -96,6 +101,7 @@ const UploadPastQuestions = () => {
           {
             Programme: programme,
             Level: level,
+            CourseName: courseName,
             Trimester: trimester,
             Doc: doc,
             Url: url,
@@ -143,7 +149,8 @@ const UploadPastQuestions = () => {
                 e.target.value === "BCom(Human Resource Management)" ||
                 e.target.value === "BCom(Accounting)" ||
                 e.target.value === "BCom(Banking and Finance)" ||
-                e.target.value === "BCom(Marketing)"
+                e.target.value === "BCom(Marketing)" ||
+                e.target.value === "BCom(Procurement and Supply Chain Management)"
               ) {
                 setRemoveLevel(true);
               }
@@ -156,12 +163,11 @@ const UploadPastQuestions = () => {
             <option>BCom(Accounting)</option>
             <option>BCom(Banking and Finance)</option>
             <option>BCom(Marketing)</option>
-            <option>Bsc Acounting</option>
+            <option>BCom(Procurement and Supply Chain Management)</option>
+            <option>Bsc Accounting</option>
             <option>Bsc Accounting and Finance</option>
-            <option>BA Integreated Business Studies</option>
-            <option>BA Accounting</option>
             <option>BA Management</option>
-            <option>Diploma Integrated Business Studies</option>
+            <option>Diploma in Business Studies</option>
           </Select>
         </Label>
         <Label
@@ -189,6 +195,17 @@ const UploadPastQuestions = () => {
             <option>First</option>
             <option>Second</option>
           </Select>
+        </Label>
+        <Label>
+          <span>Course Name</span>
+          <Input
+            value={courseName}
+            className='mt-1'
+            placeholder='Introduction to Accounting'
+            onChange={(e) => {
+              setCourseName(e.target.value);
+            }}
+          />
         </Label>
         <Label className='mt-4'>
           <span>Select Doc Type</span>
@@ -269,7 +286,7 @@ const UploadPastQuestions = () => {
               setTimeout(() => {
                 axios
                   .delete(
-                    "http://localhost:3000/delete-past-question/" + oldData.sno
+                    "http://localhost:3000/api/delete-past-question/" + oldData.sno
                   )
                   .then((res) => console.log(res))
                   .catch((err) => console.log(err));

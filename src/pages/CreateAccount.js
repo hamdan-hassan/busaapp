@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Logo from "../assets/img/ubids6.jpeg";
+import Logo2 from "../assets/img/logo.png";
 import axios from "axios";
 import Loader from "../loader/loader";
 import Particles from "react-tsparticles";
@@ -222,7 +223,12 @@ function CreateAccount() {
     <div
       className='flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900'
       style={{
-        background: "linear-gradient(89deg, #02aab0 0%, #00cdac 100%)",
+        backgroundColor: "skyblue",
+
+        backgroundImage: `url(${Logo2})`,
+        height: "100 vh",
+        backgroundRepeat: "repeat",
+        backgroundPosition: "center",
       }}>
       <Particles
         className='particles'

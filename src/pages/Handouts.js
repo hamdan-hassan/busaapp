@@ -84,6 +84,7 @@ const Handouts = () => {
           </h1>
           <div
             style={{
+
               display: "flex",
               justifyContent: "center",
               marginTop: 50,

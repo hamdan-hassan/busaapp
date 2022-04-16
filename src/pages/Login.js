@@ -19,7 +19,7 @@ function Login() {
   const [showText, setText] = useState(null);
 
   useEffect(() => {
-    document.body.style.overflow = "hidden";
+
     window.localStorage.removeItem("receiver")
     window.localStorage.removeItem("auth");
     window.localStorage.removeItem("admin");
@@ -77,7 +77,12 @@ function Login() {
     <div
       className='flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900'
       style={{
-        background: "linear-gradient(89deg, #02aab0 0%, #00cdac 100%)",
+        backgroundColor: "skyblue",
+
+        backgroundImage: `url(${Logo})`,
+        height: "100 vh",
+        backgroundRepeat: "repeat",
+        backgroundPosition: "center",
       }}>
       <Particles
         className='particles'
@@ -145,11 +150,12 @@ function Login() {
       />
       <div className='flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800'>
         <div className='flex flex-col overflow-y-auto md:flex-row'>
-          <div className='h-25 md:h-auto md:w-1/2'>
+          <div className='h-25 md:h-auto md:w-1/2 flex items-center justify-center mt-3'>
             <img
               aria-hidden='true'
-              className='object-cover w-full h-full '
+              className=''
               src={Logo}
+              width="50%"
               alt='Office'
             />
           </div>

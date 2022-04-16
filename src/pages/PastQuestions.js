@@ -17,7 +17,9 @@ import { Link } from "react-router-dom";
 
 const PastQuestions = () => {
   const [programme, setProgramme] = useState("BCom(Level 100)");
-  const [level, setLevel] = useState("300");
+  const [getTrim, setTrim] = useState("");
+  const [level, setLevel] = useState("100");
+  const [trimester, setTrimester] = useState("First");
   const [disableLevel, setDisableLevel] = useState(true);
   const [removeLevel, setRemoveLevel] = useState(false);
   const [data, setData] = useState([]);
@@ -42,6 +44,7 @@ const PastQuestions = () => {
         {
           Programme: programme,
           Level: level,
+          Trimester: trimester,
         },
         {
           headers: {
@@ -57,6 +60,7 @@ const PastQuestions = () => {
         }
         setNoData(false);
         console.log(res.data.rows);
+         setTrim(res.data.rows[0].trimester);
         setData(res.data.rows);
       })
       .catch((err) => {
@@ -91,6 +95,7 @@ const PastQuestions = () => {
               to="/app/registration"
               style={{
                 width: 200,
+                background: "#21c42a"
               }}
             >
               Go to Registration
@@ -164,7 +169,17 @@ const PastQuestions = () => {
                 <option>400</option>
               </Select>
             </Label>
-
+              <Label className='mt-4'>
+              <span>Select Trimester</span>
+              <Select
+                className='mt-1'
+                onChange={(e) => {
+                  setTrimester(e.target.value);
+                }}>
+                <option>First</option>
+                <option>Second</option>
+              </Select>
+            </Label>
             <Label>
               <Button
                 style={{ background: "#21c42a" }}
@@ -174,13 +189,13 @@ const PastQuestions = () => {
             </Label>
           </div>
           <Label>
-            <PageTitle>Past Questions For First and Second Trimester</PageTitle>
+            <PageTitle>{`Trimester: ${getTrim}`}</PageTitle>
           </Label>
           <TableContainer>
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableCell>Trimester</TableCell>
+                  <TableCell>Course Name</TableCell>
                   <TableCell>Doc type</TableCell>
                   <TableCell>Action</TableCell>
                 </TableRow>
@@ -203,7 +218,7 @@ const PastQuestions = () => {
                         <TableCell>
                           <div className="flex items-center text-sm">
                             <span className="font-semibold ml-2">
-                              {item.trimester}
+                              {item.course_name}
                             </span>
                           </div>
                         </TableCell>
