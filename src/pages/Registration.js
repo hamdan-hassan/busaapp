@@ -27,9 +27,10 @@ function Registration() {
     axios
       .get("http://localhost:3000/api/isRegistered/" + UserDetails.studentId)
       .then((res) => {
+        setUserName(res.data[0].first_name);
         if (res.data[0].registered === "true") {
           setRegistered(true);
-          setUserName(res.data[0].first_name);
+
         }
       })
       .catch((err) => console.log(err));
@@ -64,7 +65,7 @@ function Registration() {
           StudentID: studId,
           Level: UserDetails.level,
           Gender: gender,
-          Size: size,
+          Size: UserDetails.level === 100 ? size : "",
           isValid: isValid,
         },
         {
@@ -118,7 +119,7 @@ function Registration() {
 
           <div className='px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800'>
             <Label>
-              <span>Fisrt Name</span>
+              <span>First Name</span>
               <Input
                 className='mt-1'
                 placeholder='Jane'
@@ -162,7 +163,7 @@ function Registration() {
                 <option>Female</option>
               </Select>
             </Label>
-            <Label className='mt-4'>
+            {UserDetails.level === 100 && <Label className='mt-4'>
               <span>Select T-Shirt size</span>
               <Select
                 className='mt-1'
@@ -177,7 +178,7 @@ function Registration() {
                 PLease choose your tshirt size wisely as it cannot be edited
                 later
               </HelperText>
-            </Label>
+            </Label>}
             <Label>
               <Modal
                 ModalTitle={"Register"}

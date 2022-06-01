@@ -57,6 +57,7 @@ const UploadIDs = () => {
   const [programmeType, setProgrammeType] = useState("Degree");
   const [uploaded, setUploaded] = useState(false);
   const [deleted, setDeleted] = useState(false);
+  const [deleted2, setDeleted2] = useState(false);
   const [error, setError] = useState(false);
   const [columns, setColumns] = useState([
     {
@@ -139,7 +140,7 @@ const UploadIDs = () => {
     axios
       .delete("http://localhost:3000/api/delete-diploma-ids/" + deleteLevel)
       .then((res) => {
-        setDeleted(true);
+        setDeleted2(true);
         console.log(res);
       })
       .catch((err) => console.log(err));
@@ -299,7 +300,7 @@ const UploadIDs = () => {
             ModalHead={"Delete Student IDs"}
             ModalContent={"Are you sure you want to delete all IDs the?"}
           />
-          {deleted && <Checkmark />}
+          {deleted2 && <Checkmark />}
         </Label>
       </div>
     </div>

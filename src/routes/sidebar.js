@@ -27,9 +27,9 @@ const routes = [
     name: "Dues",
   },
   {
-    path: "/app/souverniers",
+    path: "/app/souvernirs",
     icon: "Gift",
-    name: "Sourverniers",
+    name: "Sourvernirs",
   },
   {
     path: "/app/announcements",

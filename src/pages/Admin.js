@@ -15,7 +15,7 @@ import {
 } from "@windmill/react-ui";
 import CustomModal from "./Modal";
 import MaterialTable from "material-table";
-
+import { UserDetails } from "../userDetails";
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Check from "@material-ui/icons/Check";
@@ -29,7 +29,7 @@ import FirstPage from "@material-ui/icons/FirstPage";
 import LastPage from "@material-ui/icons/LastPage";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import axios from "axios";
-
+import PageTitle from "../components/Typography/PageTitle";
 import Search from "@material-ui/icons/Search";
 import { Checkmark } from "react-checkmark";
 import React, { forwardRef, useState, useEffect } from "react";
@@ -57,7 +57,7 @@ const Admin = () => {
     )),
   };
   const [data, setData] = useState([]);
-  const [level, setLevel] = useState("100");
+  const [level, setLevel] = useState(100);
 
   const [columns, setColumns] = useState([
     { title: "Student ID", field: "std_id", editable: "never" },
@@ -67,32 +67,41 @@ const Admin = () => {
       field: "level",
       type: "numeric",
       initialEditValue: "initial edit value",
-      editable: "never",
+      lookup: { 100: 100, 200: 200, 300: 300, 400: 400 }
+
     },
     { title: "Programme", field: "programme", editable: "never" },
     {
       title: "Level 100 Due",
       field: "level_100",
+      lookup: { 0: 'Pending', 1: 'Paid' }
     },
+
     {
       title: "Level 200 Due",
       field: "level_200",
+      lookup: { 0: 'Pending', 1: 'Paid' }
+
     },
     {
       title: "Level 300 Due",
       field: "level_300",
+      lookup: { 0: 'Pending', 1: 'Paid' }
     },
     {
       title: "Level 400 Due",
       field: "level_400",
+      lookup: { 0: 'Pending', 1: 'Paid' }
     },
     {
       title: "T-Shirt",
       field: "t_shirt",
+      lookup: { 0: 'Pending', 1: 'Collected' }
     },
     {
       title: "Books",
       field: "books",
+      lookup: { 0: 'Pending', 1: 'Collected' }
     },
     { title: "Email", field: "email", hidden: true },
     { title: "Phone", field: "phone_number", hidden: true },
@@ -116,6 +125,12 @@ const Admin = () => {
   const [delDiploma, setDelDiploma] = useState(false)
   const [delDegree, setDelDegree] = useState(false)
   const [name, setName] = useState("");
+  const [degreeFromLevel,setDegreeFromLevel] = useState(100)
+  const [degreeToLevel,setDegreeToLevel] = useState(100)
+  const [diplomaFromLevel,setDiplomaFromLevel] = useState(100)
+  const [diplomaToLevel,setDiplomaToLevel] = useState(100)
+  const [updatedDegreeLevel,setUpdatedDegreeLevel] = useState(false)
+  const [updatedDiplomaLevel,setUpdatedDiplomaLevel] = useState(false)
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   function openModal(row) {
@@ -168,6 +183,49 @@ const Admin = () => {
       })
       .catch((err) => console.log(err));
   };
+
+  const handleUpdateDegreeLevels = () => {
+ 
+ axios.put("http://localhost:3000/api/update-degree-levels",
+
+{
+  fromlevel: degreeFromLevel,
+  tolevel: degreeToLevel
+},
+   {
+                  headers: { "Content-Type": "application/json" },
+                }
+
+  ).then((res) => {
+    setUpdatedDegreeLevel(true)
+    setTimeout(() => {
+      setUpdatedDegreeLevel(false)
+    },5000)
+  })
+    .catch(err => console.log(err))
+}
+
+
+ const handleUpdateDiplomaLevels = () => {
+  axios.put("http://localhost:3000/api/update-diploma-levels",
+
+{
+  fromlevel: diplomaFromLevel,
+  tolevel: diplomaToLevel
+},
+   {
+                  headers: { "Content-Type": "application/json" },
+                }
+
+  ).then(res => {
+    setUpdatedDiplomaLevel(true)
+    setTimeout(() => {
+      setUpdatedDiplomaLevel(false)
+    },5000)
+  })
+    .catch(err => console.log(err))
+}
+
 
   return (
     <div style={{ overflow: "hidden" }}>
@@ -238,6 +296,7 @@ const Admin = () => {
                 const level200 = newData.level_200;
                 const level300 = newData.level_300;
                 const level400 = newData.level_400;
+                const newLevel = newData.level;
                 const tshirt = newData.t_shirt;
                 const books = newData.books;
 
@@ -255,6 +314,7 @@ const Admin = () => {
                       level300: level300,
                       level400: level400,
                       tshirt: tshirt,
+                      level: newLevel,
                       books: books,
                     },
                     config
@@ -351,6 +411,56 @@ const Admin = () => {
         />
         {delDiploma && <Checkmark />}
       </Label>
+      <div className='px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800'>
+      <PageTitle>Update All Students Level</PageTitle>
+       <Label
+          className='mt-4'>
+          <h1 style={{ fontSize: "20px" }}>Update Levels (Degree)</h1>
+          <span>From:</span>
+          <Select onChange={(e) => setDegreeFromLevel(e.target.value)}>
+            <option>100</option>
+            <option>200</option>
+            <option>300</option>
+            <option>400</option>
+          </Select>
+          <span>To:</span>
+          <Select onChange={(e) => setDegreeToLevel(e.target.value)}>
+            <option>100</option>
+            <option>200</option>
+            <option>300</option>
+            <option>400</option>
+          </Select>
+          <CustomModal
+          handleClick={handleUpdateDegreeLevels}
+          ModalTitle={"Update"}
+          ModalHead={"Update Student Levels"}
+          ModalContent={"Are you sure you want to update?"}
+        />
+        {updatedDegreeLevel && <Checkmark />}
+        </Label>
+        
+       <Label
+          className='mt-4'>
+          <h1 style={{ fontSize: "20px" }}>Update Levels (Diploma)</h1>
+          <span>From:</span>
+          <Select onChange={(e) => setDiplomaFromLevel(e.target.value)}>
+            <option>100</option>
+            <option>200</option>
+          </Select>
+          <span>To:</span>
+          <Select onChange={(e) => setDiplomaToLevel(e.target.value)}>
+            <option>100</option>
+            <option>200</option>
+          </Select>
+          <CustomModal
+          handleClick={handleUpdateDiplomaLevels}
+          ModalTitle={"Update"}
+          ModalHead={"Update Student Levels"}
+          ModalContent={"Are you sure you want to update?"}
+        />
+        {updatedDiplomaLevel && <Checkmark />}
+        </Label>
+      </div>
     </div>
   );
 };

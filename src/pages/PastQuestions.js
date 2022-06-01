@@ -229,7 +229,10 @@ const PastQuestions = () => {
                           <Button
                             style={{ background: "#21c42a" }}
                           >
-                            <a href={item.url}>View and Download</a>
+                            <a href={item.url}
+                              target='_blank'
+                              rel='noopener noreferrer'
+                            >View and Download</a>
                           </Button>
                         </TableCell>
                       </TableRow>

@@ -24,15 +24,15 @@ function Sourverniers() {
     axios
       .get(
         "http://localhost:3000/api/souvenirs/" +
-          UserDetails.studentId.toUpperCase()
+        UserDetails.studentId.toUpperCase()
       )
       .then((res) => {
         setBooks(res.data[0].books);
-        if (res.data[0].books.toLowerCase() !== "Pending".toLowerCase()) {
+        if (res.data[0].books !== 0) {
           setBooksBadge("success");
         }
         setShirt(res.data[0].t_shirt);
-        if (res.data[0].t_shirt.toLowerCase() !== "Pending".toLowerCase()) {
+        if (res.data[0].t_shirt !== 0) {
           setShirtBadge("success");
         }
       });
@@ -46,17 +46,17 @@ function Sourverniers() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableCell>T-Shirts</TableCell>
+                {UserDetails.level === 100 && <TableCell>T-Shirts</TableCell>}
                 <TableCell>Books</TableCell>
               </TableRow>
             </TableHeader>
             <TableBody>
               <TableRow>
+                {UserDetails.level === 100 && <TableCell>
+                  <Badge type={shirtBadge}>{shirt === 0 ? "Pending" : "Collected"}</Badge>
+                </TableCell>}
                 <TableCell>
-                  <Badge type={shirtBadge}>{shirt}</Badge>
-                </TableCell>
-                <TableCell>
-                  <Badge type={booksBadge}>{books}</Badge>
+                  <Badge type={booksBadge}>{books === 0 ? "Pending" : "Collected"}</Badge>
                 </TableCell>
               </TableRow>
             </TableBody>

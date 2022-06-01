@@ -146,7 +146,6 @@ function Profile() {
           middleName: mname,
           lastName: lname,
           email: email.toLowerCase(),
-          level: level,
           phone: phone,
           dob: dob,
           gender: gender,
@@ -411,15 +410,15 @@ function Profile() {
             disabled
           />
         </Label>
-        <Label style={{ display: !registered ? "none" : null }}>
+        {UserDetails.level === 100 && <Label style={{ display: !registered ? "none" : null }}>
           <span>T-Shirt size</span>
           <Input
             className="mt-1"
-            placeholder="Jane Doe"
+            placeholder=""
             defaultValue={size}
             disabled
           />
-        </Label>
+        </Label>}
         <HelperText valid={false}>
           {wrongId && "Incorrect Student Id"}
         </HelperText>
@@ -440,17 +439,11 @@ function Profile() {
         </Label>
         <Label className="mt-1">
           <span>Level</span>
-          <Select
+         <Input
             className="mt-1"
-            value={level}
-            disabled={!editable ? true : false}
-            onChange={(e) => setLevel(e.target.value)}
-          >
-            <option>100</option>
-            <option>200</option>
-            <option>300</option>
-            <option>400</option>
-          </Select>
+            defaultValue={level}
+            disabled
+          />
         </Label>
         <Label>
           <span>Birthday</span>

@@ -23,6 +23,7 @@ function Dues() {
   const [l200badge, setL200Badge] = useState("danger");
   const [l300badge, setL300Badge] = useState("danger");
   const [l400badge, setL400Badge] = useState("danger");
+  const [programmeType,setProgrammeType] = useState("")
 
   useEffect(() => {
     axios
@@ -32,21 +33,22 @@ function Dues() {
       .then((res) => {
         console.log(UserDetails.studentId);
         console.log(UserDetails.level);
+        setProgrammeType(res.data[0].programme_type)
         console.log(res)
         setL100(res.data[0].level_100);
-        if (res.data[0].level_100.toLowerCase() !== "Pending".toLowerCase()) {
+        if (res.data[0].level_100 !== 0) {
           setL100Badge("success");
         }
         setL200(res.data[0].level_200);
-        if (res.data[0].level_200.toLowerCase() !== "Pending".toLowerCase()) {
+        if (res.data[0].level_200 !== 0) {
           setL200Badge("success");
         }
         setL300(res.data[0].level_300);
-        if (res.data[0].level_300.toLowerCase() !== "Pending".toLowerCase()) {
+        if (res.data[0].level_300 !== 0) {
           setL300Badge("success");
         }
         setL400(res.data[0].level_400);
-        if (res.data[0].level_400.toLowerCase() !== "Pending".toLowerCase()) {
+        if (res.data[0].level_400 !== 0) {
           setL400Badge("success");
         }
       });
@@ -77,7 +79,7 @@ function Dues() {
                   <span className='text-sm'>65 ₵</span>
                 </TableCell>
                 <TableCell>
-                  <Badge type={l100badge}>{l100}</Badge>
+                  <Badge type={l100badge}>{l100 === 0 ? "Pending" : "Paid"}</Badge>
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -90,36 +92,36 @@ function Dues() {
                   <span className='text-sm'>30 ₵</span>
                 </TableCell>
                 <TableCell>
-                  <Badge type={l200badge}>{l200}</Badge>
+                  <Badge type={l200badge}>{l200 === 0 ? "Pending" : "Paid"}</Badge>
                 </TableCell>
               </TableRow>
-              <TableRow>
-                <TableCell>
-                  <div className='flex items-center text-sm'>
-                    <span className='font-semibold ml-2'>Level 300</span>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <span className='text-sm'>30 ₵</span>
-                </TableCell>
-                <TableCell>
-                  <Badge type={l300badge}>{l300}</Badge>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <div className='flex items-center text-sm'>
-                    <span className='font-semibold ml-2'>Level 400</span>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <span className='text-sm'>30 ₵</span>
-                </TableCell>
-                <TableCell>
-                  <Badge type={l400badge}>{l400}</Badge>
-                </TableCell>
-              </TableRow>
-            </TableBody>
+             {programmeType !== "Diploma" && <><TableRow>
+                             <TableCell>
+                               <div className='flex items-center text-sm'>
+                                 <span className='font-semibold ml-2'>Level 300</span>
+                               </div>
+                             </TableCell>
+                             <TableCell>
+                               <span className='text-sm'>30 ₵</span>
+                             </TableCell>
+                             <TableCell>
+                               <Badge type={l300badge}>{l300 === 0 ? "Pending" : "Paid"}</Badge>
+                             </TableCell>
+                           </TableRow>
+                           <TableRow>
+                             <TableCell>
+                               <div className='flex items-center text-sm'>
+                                 <span className='font-semibold ml-2'>Level 400</span>
+                               </div>
+                             </TableCell>
+                             <TableCell>
+                               <span className='text-sm'>30 ₵</span>
+                             </TableCell>
+                             <TableCell>
+                               <Badge type={l400badge}>{l400 === 0 ? "Pending" : "Paid"}</Badge>
+                             </TableCell>
+                           </TableRow></>}
+                         </TableBody>
           </Table>
         </TableContainer>
       </div>

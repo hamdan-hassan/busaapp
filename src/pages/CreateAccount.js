@@ -112,6 +112,7 @@ function CreateAccount() {
         "http://localhost:3000/api/validateid",
         {
           ID: studId,
+          Level: level,
 
         },
         {
@@ -355,7 +356,7 @@ function CreateAccount() {
                 </Label>
                 <HelperText valid={false}>
                   {wrongId &&
-                    `Student ID ${studId} not found.`}
+                    `Student ID ${studId} of Level ${level} not found. Please check your ID and Level again`}
                 </HelperText>
                 <Label>
                   <span>Date of Birth</span>
@@ -375,18 +376,6 @@ function CreateAccount() {
                     onChange={(e) => setGender(e.target.value)}>
                     <option>Male</option>
                     <option>Female</option>
-                  </Select>
-                </Label>
-                <Label className='mt-4'>
-                  <span>Select Level</span>
-                  <Select
-                    value={level}
-                    className='mt-1'
-                    onChange={(e) => setLevel(e.target.value)}>
-                    <option>100</option>
-                    <option>200</option>
-                    {!removeLevel && <option>300</option>}
-                    {!removeLevel && <option>400</option>}
                   </Select>
                 </Label>
                 <Label className='mt-4'>
@@ -415,6 +404,18 @@ function CreateAccount() {
                     <option>Bsc Accounting and Finance</option>
                     <option>BA Management</option>
                     <option>Diploma in Business Studies</option>
+                  </Select>
+                </Label>
+                 <Label className='mt-4'>
+                  <span>Select Level</span>
+                  <Select
+                    value={level}
+                    className='mt-1'
+                    onChange={(e) => setLevel(e.target.value)}>
+                    <option>100</option>
+                    <option>200</option>
+                    {!removeLevel && <option>300</option>}
+                    {!removeLevel && <option>400</option>}
                   </Select>
                 </Label>
                 <Label>

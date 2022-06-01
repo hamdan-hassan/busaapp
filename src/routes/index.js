@@ -41,7 +41,7 @@ const routes = [
     component: Dues,
   },
   {
-    path: "/souverniers",
+    path: "/souvernirs",
     component: Souverniers,
   },
   {
