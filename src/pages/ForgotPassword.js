@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,} from "react";
 
 import ImageLight from "../assets/img/forgot-password-office.jpeg";
 import ImageDark from "../assets/img/forgot-password-office-dark.jpeg";

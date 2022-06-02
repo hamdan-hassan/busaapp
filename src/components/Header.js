@@ -13,7 +13,6 @@ import {
 import {
   Avatar,
   Badge,
-  Input,
   Dropdown,
   DropdownItem,
   WindmillContext,

@@ -1,7 +1,7 @@
 import React, { forwardRef, useState, useEffect } from "react";
 import axios from "axios";
 import { Checkmark } from "react-checkmark";
-import { Textarea, Label, Select } from "@windmill/react-ui";
+import { Textarea,} from "@windmill/react-ui";
 import {
   Modal,
   ModalHeader,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, } from "react";
 
 import PageTitle from "../components/Typography/PageTitle";
 import SectionTitle from "../components/Typography/SectionTitle";
@@ -17,7 +17,6 @@ import { Checkmark } from "react-checkmark";
 import { MailIcon } from "../icons";
 import { UserDetails } from "../userDetails";
 import Modal from "./Modal";
-import ReactToPrint from "react-to-print";
 import axios from "axios";
 
 function Profile() {
@@ -671,21 +670,6 @@ function Profile() {
           </HelperText>
         )}
       </div>
-      {/* <div
-        style={{
-          display: "none",
-        }}>
-        <div
-          ref={elementRef}
-          className='px-4 py-3 mb-8 bg-white rounded-lg dark:bg-gray-800 dark:text-gray-200'>
-          <img src={Logo} className='mb-4' alt='busa logo' />
-          <h1>Student ID: {`${stdId}`}</h1>
-          <h1>Name: {`${fname}`}</h1>
-          <h1>Contact: {`${phone}`}</h1>
-          <h2 style={{ marginTop: "20px", marginBottom: "15px" }}>Complain:</h2>
-          <p>{complain}</p>
-        </div>
-      </div> */}
     </>
   );
 }

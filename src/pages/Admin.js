@@ -15,7 +15,6 @@ import {
 } from "@windmill/react-ui";
 import CustomModal from "./Modal";
 import MaterialTable from "material-table";
-import { UserDetails } from "../userDetails";
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Check from "@material-ui/icons/Check";
@@ -113,7 +112,6 @@ const Admin = () => {
     axios
       .get("http://localhost:3000/api/getStudents")
       .then((res) => {
-        console.log(res.data);
         setData(res.data);
       })
       .catch((err) => console.log(err));
@@ -329,7 +327,6 @@ const Admin = () => {
             }),
           onRowDelete: (oldData) =>
             new Promise((resolve, reject) => {
-              console.log(oldData.std_id);
               setTimeout(() => {
                 axios
                   .delete(
