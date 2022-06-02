@@ -31,11 +31,9 @@ function App() {
             <Route path='/reset/:id/:token' component={ResetPassword} />
           )}
 
-          {/* Place new routes over this */}
           <ProtectedExpired path={"/expired-link"} component={Expired} />
           <ProtectedRoute path='/app' component={Layout} />
 
-          {/* If you have an index page, you can remothis Redirect */}
           <Redirect exact from='/' to='/login' />
           <Route path='*' component={Page404} />
         </Switch>
