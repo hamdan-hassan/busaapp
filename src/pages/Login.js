@@ -34,7 +34,7 @@ function Login() {
     setLoading(true);
     axios
       .post(
-        "http://localhost:3000/api/login",
+        "/api/login",
         {
           email: email.toLowerCase(),
           password: pass,

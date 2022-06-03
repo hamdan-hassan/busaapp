@@ -19,6 +19,7 @@
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
     "@react-pdf-viewer/core": "^3.0.0",
+    "@svgr/webpack": "^5.4.0",
     "@testing-library/jest-dom": "4.2.4",
     "@testing-library/react": "9.5.0",
     "@testing-library/user-event": "7.2.1",
@@ -37,11 +38,9 @@
     "react-focus-lock": "2.4.0",
     "react-router-dom": "5.2.0",
     "react-scripts": "3.4.1",
-    "react-to-print": "^2.14.3",
     "react-transition-group": "4.4.1",
     "react-tsparticles": "^1.37.5",
-    "tailwindcss": "1.4.6",
-    "@svgr/webpack": "^5.4.0"
+    "tailwindcss": "1.4.6"
   },
   "devDependencies": {
     "@release-it/conventional-changelog": "1.1.4",
