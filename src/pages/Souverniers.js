@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import PageTitle from "../components/Typography/PageTitle";
 import axios from "axios";
+import {baseUrl} from '../api/busa-api.js'
 import { UserDetails } from "../userDetails";
 import {
   TableContainer,
@@ -23,7 +24,7 @@ function Sourverniers() {
   useEffect(() => {
     axios
       .get(
-        "http://localhost:3000/api/souvenirs/" +
+        `${baseUrl.baseUrl}/souvenirs/` +
         UserDetails.studentId.toUpperCase()
       )
       .then((res) => {

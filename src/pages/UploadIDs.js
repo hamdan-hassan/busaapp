@@ -1,5 +1,6 @@
 import React, { forwardRef, useState, useEffect } from "react";
 import axios from "axios";
+import {baseUrl} from '../api/busa-api.js'
 import { Checkmark } from "react-checkmark";
 import { Textarea, Label, Select } from "@windmill/react-ui";
 import Modal from "./Modal";
@@ -80,7 +81,7 @@ const UploadIDs = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/uploaded-ids")
+      .get(`${baseUrl.baseUrl}/uploaded-ids`)
       .then((res) => {
         setData(res.data);
       })
@@ -98,7 +99,7 @@ const UploadIDs = () => {
     } else {
       axios
         .post(
-          "http://localhost:3000/api/uploadids",
+          `${baseUrl.baseUrl}/uploadids`,
           {
             IDs: content,
             Level: level,
@@ -127,7 +128,7 @@ const UploadIDs = () => {
   const handleDeleteIDs = () => {
     setDeleted(false);
     axios
-      .delete("http://localhost:3000/api/delete-ids/" + deleteLevel)
+      .delete(`${baseUrl.baseUrl}/delete-ids/` + deleteLevel)
       .then((res) => {
         setDeleted(true);
         console.log(res);
@@ -138,10 +139,9 @@ const UploadIDs = () => {
   const handleDeleteDiplomaIDs = () => {
     setDeleted(false)
     axios
-      .delete("http://localhost:3000/api/delete-diploma-ids/" + deleteLevel)
+      .delete(`${baseUrl.baseUrl}/delete-diploma-ids/` + deleteLevel)
       .then((res) => {
         setDeleted2(true);
-        console.log(res);
       })
       .catch((err) => console.log(err));
   };
@@ -243,7 +243,7 @@ const UploadIDs = () => {
                 setTimeout(() => {
                   axios
                     .delete(
-                      "http://localhost:3000/api/delete-id/" + oldData.std_id
+                      `${baseUrl.baseUrl}/delete-id/` + oldData.std_id
                     )
                     .then((res) => console.log(res))
                     .catch((err) => console.log(err));

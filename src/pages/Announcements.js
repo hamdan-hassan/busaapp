@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Card, CardBody } from "@windmill/react-ui";
 import Image from "../assets/img/announcement.jpg";
 import axios from "axios";
+import {baseUrl} from '../api/busa-api.js'
 import "./Announcements.css";
 
 function Announcements() {
@@ -11,7 +12,7 @@ function Announcements() {
   // Fetch Published Announcement
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/getArticle")
+      .get(`${baseUrl.baseUrl}/getArticle`)
       .then((res) => setData(res.data.rows[0]))
       .catch((err) => console.log(err));
   }, []);

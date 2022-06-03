@@ -16,6 +16,7 @@ import { Checkmark } from "react-checkmark";
 
 import { MailIcon } from "../icons";
 import { UserDetails } from "../userDetails";
+import {baseUrl} from '../api/busa-api.js'
 import Modal from "./Modal";
 import axios from "axios";
 
@@ -63,7 +64,7 @@ function Profile() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/profile/" + UserDetails.studentId)
+      .get(`${baseUrl.baseUrl}/profile/` + UserDetails.studentId)
       .then((res) => {
         setFName(res.data.rows[0].first_name);
         setMName(res.data.rows[0].middle_name);
@@ -79,7 +80,7 @@ function Profile() {
       })
       .catch((err) => console.log(err));
     axios
-      .get("http://localhost:3000/api/isRegistered/" + UserDetails.studentId)
+      .get(`${baseUrl.baseUrl}/isRegistered/` + UserDetails.studentId)
       .then((res) => {
         if (res.data[0].registered === "true") {
           setRegistered(true);
@@ -89,7 +90,7 @@ function Profile() {
 
     axios
       .post(
-        "http://localhost:3000/api/img",
+        `${baseUrl.baseUrl}/img`,
         {
           Id: UserDetails.studentId,
         },
@@ -138,7 +139,7 @@ function Profile() {
     }
     axios
       .put(
-        "http://localhost:3000/api/updateProfile",
+        `${baseUrl.baseUrl}/updateProfile`,
         {
           id: UserDetails.studentId.toUpperCase(),
           firstName: fname,
@@ -166,7 +167,7 @@ function Profile() {
   const handlePasswordUpdate = () => {
     axios
       .put(
-        "http://localhost:3000/api/updatePassword",
+        `${baseUrl}/updatePassword`,
         {
           id: UserDetails.studentId,
           password: oldPass,
@@ -214,7 +215,7 @@ function Profile() {
     reader.onloadend = () => {
       axios
         .put(
-          "http://localhost:3000/api/upload",
+          `${baseUrl.baseUrl}/upload`,
           {
             ImageData: reader.result,
             Id: UserDetails.studentId.toUpperCase(),
@@ -242,7 +243,7 @@ function Profile() {
 
   const handleDeleteFile = () => {
     axios
-      .put("http://localhost:3000/api/remove-img/", {
+      .put(`${baseUrl.baseUrl}/remove-img/`, {
         Id: UserDetails.studentId.toUpperCase(),
       })
       .then((res) => {
@@ -265,7 +266,7 @@ function Profile() {
 
     axios
       .post(
-        "http://localhost:3000/api/send-complain",
+        `${baseUrl.baseUrl}/send-complain`,
         {
           Date: date,
           Id: stdId,
@@ -290,7 +291,7 @@ function Profile() {
 
     axios
       .post(
-        "http://localhost:3000/api/complains-count",
+        `${baseUrl.baseUrl}/complains-count`,
         {
           Id: stdId,
           Count: 1,

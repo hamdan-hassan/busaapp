@@ -29,6 +29,7 @@ import LastPage from "@material-ui/icons/LastPage";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import axios from "axios";
 import PageTitle from "../components/Typography/PageTitle";
+import {baseUrl} from '../api/busa-api.js'
 import Search from "@material-ui/icons/Search";
 import { Checkmark } from "react-checkmark";
 import React, { forwardRef, useState, useEffect } from "react";
@@ -110,7 +111,7 @@ const Admin = () => {
   // Fetch All Students from api
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/getStudents")
+      .get(`${baseUrl.baseUrl}/getStudents`)
       .then((res) => {
         setData(res.data);
       })
@@ -144,13 +145,13 @@ const Admin = () => {
 
   const handleDeleteIDs = () => {
     axios
-      .delete("http://localhost:3000/api/remove-register/" + null + "/" + level)
+      .delete(`${baseUrl.baseUrl}/remove-register/` + null + "/" + level)
       .then((res) => {
         axios
-          .delete("http://localhost:3000/api/remove/" + null + "/" + level)
+          .delete(`${baseUrl.baseUrl}/remove/` + null + "/" + level)
           .then((res) => {
             axios
-              .delete("http://localhost:3000/api/remove-login/" + null + "/" + level)
+              .delete(`${baseUrl.baseUrl}/remove-login/` + null + "/" + level)
               .then((res) => setDelDegree(true))
               .catch((err) => console.log(err));
           })
@@ -166,13 +167,13 @@ const Admin = () => {
 
   const handleDeleteDiplomaIDs = () => {
     axios
-      .delete("http://localhost:3000/api/remove-register-diploma/" + level)
+      .delete(`${baseUrl.baseUrl}/remove-register-diploma/` + level)
       .then((res) => {
         axios
-          .delete("http://localhost:3000/api/remove-diploma/" + level)
+          .delete(`${baseUrl.baseUrl}/remove-diploma/` + level)
           .then((res) => {
             axios
-              .delete("http://localhost:3000/api/remove-login-diploma/" + level)
+              .delete(`${baseUrl.baseUrl}/remove-login-diploma/` + level)
               .then((res) => setDelDiploma(true))
               .catch((err) => console.log(err));
           })
@@ -184,7 +185,7 @@ const Admin = () => {
 
   const handleUpdateDegreeLevels = () => {
  
- axios.put("http://localhost:3000/api/update-degree-levels",
+ axios.put(`${baseUrl.baseUrl}/update-degree-levels`,
 
 {
   fromlevel: degreeFromLevel,
@@ -205,7 +206,7 @@ const Admin = () => {
 
 
  const handleUpdateDiplomaLevels = () => {
-  axios.put("http://localhost:3000/api/update-diploma-levels",
+  axios.put(`${baseUrl.baseUrl}/update-diploma-levels`,
 
 {
   fromlevel: diplomaFromLevel,
@@ -304,7 +305,7 @@ const Admin = () => {
 
                 axios
                   .put(
-                    "http://localhost:3000/api/update",
+                    `${baseUrl.baseUrl}/update`,
                     {
                       stdid: stdid,
                       level100: level100,
@@ -330,7 +331,7 @@ const Admin = () => {
               setTimeout(() => {
                 axios
                   .delete(
-                    "http://localhost:3000/api/remove/" +
+                    `${baseUrl.baseUrl}/remove/` +
                     oldData.std_id +
                     "/" +
                     "null"
@@ -340,7 +341,7 @@ const Admin = () => {
 
                 axios
                   .delete(
-                    "http://localhost:3000/api/remove-register/" +
+                    `${baseUrl.baseUrl}/remove-register/` +
                     oldData.std_id +
                     "/" +
                     "null"
@@ -350,7 +351,7 @@ const Admin = () => {
 
                 axios
                   .delete(
-                    "http://localhost:3000/api/remove-login/" +
+                    `${baseUrl.baseUrl}/remove-login/` +
                     oldData.std_id +
                     "/" +
                     "null"
@@ -360,7 +361,7 @@ const Admin = () => {
 
                 axios
                   .delete(
-                    "http://localhost:3000/api/delete-complain/" + oldData.std_id + "/" + null
+                    `${baseUrl.baseUrl}/delete-complain/` + oldData.std_id + "/" + null
                   )
                   .then((res) => console.log(res))
                   .catch((err) => console.log(err));

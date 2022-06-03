@@ -3,6 +3,7 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import Logo from "../assets/img/logo.png";
 
 import axios from "axios";
+import {baseUrl} from '../api/busa-api.js'
 import { Checkmark } from "react-checkmark";
 import { Label, Input, Button } from "@windmill/react-ui";
 
@@ -24,7 +25,7 @@ function ResetPassword() {
       }
 
       axios
-        .post(`http://localhost:3000/api/reset/${id}/${newPass}/${token}`)
+        .post(`${baseUrl.baseUrl}/reset/${id}/${newPass}/${token}`)
         .then((res) => {
           if (res.data === "expired") {
             Auth.expired(() => {

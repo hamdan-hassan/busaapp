@@ -12,6 +12,7 @@ import {
   TableRow,
   TableCell,
 } from "@windmill/react-ui";
+import {baseUrl} from '../api/busa-api.js'
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -28,7 +29,7 @@ const Handouts = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/isRegistered/" + UserDetails.studentId)
+      .get(`${baseUrl.baseUrl}/isRegistered/` + UserDetails.studentId)
       .then((res) => {
         if (res.data[0].registered === "true") {
           setRegistered(true);
@@ -41,7 +42,7 @@ const Handouts = () => {
     console.log(level);
     axios
       .post(
-        "http://localhost:3000/api/get-handouts",
+        `${baseUrl.baseUrl}/get-handouts`,
         {
           Programme: programme,
           Level: level,

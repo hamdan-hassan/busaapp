@@ -4,6 +4,7 @@ import PageTitle from "../components/Typography/PageTitle";
 
 import { Card, CardBody } from "@windmill/react-ui";
 import Icon from "../assets/img/male.png";
+import {baseUrl} from '../api/busa-api.js'
 
 import axios from "axios";
 
@@ -12,7 +13,7 @@ const ChangePassword = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/uploaded-key-people")
+      .get(`${baseUrl.baseUrl}/uploaded-key-people`)
       .then((res) => {
         console.log(res.data);
         setData(res.data);

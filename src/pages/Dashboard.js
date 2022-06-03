@@ -16,6 +16,7 @@ import Complains from "../assets/img/complains.png";
 import PageTitle from "../components/Typography/PageTitle";
 
 import Card from "../components/Card/Card";
+import {baseUrl} from '../api/busa-api.js'
 import axios from "axios";
 
 function Dashboard() {
@@ -46,7 +47,7 @@ function Dashboard() {
       }
 
       axios
-        .post("http://localhost:3000/api/get-complains-count",
+        .post(`${baseUrl.baseUrl}/get-complains-count`,
           {
             Receiver: receiver
           },
@@ -73,7 +74,7 @@ function Dashboard() {
 
   const removeNewMessage = () => {
     axios
-      .delete("http://localhost:3000/api/remove-complains-count/" + receiver)
+      .delete(`${baseUrl.baseUrl}/remove-complains-count/` + receiver)
       .then((res) => {
         console.log(res);
       })

@@ -5,6 +5,7 @@ import auth from "../auth";
 import { UserDetails } from "../userDetails";
 import Loader from "../loader/loader";
 import axios from "axios";
+import {baseUrl} from '../api/busa-api.js'
 
 import { Label, Input, Button } from "@windmill/react-ui";
 import Particles from "react-tsparticles";
@@ -34,7 +35,7 @@ function Login() {
     setLoading(true);
     axios
       .post(
-        "/api/login",
+        `${baseUrl.baseUrl}/login`,
         {
           email: email.toLowerCase(),
           password: pass,

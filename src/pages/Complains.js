@@ -1,5 +1,6 @@
 import React, { forwardRef, useState, useEffect } from "react";
 import axios from "axios";
+import {baseUrl} from '../api/busa-api.js'
 import { Checkmark } from "react-checkmark";
 import { Textarea,} from "@windmill/react-ui";
 import {
@@ -116,7 +117,7 @@ const Complains = () => {
   useEffect(() => {
 
     axios
-      .post("http://localhost:3000/api/get-complains", {
+      .post(`${baseUrl.baseUrl}/get-complains`, {
         Receiver: window.localStorage.getItem("role")
       },
         {
@@ -141,7 +142,7 @@ const Complains = () => {
     setSent(false);
     axios
       .post(
-        "http://localhost:3000/api/send-reply",
+        `${baseUrl.baseUrl}/send-reply`,
         {
           Id: id,
           Current_date: date,
@@ -206,7 +207,7 @@ const Complains = () => {
               setTimeout(() => {
                 axios
                   .delete(
-                    "http://localhost:3000/api/delete-complain/" + null + "/" + oldData.sno
+                    `${baseUrl.baseUrl}/delete-complain/` + null + "/" + oldData.sno
                   )
                   .then((res) => console.log(res))
                   .catch((err) => console.log(err));

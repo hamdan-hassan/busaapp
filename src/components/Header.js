@@ -20,6 +20,7 @@ import {
 
 import { Link } from "react-router-dom";
 import axios from "axios";
+import {baseUrl} from '../api/busa-api.js'
 import { UserDetails } from "../userDetails";
 
 
@@ -70,7 +71,7 @@ function Header() {
       }
 
       axios
-        .post("http://localhost:3000/api/get-complains-count",
+        .post(`${baseUrl.baseUrl}/get-complains-count`,
           {
             Receiver: window.localStorage.getItem("receiver")
           },
@@ -95,7 +96,7 @@ function Header() {
     else {
       axios
         .post(
-          "http://localhost:3000/api/get-message-count",
+          `${baseUrl.baseUrl}/get-message-count`,
           { Id: UserDetails.studentId },
           {
             headers: {
@@ -104,13 +105,11 @@ function Header() {
           }
         )
         .then((res) => {
-          console.log(res.data);
           if (res.data[0].count > 0) {
             setNewMessage(true);
           }
           setMessage(res.data[0].count);
 
-          console.log(res);
         })
         .catch((err) => {
           console.log(err);
@@ -118,7 +117,7 @@ function Header() {
 
       axios
         .post(
-          "http://localhost:3000/api/img",
+          `${baseUrl.baseUrl}/img`,
           {
             Id: UserDetails.studentId,
           },
@@ -142,7 +141,7 @@ function Header() {
 
   const removeAdminNewMessage = () => {
     axios
-      .delete("http://localhost:3000/api/remove-complains-count/" + window.localStorage.getItem("receiver"))
+      .delete(`${baseUrl.baseUrl}/remove-complains-count/` + window.localStorage.getItem("receiver"))
       .then((res) => {
         console.log(res);
       })
@@ -154,7 +153,7 @@ function Header() {
   const removeNewMessage = () => {
     axios
       .put(
-        "http://localhost:3000/api/reset-messages-count",
+        `${baseUrl.baseUrl}/reset-messages-count`,
         {
           Id: UserDetails.studentId,
         },

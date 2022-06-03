@@ -8,6 +8,7 @@ import { Checkmark } from "react-checkmark";
 import TextAnimation from "../animations/TextAnimation";
 
 import Modal from "./Modal";
+import {baseUrl} from '../api/busa-api.js'
 import axios from "axios";
 import { UserDetails } from "../userDetails";
 
@@ -25,7 +26,7 @@ function Registration() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/isRegistered/" + UserDetails.studentId)
+      .get(`${baseUrl.baseUrl}/isRegistered/` + UserDetails.studentId)
       .then((res) => {
         setUserName(res.data[0].first_name);
         if (res.data[0].registered === "true") {
@@ -57,7 +58,7 @@ function Registration() {
 
     axios
       .put(
-        "http://localhost:3000/api/register",
+        `${baseUrl.baseUrl}/register`,
         {
           FirstName: fName,
           MiddleName: MName,

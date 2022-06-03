@@ -13,6 +13,7 @@ import {
 } from "@windmill/react-ui";
 import axios from "axios";
 import { UserDetails } from "../userDetails";
+import {baseUrl} from '../api/busa-api.js'
 import { Link } from "react-router-dom";
 
 const PastQuestions = () => {
@@ -28,7 +29,7 @@ const PastQuestions = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/isRegistered/" + UserDetails.studentId)
+      .get(`${baseUrl}/isRegistered/` + UserDetails.studentId)
       .then((res) => {
         if (res.data[0].registered === "true") {
           setRegistered(true);
@@ -40,7 +41,7 @@ const PastQuestions = () => {
   const handleSearch = () => {
     axios
       .post(
-        "http://localhost:3000/api/get-past-questions",
+        `${baseUrl.baseUrl}/get-past-questions`,
         {
           Programme: programme,
           Level: level,

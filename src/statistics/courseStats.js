@@ -1,6 +1,7 @@
 import { HorizontalBar } from "react-chartjs-2";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import {baseUrl} from '../api/busa-api.js'
 import { Card, CardBody } from "@windmill/react-ui";
 import PageTitle from "../components/Typography/PageTitle";
 
@@ -18,7 +19,7 @@ const options = {
 
 const CourseStats = () => {
   useEffect(() => {
-    axios.get("http://localhost:3000/api/courseStats").then((res) => {
+    axios.get(`${baseUrl.baseUrl}/courseStats`).then((res) => {
       setCourse(res.data);
       console.log(res);
     });

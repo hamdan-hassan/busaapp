@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import Logo from "../assets/img/ubids6.jpeg";
 import Logo2 from "../assets/img/logo.png";
 import axios from "axios";
+import {baseUrl} from '../api/busa-api.js'
 import Loader from "../loader/loader";
 import Particles from "react-tsparticles";
 
@@ -109,7 +110,7 @@ function CreateAccount() {
     }
     axios
       .post(
-        "http://localhost:3000/api/validateid",
+        `${baseUrl.baseUrl}/validateid`,
         {
           ID: studId,
           Level: level,
@@ -131,7 +132,7 @@ function CreateAccount() {
 
           axios
             .post(
-              "http://localhost:3000/api/create-account",
+              `${baseUrl.baseUrl}/create-account`,
               {
                 FirstName: fName,
                 MiddleName: MName,
@@ -164,7 +165,7 @@ function CreateAccount() {
               setError(false);
               axios
                 .post(
-                  "http://localhost:3000/api/create-profile-img",
+                  `${baseUrl.baseUrl}/create-profile-img`,
                   { StudentID: studId, Level: level, ProgrammeType: programmeType },
                   {
                     headers: {
@@ -183,7 +184,7 @@ function CreateAccount() {
 
               axios
                 .post(
-                  "http://localhost:3000/api/create-registration",
+                  `${baseUrl.baseUrl}/create-registration`,
                   {
                     FirstName: fName,
                     MiddleName: MName,

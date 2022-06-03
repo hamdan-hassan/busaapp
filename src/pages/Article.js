@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Textarea, Label, Input } from "@windmill/react-ui";
 import Modal from "./Modal";
 import { Checkmark } from "react-checkmark";
+import {baseUrl} from '../api/busa-api.js'
 import axios from "axios";
 
 const Article = () => {
@@ -15,7 +16,7 @@ const Article = () => {
     setPublished(false);
     axios
       .put(
-        "http://localhost:3000/api/article",
+        `${baseUrl.baseUrl}/article`,
         {
           Title: title,
           Content: content,

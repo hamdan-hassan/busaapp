@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Pie } from "react-chartjs-2";
 import { Card, CardBody } from "@windmill/react-ui";
 import PageTitle from "../components/Typography/PageTitle";
+import {baseUrl} from '../api/busa-api.js'
 import axios from "axios";
 
 const TShirtStats = () => {
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/tshirtStats")
+      .get(`${baseUrl.baseUrl}/tshirtStats`)
       .then((res) => setCourse(res.data));
   }, []);
   const [course, setCourse] = useState([]);

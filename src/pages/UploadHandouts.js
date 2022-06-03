@@ -17,6 +17,7 @@ import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
+import {baseUrl} from '../api/busa-api.js'
 import axios from "axios";
 import { Checkmark } from "react-checkmark";
 
@@ -86,7 +87,7 @@ const UploadHandouts = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/uploaded-handouts")
+      .get(`${baseUrl.baseUrl}/uploaded-handouts`)
       .then((res) => {
         setData(res.data);
       })
@@ -103,7 +104,7 @@ const UploadHandouts = () => {
     } else {
       axios
         .post(
-          "http://localhost:3000/api/upload-handouts",
+          `${baseUrl.baseUrl}/upload-handouts`,
           {
             Programme: programme,
             Level: level,
@@ -296,7 +297,7 @@ const UploadHandouts = () => {
               setTimeout(() => {
                 axios
                   .delete(
-                    "http://localhost:3000/api/delete-handout/" + oldData.sno
+                    `${baseUrl.baseUrl}/delete-handout/` + oldData.sno
                   )
                   .then((res) => console.log(res))
                   .catch((err) => console.log(err));

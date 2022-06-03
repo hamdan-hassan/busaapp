@@ -4,6 +4,7 @@ import ImageLight from "../assets/img/forgot-password-office.jpeg";
 import ImageDark from "../assets/img/forgot-password-office-dark.jpeg";
 import { Label, Input, Button, Card, CardBody } from "@windmill/react-ui";
 import axios from "axios";
+import {baseUrl} from '../api/busa-api.js'
 import auth from "../auth";
 import { Checkmark } from "react-checkmark";
 
@@ -14,7 +15,7 @@ const ForgotPassword = () => {
   const handleSubmit = () => {
     axios
       .post(
-        "http://localhost:3000/api/forgot-password",
+        `${baseUrl.baseUrl}/forgot-password`,
         {
           email: email,
         },

@@ -19,6 +19,7 @@ import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 import axios from "axios";
+import {baseUrl} from '../api/busa-api.js'
 import { Checkmark } from "react-checkmark";
 
 const UploadExecutivesAndPatrons = () => {
@@ -68,7 +69,7 @@ const UploadExecutivesAndPatrons = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/uploaded-key-people")
+      .get(`${baseUrl.baseUrl}/uploaded-key-people`)
       .then((res) => {
         setData(res.data);
       })
@@ -94,7 +95,7 @@ const UploadExecutivesAndPatrons = () => {
       }
       axios
         .post(
-          "http://localhost:3000/api/upload-key-people",
+          `${baseUrl.baseUrl}/upload-key-people`,
           {
             ImageData: reader.result || "",
             Name: name,
@@ -232,7 +233,7 @@ const UploadExecutivesAndPatrons = () => {
 
                 axios
                   .put(
-                    "http://localhost:3000/api/update-key-people",
+                    `${baseUrl.baseUrl}/update-key-people`,
                     {
                       Sno: oldData.sno,
                       Name: name,
@@ -255,7 +256,7 @@ const UploadExecutivesAndPatrons = () => {
               setTimeout(() => {
                 axios
                   .delete(
-                    "http://localhost:3000/api/delete-key-people/" + oldData.sno
+                    `${baseUrl.baseUrl}/delete-key-people/` + oldData.sno
                   )
                   .then((res) => console.log(res))
                   .catch((err) => console.log(err));

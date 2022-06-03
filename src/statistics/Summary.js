@@ -1,30 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardBody } from "@windmill/react-ui";
 import PageTitle from "../components/Typography/PageTitle";
+import {baseUrl} from '../api/busa-api.js'
 import axios from "axios";
 
 const Summary = () => {
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/tshirtStats")
+      .get(`${baseUrl.baseUrl}/tshirtStats`)
       .then((res) => setCourse(res.data));
   }, []);
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/totalStduents")
+      .get(`${baseUrl.baseUrl}/totalStduents`)
       .then((res) => setStd(res.data[0].count));
   }, []);
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/registered-students")
+      .get(`${baseUrl.baseUrl}/registered-students`)
       .then((res) => setRegistered(res.data[0].count));
   }, []);
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/not-registered-students")
+      .get(`${baseUrl.baseUrl}/not-registered-students`)
       .then((res) => setNotRegistered(res.data[0].count));
   }, []);
   const [course, setCourse] = useState([]);

@@ -10,6 +10,7 @@ import {
   TableCell,
   Badge,
 } from "@windmill/react-ui";
+import {baseUrl} from '../api/busa-api.js'
 import axios from "axios";
 import { UserDetails } from "../userDetails";
 function Dues() {
@@ -28,7 +29,7 @@ function Dues() {
   useEffect(() => {
     axios
       .get(
-        "http://localhost:3000/api/dues/" + UserDetails.studentId.toUpperCase()
+        `${baseUrl.baseUrl}/dues/` + UserDetails.studentId.toUpperCase()
       )
       .then((res) => {
         console.log(UserDetails.studentId);
@@ -125,60 +126,6 @@ function Dues() {
           </Table>
         </TableContainer>
       </div>
-      {/* <div>
-        <div className='px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800'>
-          <PageTitle>Pay your dues</PageTitle>
-          <Label className='mt-4'>
-            <span>Select Network</span>
-            <Select className='mt-1'>
-              <option>MTN</option>
-              <option>VodaFone</option>
-              <option>AirtelTigo</option>
-            </Select>
-          </Label>
-          <Label className='mt-4'>
-            <span>Select Level</span>
-            <Select
-              className='mt-1'
-              onChange={(e) => {
-                if (e.target.value === "100") {
-                  setAmount(50);
-                }
-                if (e.target.value === "200") {
-                  setAmount(40);
-                }
-                if (e.target.value === "300") {
-                  setAmount(30);
-                }
-                if (e.target.value === "400") {
-                  setAmount(20);
-                }
-              }}>
-              <option>100</option>
-              <option>200</option>
-              <option>300</option>
-              <option>400</option>
-            </Select>
-          </Label>
-          <Label className='mt-4'>
-            <span>Amount</span>
-            <Input className='mt-1' value={amount} disabled />
-          </Label>
-          <Label className='mt-4'>
-            <span>Enter Phone Number</span>
-            <Input className='mt-1' placeholder='0535796563' />
-          </Label>
-          <Label>
-            <Button className='mt-5'>Pay</Button>
-          </Label>
-        </div>
-        <div>
-          <Checkmark />
-          <h1 style={{ fontSize: 20, textAlign: "center" }}>
-            Payment Successful
-          </h1>
-        </div>
-      </div> */}
     </>
   );
 }

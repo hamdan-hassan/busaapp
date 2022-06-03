@@ -3,6 +3,7 @@ import axios from "axios";
 import { Card, CardBody } from "@windmill/react-ui";
 import { DeleteTwoTone } from "@material-ui/icons";
 import { UserDetails } from "../userDetails";
+import {baseUrl} from '../api/busa-api.js'
 import { Button } from "@material-ui/core";
 
 const Messages = () => {
@@ -11,7 +12,7 @@ const Messages = () => {
   useEffect(() => {
     axios
       .post(
-        "http://localhost:3000/api/get-messages",
+        `${baseUrl.baseUrl}/get-messages`,
         {
           Id: UserDetails.studentId,
         },
@@ -31,7 +32,7 @@ const Messages = () => {
 
   const handleDelete = (row) => {
     axios
-      .delete("http://localhost:3000/api/delete-message/" + row.sno)
+      .delete(`${baseUrl.baseUrl}/delete-message/` + row.sno)
       .then((res) => {
         console.log(res);
       })

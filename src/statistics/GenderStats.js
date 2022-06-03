@@ -2,6 +2,7 @@ import { Bar } from "react-chartjs-2";
 import React, { useEffect, useState } from "react";
 import { Card, CardBody } from "@windmill/react-ui";
 import PageTitle from "../components/Typography/PageTitle";
+import {baseUrl} from '../api/busa-api.js'
 import axios from "axios";
 
 const options = {
@@ -19,7 +20,7 @@ const options = {
 const GenderStats = () => {
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/genderStats")
+      .get(`${baseUrl.baseUrl}/genderStats`)
       .then((res) => setCourse(res.data));
   }, []);
   const [course, setCourse] = useState([]);

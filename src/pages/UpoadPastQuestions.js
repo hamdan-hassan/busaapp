@@ -18,6 +18,7 @@ import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 import axios from "axios";
+import {baseUrl} from '../api/busa-api.js'
 import { Checkmark } from "react-checkmark";
 
 const UploadPastQuestions = () => {
@@ -80,7 +81,7 @@ const UploadPastQuestions = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/uploaded-past-questions")
+      .get(`${baseUrl.baseUrl}/uploaded-past-questions`)
       .then((res) => {
         setData(res.data);
       })
@@ -97,7 +98,7 @@ const UploadPastQuestions = () => {
     } else {
       axios
         .post(
-          "http://localhost:3000/api/upload-past-questions",
+          `${baseUrl.baseUrl}/upload-past-questions`,
           {
             Programme: programme,
             Level: level,
@@ -286,7 +287,7 @@ const UploadPastQuestions = () => {
               setTimeout(() => {
                 axios
                   .delete(
-                    "http://localhost:3000/api/delete-past-question/" + oldData.sno
+                    `${baseUrl.baseUrl}/delete-past-question/` + oldData.sno
                   )
                   .then((res) => console.log(res))
                   .catch((err) => console.log(err));
