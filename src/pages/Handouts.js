@@ -74,7 +74,7 @@ const Handouts = () => {
   return (
     <>
     {loading && <Loader />}
-      {registered ? (
+      {!loading && registered ? (
         <div style={{ overflow: "hidden" }}>
           <PageTitle>Handouts</PageTitle>
 

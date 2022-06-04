@@ -14,6 +14,7 @@ import {baseUrl} from '../api/busa-api.js'
 import axios from "axios";
 import { UserDetails } from "../userDetails";
 function Dues() {
+  const [loading,setLoading] = useState(true)
   const [l100, setL100] = useState("");
   const [l200, setL200] = useState("");
   const [l300, setL300] = useState("");
@@ -52,6 +53,7 @@ function Dues() {
         if (res.data[0].level_400 !== 0) {
           setL400Badge("success");
         }
+        setLoading(false)
       });
   }, []);
 
@@ -80,7 +82,7 @@ function Dues() {
                   <span className='text-sm'>65 ₵</span>
                 </TableCell>
                 <TableCell>
-                  <Badge type={l100badge}>{l100 === 0 ? "Pending" : "Paid"}</Badge>
+                  {loading ? <p>Loading...</p> : <Badge type={l100badge}>{l100 === 0 ? "Pending" : "Paid"}</Badge>}
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -93,7 +95,7 @@ function Dues() {
                   <span className='text-sm'>30 ₵</span>
                 </TableCell>
                 <TableCell>
-                  <Badge type={l200badge}>{l200 === 0 ? "Pending" : "Paid"}</Badge>
+                  {loading ? <p>Loading...</p> : <Badge type={l200badge}>{l200 === 0 ? "Pending" : "Paid"}</Badge>}
                 </TableCell>
               </TableRow>
              {programmeType !== "Diploma" && <><TableRow>
@@ -106,7 +108,7 @@ function Dues() {
                                <span className='text-sm'>30 ₵</span>
                              </TableCell>
                              <TableCell>
-                               <Badge type={l300badge}>{l300 === 0 ? "Pending" : "Paid"}</Badge>
+                               {loading ? <p>Loading...</p> : <Badge type={l300badge}>{l300 === 0 ? "Pending" : "Paid"}</Badge>}
                              </TableCell>
                            </TableRow>
                            <TableRow>
@@ -119,7 +121,7 @@ function Dues() {
                                <span className='text-sm'>30 ₵</span>
                              </TableCell>
                              <TableCell>
-                               <Badge type={l400badge}>{l400 === 0 ? "Pending" : "Paid"}</Badge>
+                               {loading ? <p>Loading...</p> : <Badge type={l400badge}>{l400 === 0 ? "Pending" : "Paid"}</Badge>}
                              </TableCell>
                            </TableRow></>}
                          </TableBody>

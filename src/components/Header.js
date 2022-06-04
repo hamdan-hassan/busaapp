@@ -25,6 +25,7 @@ import { UserDetails } from "../userDetails";
 
 
 function Header() {
+  const [loading,setLoading] = useState(true)
   const { mode, toggleMode } = useContext(WindmillContext);
   const { toggleSidebar } = useContext(SidebarContext);
   const [img, setimg] = useState("");
@@ -131,6 +132,7 @@ function Header() {
           if (res.data.length > 0) {
             setimg(res.data[0].img_data);
           }
+          setLoading(false)
         })
         .catch((err) => {
           console.log(err);
@@ -258,12 +260,13 @@ function Header() {
               onClick={handleProfileClick}
               aria-label='Account'
               aria-haspopup='true'>
-              <Avatar
+              {loading && <p>Loading...</p>}
+              {!loading && <Avatar
                 className='align-middle'
                 src={img || (UserDetails.gender !== "Male" ? Female : Male)}
                 alt=''
                 aria-hidden='true'
-              />
+              />}
             </button>
             <Dropdown
               align='right'

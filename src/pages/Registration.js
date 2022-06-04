@@ -6,13 +6,14 @@ import SectionTitle from "../components/Typography/SectionTitle";
 import { Input, Label, Select, HelperText } from "@windmill/react-ui";
 import { Checkmark } from "react-checkmark";
 import TextAnimation from "../animations/TextAnimation";
-
+import Loader from "../loader/loader";
 import Modal from "./Modal";
 import {baseUrl} from '../api/busa-api.js'
 import axios from "axios";
 import { UserDetails } from "../userDetails";
 
 function Registration() {
+  const [loading,setLoading] = useState(true)
   const [fName, setFName] = useState("");
   const [MName, setMName] = useState("");
   const [lName, setLName] = useState("");
@@ -33,6 +34,7 @@ function Registration() {
           setRegistered(true);
 
         }
+        setLoading(false)
       })
       .catch((err) => console.log(err));
   }, []);
@@ -87,7 +89,8 @@ function Registration() {
   };
   return (
     <>
-      {resgisterd ? (
+    {loading && <Loader />}
+      {!loading && resgisterd ? (
         <div style={{ marginTop: "60px" }}>
           <h1
             className='dark:text-gray-200'

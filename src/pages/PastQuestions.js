@@ -75,7 +75,7 @@ const PastQuestions = () => {
   return (
     <>
     {loading && <Loader />}
-      {registered ? (
+      {!loading && registered ? (
         <div>
           <PageTitle>Past Questions</PageTitle>
 

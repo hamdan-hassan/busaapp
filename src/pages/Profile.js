@@ -211,8 +211,23 @@ function Profile() {
     setSelectedFile(file);
   };
 
+  function formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return '0 Bytes';
+
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
   const handleSubmitFile = () => {
     if (!selectedFile) return;
+    const size = formatBytes(selectedFile.size)
+    if(selectedFile.size > 1000000) return alert("The selected image size is " + size + " Please select an image which is not more then 1 MB")
+    console.log(selectedFile.size)
     const reader = new FileReader();
     reader.readAsDataURL(selectedFile);
     reader.onloadend = () => {
@@ -228,8 +243,6 @@ function Profile() {
           }
         )
         .then((res) => {
-          console.log(res)
-          console.log(reader.result)
           setUpdated2(true);
           setTimeout(() => {
             setUpdated2(false);
@@ -506,12 +519,16 @@ function Profile() {
       <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <Label>
           <span>Upload Profile Image</span>
+
           <Input
             type="file"
             className="mt-1"
             onChange={(e) => handleFileInputChange(e)}
           />
         </Label>
+         <HelperText valid={false}>
+            Image size cannot be more then 1 MB
+          </HelperText>
 
         <div
           style={{
@@ -519,7 +536,6 @@ function Profile() {
             justifyContent: "start",
           }}
         >
-        <span>Image size cannot be more then 1 MB</span>
           <Label className="mt-3">
             <Modal
               handleClick={handleSubmitFile}

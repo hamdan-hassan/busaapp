@@ -15,9 +15,10 @@ import {
 } from "@windmill/react-ui";
 
 function Sourverniers() {
+    const [loading,setLoading] = useState(true)
   const [books, setBooks] = useState("");
   const [shirt, setShirt] = useState("");
-  const [loading,setLoading] = useState(true)
+  
 
   const [booksBadge, setBooksBadge] = useState("danger");
   const [shirtBadge, setShirtBadge] = useState("danger");

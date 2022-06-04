@@ -76,7 +76,7 @@ function SidebarContent() {
           </Button>
         </Link>
         <div style={{width:"9em",display: "flex",justifyContent: "space-between",marginTop: "15px"}}>
-          <p>Created by</p>
+          <p style={{fontSize: "1em"}}>Created by</p>
          <Avatar
             className='align-middle mr-3'
             src={BnB}
