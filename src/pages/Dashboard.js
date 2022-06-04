@@ -13,8 +13,9 @@ import Announcements from "../assets/img/announcements.png";
 import Handout from "../assets/img/handout.png";
 import Question from "../assets/img/question.png";
 import Complains from "../assets/img/complains.png";
+import BnB from '../assets/img/bnb.jpg'
 import PageTitle from "../components/Typography/PageTitle";
-
+import { Avatar } from "@windmill/react-ui";
 import Card from "../components/Card/Card";
 import {baseUrl} from '../api/busa-api.js'
 import axios from "axios";
@@ -211,6 +212,15 @@ function Dashboard() {
               title='Past Questions'
               link='/app/past-questions'
             />
+            <div className="text-center flex justify-around w-48">
+            <p>Created by BNB Technologies.</p>
+            <Avatar
+            className='align-middle mr-3'
+            src={BnB}
+            alt=''
+            aria-hidden='true'
+          />
+          </div>
           </div>
         )
       }

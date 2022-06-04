@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import Confetti from "react-confetti";
 
 import PageTitle from "../components/Typography/PageTitle";
@@ -25,7 +25,7 @@ function Registration() {
   const [userName, setUserName] = useState("");
   const [error, setError] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     axios
       .get(`${baseUrl.baseUrl}/isRegistered/` + UserDetails.studentId)
       .then((res) => {
@@ -90,115 +90,115 @@ function Registration() {
   return (
     <>
     {loading && <Loader />}
-      {!loading && resgisterd ? (
-        <div style={{ marginTop: "60px" }}>
-          <h1
-            className='dark:text-gray-200'
-            style={{
-              fontSize: 30,
-              textAlign: "center",
-              fontFamily: '"Pacifico", cursive',
-            }}>
-            Congratulations, you are now a member
-          </h1>
-          <Checkmark size='xxLarge' />
-          <h1
-            className='dark:text-gray-200'
-            style={{
-              fontFamily: '"Pacifico", cursive',
-              fontSize: 30,
-              textAlign: "center",
-              marginTop: "15px",
-            }}>
-            {`Hello, ${userName} Welcome to Busa`}
-          </h1>
-          <TextAnimation />
-          <Confetti />
-        </div>
-      ) : (
-        <div>
-          <PageTitle>Register Membership</PageTitle>
-
-          <SectionTitle>Enter Details</SectionTitle>
-
-          <div className='px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800'>
-            <Label>
-              <span>First Name</span>
-              <Input
-                className='mt-1'
-                placeholder='Jane'
-                onChange={(e) => setFName(e.target.value)}
-              />
-            </Label>
-            <Label>
-              <span>Middle Name (Optional)</span>
-              <Input
-                className='mt-1'
-                placeholder=''
-                onChange={(e) => setMName(e.target.value)}
-              />
-            </Label>
-            <Label>
-              <span>Last Name</span>
-              <Input
-                className='mt-1'
-                placeholder='Doe'
-                onChange={(e) => setLName(e.target.value)}
-              />
-            </Label>
-            <Label>
-              <span>Student ID</span>
-              <Input
-                className='mt-1'
-                placeholder='UGxxxxxx'
-                onChange={(e) => setStudId(e.target.value.toUpperCase())}
-              />
-            </Label>
-            <HelperText valid={false}>
-              {wrongId && "Student id do not match"}
-            </HelperText>
-
-            <Label className='mt-4'>
-              <span>Select Gender</span>
-              <Select
-                className='mt-1'
-                onChange={(e) => setGender(e.target.value)}>
-                <option>Male</option>
-                <option>Female</option>
-              </Select>
-            </Label>
-            {UserDetails.level === 100 && <Label className='mt-4'>
-              <span>Select T-Shirt size</span>
-              <Select
-                className='mt-1'
-                onChange={(e) => setSize(e.target.value)}>
-                <option>Small</option>
-                <option>Medium</option>
-                <option>Large</option>
-                <option>X-Large</option>
-                <option>XX-Large</option>
-              </Select>
-              <HelperText valid={false}>
-                PLease choose your tshirt size wisely as it cannot be edited
-                later
-              </HelperText>
-            </Label>}
-            <Label>
-              <Modal
-                ModalTitle={"Register"}
-                ModalHead={"Details Confirmation"}
-                ModalContent={
-                  "Please confirm all details are correct before submission."
-                }
-                handleClick={handleSubmit}
-              />
-            </Label>
-            <HelperText valid={false}>
-              {error && "Please dont leave any field empty"}
-            </HelperText>
-          </div>
-        </div>
-      )}
+      {!loading && (resgisterd ? (
+              <div style={{ marginTop: "60px" }}>
+                <h1
+                  className='dark:text-gray-200'
+                  style={{
+                    fontSize: 30,
+                    textAlign: "center",
+                    fontFamily: '"Pacifico", cursive',
+                  }}>
+                  Congratulations, you are now a member
+                </h1>
+                <Checkmark size='xxLarge' />
+                <h1
+                  className='dark:text-gray-200'
+                  style={{
+                    fontFamily: '"Pacifico", cursive',
+                    fontSize: 30,
+                    textAlign: "center",
+                    marginTop: "15px",
+                  }}>
+                  {`Hello, ${userName} Welcome to Busa`}
+                </h1>
+                <TextAnimation />
+                <Confetti />
+              </div>
+            ) : (
+              <div>
+                <PageTitle>Register Membership</PageTitle>
+      
+                <SectionTitle>Enter Details</SectionTitle>
+      
+                <div className='px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800'>
+                  <Label>
+                    <span>First Name</span>
+                    <Input
+                      className='mt-1'
+                      placeholder='Jane'
+                      onChange={(e) => setFName(e.target.value)}
+                    />
+                  </Label>
+                  <Label>
+                    <span>Middle Name (Optional)</span>
+                    <Input
+                      className='mt-1'
+                      placeholder=''
+                      onChange={(e) => setMName(e.target.value)}
+                    />
+                  </Label>
+                  <Label>
+                    <span>Last Name</span>
+                    <Input
+                      className='mt-1'
+                      placeholder='Doe'
+                      onChange={(e) => setLName(e.target.value)}
+                    />
+                  </Label>
+                  <Label>
+                    <span>Student ID</span>
+                    <Input
+                      className='mt-1'
+                      placeholder='UGxxxxxx'
+                      onChange={(e) => setStudId(e.target.value.toUpperCase())}
+                    />
+                  </Label>
+                  <HelperText valid={false}>
+                    {wrongId && "Student id do not match"}
+                  </HelperText>
+      
+                  <Label className='mt-4'>
+                    <span>Select Gender</span>
+                    <Select
+                      className='mt-1'
+                      onChange={(e) => setGender(e.target.value)}>
+                      <option>Male</option>
+                      <option>Female</option>
+                    </Select>
+                  </Label>
+                  {UserDetails.level === 100 && <Label className='mt-4'>
+                    <span>Select T-Shirt size</span>
+                    <Select
+                      className='mt-1'
+                      onChange={(e) => setSize(e.target.value)}>
+                      <option>Small</option>
+                      <option>Medium</option>
+                      <option>Large</option>
+                      <option>X-Large</option>
+                      <option>XX-Large</option>
+                    </Select>
+                    <HelperText valid={false}>
+                      PLease choose your tshirt size wisely as it cannot be edited
+                      later
+                    </HelperText>
+                  </Label>}
+                  <Label>
+                    <Modal
+                      ModalTitle={"Register"}
+                      ModalHead={"Details Confirmation"}
+                      ModalContent={
+                        "Please confirm all details are correct before submission."
+                      }
+                      handleClick={handleSubmit}
+                    />
+                  </Label>
+                  <HelperText valid={false}>
+                    {error && "Please dont leave any field empty"}
+                  </HelperText>
+                </div>
+              </div>
+            ))}
     </>
   );
 }

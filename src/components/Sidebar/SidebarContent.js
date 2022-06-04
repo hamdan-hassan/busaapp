@@ -5,7 +5,6 @@ import routes3 from '../../hodroutes/sidebar'
 
 import { Link, NavLink, Route } from "react-router-dom";
 import * as Icons from "../../icons";
-import BnB from '../../assets/img/bnb.jpg'
 import SidebarSubmenu from "./SidebarSubmenu";
 import { Button, Avatar } from "@windmill/react-ui";
 import Logo from "../../assets/img/logo.png";
@@ -75,16 +74,6 @@ function SidebarContent() {
             Logout
           </Button>
         </Link>
-        <div style={{width:"9em",display: "flex",justifyContent: "space-between",marginTop: "15px"}}>
-          <p style={{fontSize: "1em"}}>Created by</p>
-         <Avatar
-            className='align-middle mr-3'
-            src={BnB}
-            alt=''
-            aria-hidden='true'
-          />
-        </div>
-        
       </div>
       
     </div>
