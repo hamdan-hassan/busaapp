@@ -17,6 +17,7 @@ import {
 function Sourverniers() {
   const [books, setBooks] = useState("");
   const [shirt, setShirt] = useState("");
+  const [loading,setLoading] = useState(true)
 
   const [booksBadge, setBooksBadge] = useState("danger");
   const [shirtBadge, setShirtBadge] = useState("danger");
@@ -36,6 +37,7 @@ function Sourverniers() {
         if (res.data[0].t_shirt !== 0) {
           setShirtBadge("success");
         }
+        setLoading(false)
       });
   }, []);
 
@@ -57,7 +59,7 @@ function Sourverniers() {
                   <Badge type={shirtBadge}>{shirt === 0 ? "Pending" : "Collected"}</Badge>
                 </TableCell>}
                 <TableCell>
-                  <Badge type={booksBadge}>{books === 0 ? "Pending" : "Collected"}</Badge>
+                 {loading ? <p>Loading...</p> : <Badge type={booksBadge}>{books === 0 ? "Pending" : "Collected"}</Badge>}
                 </TableCell>
               </TableRow>
             </TableBody>

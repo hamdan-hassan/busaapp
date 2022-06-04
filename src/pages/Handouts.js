@@ -13,6 +13,7 @@ import {
   TableCell,
 } from "@windmill/react-ui";
 import {baseUrl} from '../api/busa-api.js'
+import Loader from "../loader/loader";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -24,6 +25,7 @@ const Handouts = () => {
   const [trimester, setTrimester] = useState("First");
   const [getTrim, setTrim] = useState("");
   const [data, setData] = useState([]);
+  const [loading,setLoading] = useState(true)
   const [noData, setNoData] = useState(false);
   const [registered, setRegistered] = useState(false);
 
@@ -34,6 +36,7 @@ const Handouts = () => {
         if (res.data[0].registered === "true") {
           setRegistered(true);
         }
+        setLoading(false)
       })
       .catch((err) => console.log(err));
   }, []);
@@ -70,6 +73,7 @@ const Handouts = () => {
   };
   return (
     <>
+    {loading && <Loader />}
       {registered ? (
         <div style={{ overflow: "hidden" }}>
           <PageTitle>Handouts</PageTitle>

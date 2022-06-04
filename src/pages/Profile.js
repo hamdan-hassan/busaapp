@@ -18,6 +18,7 @@ import { MailIcon } from "../icons";
 import { UserDetails } from "../userDetails";
 import {baseUrl} from '../api/busa-api.js'
 import Modal from "./Modal";
+import Loader from "../loader/loader";
 import axios from "axios";
 
 function Profile() {
@@ -52,6 +53,7 @@ function Profile() {
   const [wrongPass, setWrongPass] = useState(false);
   const [passMatch, setPassMatch] = useState(false);
   const [updated3, setUpdated3] = useState(false);
+  const [loading,setLoading] = useState(true)
 
   const [editable, setEditable] = useState(false);
   const [updated, setUpdated] = useState(false);
@@ -103,6 +105,7 @@ function Profile() {
       .then((res) => {
         if (res.data.length > 0) {
           setimg(res.data[0].img_data);
+          setLoading(false)
         }
       })
       .catch((err) => {
@@ -167,7 +170,7 @@ function Profile() {
   const handlePasswordUpdate = () => {
     axios
       .put(
-        `${baseUrl}/updatePassword`,
+        `${baseUrl.baseUrl}/updatePassword`,
         {
           id: UserDetails.studentId,
           password: oldPass,
@@ -333,10 +336,10 @@ function Profile() {
             marginTop: "30px",
           }}
         >
-          <img
+          {loading ? <Loader /> : <img
             src={img || (gender === "Male" ? Male : Female)}
             style={{ borderRadius: "50%", height: "200px", width: "200px" }}
-          />
+          />}
           <div className="text-center">
             <PageTitle>{fname}</PageTitle>
           </div>
@@ -516,6 +519,7 @@ function Profile() {
             justifyContent: "start",
           }}
         >
+        <span>Image size cannot be more then 1 MB</span>
           <Label className="mt-3">
             <Modal
               handleClick={handleSubmitFile}

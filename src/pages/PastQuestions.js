@@ -14,6 +14,7 @@ import {
 import axios from "axios";
 import { UserDetails } from "../userDetails";
 import {baseUrl} from '../api/busa-api.js'
+import Loader from "../loader/loader";
 import { Link } from "react-router-dom";
 
 const PastQuestions = () => {
@@ -24,16 +25,19 @@ const PastQuestions = () => {
   const [disableLevel, setDisableLevel] = useState(true);
   const [removeLevel, setRemoveLevel] = useState(false);
   const [data, setData] = useState([]);
+  const [loading,setLoading] = useState(true)
   const [noData, setNoData] = useState(false);
   const [registered, setRegistered] = useState(false);
 
   useEffect(() => {
     axios
-      .get(`${baseUrl}/isRegistered/` + UserDetails.studentId)
+      .get(`${baseUrl.baseUrl}/isRegistered/` + UserDetails.studentId)
       .then((res) => {
         if (res.data[0].registered === "true") {
           setRegistered(true);
+          
         }
+        setLoading(false)
       })
       .catch((err) => console.log(err));
   }, []);
@@ -70,6 +74,7 @@ const PastQuestions = () => {
   };
   return (
     <>
+    {loading && <Loader />}
       {registered ? (
         <div>
           <PageTitle>Past Questions</PageTitle>
