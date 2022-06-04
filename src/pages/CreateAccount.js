@@ -161,6 +161,7 @@ function CreateAccount() {
               setLoading(false);
               window.localStorage.setItem("level", level);
               window.localStorage.setItem("gender", gender);
+              window.localStorage.setItem("id", studId);
               history.push("/login");
               setError(false);
               axios

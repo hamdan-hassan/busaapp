@@ -70,38 +70,7 @@ const Handouts = () => {
   };
   return (
     <>
-      {!registered ? (
-        <div
-          className='dark:text-gray-200'
-          style={{
-            marginTop: "50px",
-            fontSize: "2rem",
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-          }}>
-          <h1>
-            Please register as a member in order to get access to this page
-          </h1>
-          <div
-            style={{
-
-              display: "flex",
-              justifyContent: "center",
-              marginTop: 50,
-            }}>
-            <Button
-              tag={Link}
-              to='/app/registration'
-              style={{
-                width: 200,
-                background: "#21c42a"
-              }}>
-              Go to Registration
-            </Button>
-          </div>
-        </div>
-      ) : (
+      {registered ? (
         <div style={{ overflow: "hidden" }}>
           <PageTitle>Handouts</PageTitle>
 
@@ -238,7 +207,43 @@ const Handouts = () => {
             </Table>
           </TableContainer>
         </div>
-      )}
+      )
+
+                :
+
+(
+        <div
+          className='dark:text-gray-200'
+          style={{
+            marginTop: "50px",
+            fontSize: "2rem",
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+          }}>
+          <h1>
+            Please register as a member in order to get access to this page
+          </h1>
+          <div
+            style={{
+
+              display: "flex",
+              justifyContent: "center",
+              marginTop: 50,
+            }}>
+            <Button
+              tag={Link}
+              to='/app/registration'
+              style={{
+                width: 200,
+                background: "#21c42a"
+              }}>
+              Go to Registration
+            </Button>
+          </div>
+        </div>
+      )
+              }
     </>
   );
 };

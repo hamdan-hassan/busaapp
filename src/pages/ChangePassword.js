@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import PageTitle from "../components/Typography/PageTitle";
 
 import { Card, CardBody } from "@windmill/react-ui";
+import Loader from "../loader/loader";
 import Icon from "../assets/img/male.png";
 import {baseUrl} from '../api/busa-api.js'
 
@@ -10,13 +11,15 @@ import axios from "axios";
 
 const ChangePassword = () => {
   const [data, setData] = useState([]);
+  const [loading,setLoading] = useState(true)
 
   useEffect(() => {
     axios
       .get(`${baseUrl.baseUrl}/uploaded-key-people`)
       .then((res) => {
-        console.log(res.data);
+       
         setData(res.data);
+        setLoading(false)
       })
       .catch((err) => {
         console.log(err);
@@ -27,6 +30,7 @@ const ChangePassword = () => {
       <div className='text-center'>
         <PageTitle>Management</PageTitle>
       </div>
+      {loading && <Loader />}
       <div className='grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4'>
         {data.map((item, i) => {
           if (
@@ -73,6 +77,7 @@ const ChangePassword = () => {
       <div className='text-center'>
         <PageTitle>Meet your Executives</PageTitle>
       </div>
+      {loading && <Loader />}
       <div className='grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4'>
         {data.map((item, i) => {
           if (

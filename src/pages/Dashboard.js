@@ -193,7 +193,7 @@ function Dashboard() {
             <Card
               image={Souvenirs}
               title='Sourvernirs'
-              link='/app/souverniers'
+              link='/app/souvernirs'
             />
             <Card
               image={Announcements}

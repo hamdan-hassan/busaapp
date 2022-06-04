@@ -3,22 +3,32 @@ import React, { useState, useEffect } from "react";
 import { Card, CardBody } from "@windmill/react-ui";
 import Image from "../assets/img/announcement.jpg";
 import axios from "axios";
+import Loader from "../loader/loader";
 import {baseUrl} from '../api/busa-api.js'
 import "./Announcements.css";
 
 function Announcements() {
   const [data, setData] = useState("");
+  const [loading,setLoading] = useState(true)
 
   // Fetch Published Announcement
   useEffect(() => {
     axios
       .get(`${baseUrl.baseUrl}/getArticle`)
-      .then((res) => setData(res.data.rows[0]))
+      .then((res) =>
+      {
+        setData(res.data.rows[0])
+        setLoading(false)
+      }
+       
+
+       )
       .catch((err) => console.log(err));
   }, []);
 
   return (
     <>
+    {loading && <Loader />}
       <div className='announcement-container' style={{}}>
         <div
           className='grid gap-6 mb-8 md:grid-cols-1 xl:grid-cols-1'

@@ -5,7 +5,7 @@ const Dashboard = lazy(() => import("../pages/Dashboard"));
 const Registration = lazy(() => import("../pages/Registration"));
 const Profile = lazy(() => import("../pages/Profile"));
 const Dues = lazy(() => import("../pages/Dues"));
-const Souverniers = lazy(() => import("../pages/Souverniers"));
+const Souverniers = lazy(() => import("../pages/Souvernirs"));
 const Page404 = lazy(() => import("../pages/404"));
 const Announcements = lazy(() => import("../pages/Announcements.js"));
 const ChangePassword = lazy(() => import("../pages/ChangePassword.js"));

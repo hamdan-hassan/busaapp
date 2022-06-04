@@ -59,11 +59,10 @@ function Login() {
         } else {
           auth.login(() => {
 
-            console.log(response.data)
-            // window.localStorage.setItem("id", response.data[0].std_id);
-            // window.localStorage.setItem("level", response.data[0].level);
-            // UserDetails.studentId = response.data[0].std_id;
-            // UserDetails.level = response.data[0].level;
+            window.localStorage.setItem("id", response.data[0].std_id);
+            window.localStorage.setItem("level", response.data[0].level);
+            UserDetails.studentId = response.data[0].std_id;
+            UserDetails.level = response.data[0].level;
 
             history.push("/app");
           });
