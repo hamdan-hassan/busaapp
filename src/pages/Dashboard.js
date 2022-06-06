@@ -218,7 +218,7 @@ function Dashboard() {
             />
             <Card
               image={Developers}
-              title='Management'
+              title='Developers'
               link='/app/developers'
             />
            
