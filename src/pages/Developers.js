@@ -26,8 +26,8 @@ const Developers = () => {
       alt='card'
        />
        <CardBody className='dark:text-gray-200'>
-       <h1>Osman Abdul Kareem</h1>
-          <HelperText>Web Designer</HelperText>
+       <h1>Mr. Osman Abdul Kareem</h1>
+          <HelperText><strong>Web Designer</strong></HelperText>
           <div
            style={{
             display: "flex",
@@ -54,8 +54,8 @@ const Developers = () => {
       alt='card'
        />
        <CardBody className='dark:text-gray-200'>
-       <h1>Hamdan Hassan</h1>
-          <HelperText>Software Engineer</HelperText>
+       <h1>Mr. Hamdan M Hassan</h1>
+          <HelperText><strong>Software Engineer</strong></HelperText>
           <div
            style={{
             display: "flex",
