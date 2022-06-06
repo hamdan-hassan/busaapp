@@ -18,7 +18,7 @@ const Developers = () => {
    >
     <img
       style={{
-        height: "65%",
+        height: "60%",
         width: "100%",
       }}
       className='object-cover'
@@ -26,6 +26,7 @@ const Developers = () => {
       alt='card'
        />
        <CardBody className='dark:text-gray-200'>
+       <h1>Osman Abdul Kareem</h1>
           <HelperText>Web Designer</HelperText>
           <div
            style={{
@@ -45,7 +46,7 @@ const Developers = () => {
     >
     <img
       style={{
-        height: "65%",
+        height: "60%",
         width: "100%",
       }}
       className='object-cover'
@@ -53,6 +54,7 @@ const Developers = () => {
       alt='card'
        />
        <CardBody className='dark:text-gray-200'>
+       <h1>Hamdan Hassan</h1>
           <HelperText>Software Engineer</HelperText>
           <div
            style={{
