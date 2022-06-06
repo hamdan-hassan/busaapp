@@ -8,6 +8,7 @@ import Members from "../assets/img/members.svg";
 import Article from "../assets/img/article.png";
 import Executives from "../assets/img/executives.png";
 import Register from "../assets/img/register1.png";
+import Developers from "../assets/img/developers.png";
 import User from "../assets/img/user2.png";
 import Announcements from "../assets/img/announcements.png";
 import Handout from "../assets/img/handout.png";
@@ -18,11 +19,13 @@ import PageTitle from "../components/Typography/PageTitle";
 import { Avatar } from "@windmill/react-ui";
 import Card from "../components/Card/Card";
 import {baseUrl} from '../api/busa-api.js'
+import Loader from "../loader/loader";
 import axios from "axios";
 
 function Dashboard() {
   const [complains, setComplains] = useState(0);
   const [receiver, setReceiver] = useState("")
+  const [loading,setLoading] = useState(true)
 
   useEffect(() => {
     if (window.localStorage.getItem("role")) {
@@ -61,7 +64,7 @@ function Dashboard() {
         .then((res) => {
           const result = res.data[0].count;
           setComplains(result);
-          console.log(result)
+          setLoading(false)
 
         })
         .catch((err) => {
@@ -179,6 +182,7 @@ function Dashboard() {
 
         ) : (
           // User route
+          <>
           <div className='grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4'>
             <Card
               image={Register}
@@ -201,27 +205,35 @@ function Dashboard() {
               title='Announcements'
               link='/app/announcements'
             />
-            <Card
-              image={Executives}
-              title='Management'
-              link='/app/executivesandpatrons'
-            />
             <Card image={Handout} title='Handouts' link='/app/handouts' />
             <Card
               image={Question}
               title='Past Questions'
               link='/app/past-questions'
             />
-            <div className="text-center flex justify-around w-48">
-            <p>Created by BNB Technologies.</p>
-            <Avatar
-            className='align-middle mr-3'
+            <Card
+              image={Executives}
+              title='Management'
+              link='/app/executivesandpatrons'
+            />
+            <Card
+              image={Developers}
+              title='Management'
+              link='/app/developers'
+            />
+           
+          </div>
+           <div className="text-center flex w-64 mb-3">
+            <p className="mt-3 mr-2 dark:text-gray-200">Developed by BNB</p>
+            <img
             src={BnB}
+            width={40}
+            height={40}
             alt=''
-            aria-hidden='true'
+            
           />
           </div>
-          </div>
+          </>
         )
       }
     </>

@@ -37,11 +37,6 @@ const routes = [
     name: "Announcements",
   },
   {
-    path: "/app/executivesandpatrons",
-    icon: "Executives",
-    name: "Executives and Patrons",
-  },
-  {
     path: "/app/handouts",
     icon: "Handout",
     name: "Handouts",
@@ -50,6 +45,16 @@ const routes = [
     path: "/app/past-questions",
     icon: "Questions",
     name: "Past Questions",
+  },
+  {
+    path: "/app/executivesandpatrons",
+    icon: "Executives",
+    name: "Executives and Patrons",
+  },
+  {
+    path: "/app/developers",
+    icon: "Developers",
+    name: "Developers",
   },
 ];
 

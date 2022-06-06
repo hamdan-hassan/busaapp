@@ -38,6 +38,7 @@ import { ReactComponent as Questions } from "./questions.svg";
 import { ReactComponent as IDs } from "./id.svg";
 import { ReactComponent as Executives } from "./executives.svg";
 import { ReactComponent as Complain } from "./complain.svg";
+import { ReactComponent as Developers } from "./developers.svg";
 export {
   ButtonsIcon,
   CardsIcon,
@@ -72,6 +73,7 @@ export {
   Admin,
   Profile,
   Due,
+  Developers,
   Announcements,
   Gift,
   Password,
