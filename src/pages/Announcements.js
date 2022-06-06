@@ -28,7 +28,7 @@ function Announcements() {
 
   return (
     <>
-    {loading && <Loader />}
+    {loading && <div className="mt-16 md:mt-2"><Loader /></div>}
       <div className='announcement-container mt-12 md:mt-1'>
         <div
           className='grid gap-6 mb-8 md:grid-cols-1 xl:grid-cols-1'

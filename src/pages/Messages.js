@@ -42,7 +42,7 @@ const Messages = () => {
   };
 
   return (
-    <div>
+    <div className="mt-12 md:mt-2">
       {data.length > 0 ? (
         data.map((item, i) => {
           return (

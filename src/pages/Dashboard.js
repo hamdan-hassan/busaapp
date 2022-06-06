@@ -19,13 +19,11 @@ import PageTitle from "../components/Typography/PageTitle";
 import { Avatar } from "@windmill/react-ui";
 import Card from "../components/Card/Card";
 import {baseUrl} from '../api/busa-api.js'
-import Loader from "../loader/loader";
 import axios from "axios";
 
 function Dashboard() {
   const [complains, setComplains] = useState(0);
   const [receiver, setReceiver] = useState("")
-  const [loading,setLoading] = useState(true)
 
   useEffect(() => {
     if (window.localStorage.getItem("role")) {
@@ -64,7 +62,6 @@ function Dashboard() {
         .then((res) => {
           const result = res.data[0].count;
           setComplains(result);
-          setLoading(false)
 
         })
         .catch((err) => {

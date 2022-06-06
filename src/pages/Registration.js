@@ -89,7 +89,7 @@ function Registration() {
   };
   return (
     <>
-    {loading && <Loader />}
+    {loading && <div className="mt-16 md:mt-2"><Loader /></div>}
       {!loading && (resgisterd ? (
               <div className="mt-12 md:mt-2">
                 <h1
