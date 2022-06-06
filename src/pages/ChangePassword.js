@@ -27,7 +27,7 @@ const ChangePassword = () => {
   }, []);
   return (
     <>
-      <div className='text-center'>
+      <div className='text-center mt-12 md:mt-2'>
         <PageTitle>Management</PageTitle>
       </div>
       {loading && <Loader />}

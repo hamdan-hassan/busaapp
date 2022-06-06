@@ -89,6 +89,7 @@ function Dashboard() {
 
   return (
     <>
+    <div className="mt-12 md:mt-2">
       <PageTitle>Dashboard</PageTitle>
 
       {/* <!-- Cards --> */}
@@ -236,6 +237,7 @@ function Dashboard() {
           </>
         )
       }
+      </div>
     </>
   );
 }

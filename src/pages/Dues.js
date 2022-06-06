@@ -59,6 +59,7 @@ function Dues() {
 
   return (
     <>
+    <div className="mt-12 md:mt-2">
       <PageTitle>Dues</PageTitle>
 
       <div className='grid gap-6 mb-8 md:grid-cols-2'>
@@ -127,6 +128,7 @@ function Dues() {
                          </TableBody>
           </Table>
         </TableContainer>
+      </div>
       </div>
     </>
   );

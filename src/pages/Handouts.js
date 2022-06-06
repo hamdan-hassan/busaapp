@@ -73,9 +73,9 @@ const Handouts = () => {
   };
   return (
     <>
-    {loading && <Loader />}
+    {loading && <div className="mt-16 md:mt-2"><Loader /></div>}
       {!loading && (registered ? (
-              <div style={{ overflow: "hidden" }}>
+              <div className="mt-12 md:mt-2 overflow-hidden">
                 <PageTitle>Handouts</PageTitle>
       
                 <div className='px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800'>
@@ -217,9 +217,8 @@ const Handouts = () => {
       
       (
               <div
-                className='dark:text-gray-200'
+                className='dark:text-gray-200 pt-16 md:pt-1'
                 style={{
-                  marginTop: "50px",
                   fontSize: "2rem",
                   display: "flex",
                   justifyContent: "center",

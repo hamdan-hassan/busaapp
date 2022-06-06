@@ -332,11 +332,11 @@ function Profile() {
   return (
     <>
       <div
+        className="mt-12 md:mt-2"
         style={{
           display: "flex",
           justifyContent: "center",
           marginBottom: "1s0px",
-          marginTop: "10px",
         }}
       >
         <div

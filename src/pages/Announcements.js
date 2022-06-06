@@ -29,7 +29,7 @@ function Announcements() {
   return (
     <>
     {loading && <Loader />}
-      <div className='announcement-container'>
+      <div className='announcement-container mt-12 md:mt-1'>
         <div
           className='grid gap-6 mb-8 md:grid-cols-1 xl:grid-cols-1'
           style={{ marginTop: "50px" }}>

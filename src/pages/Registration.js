@@ -91,9 +91,9 @@ function Registration() {
     <>
     {loading && <Loader />}
       {!loading && (resgisterd ? (
-              <div style={{ marginTop: "60px" }}>
+              <div className="mt-12 md:mt-2">
                 <h1
-                  className='dark:text-gray-200'
+                  className='dark:text-gray-200 mt-12 md:mt-2'
                   style={{
                     fontSize: 30,
                     textAlign: "center",
@@ -116,7 +116,7 @@ function Registration() {
                 <Confetti />
               </div>
             ) : (
-              <div>
+              <div className="mt-12 md:mt-2">
                 <PageTitle>Register Membership</PageTitle>
       
                 <SectionTitle>Enter Details</SectionTitle>

@@ -11,6 +11,7 @@ const Developers = () => {
 
 	return (
  <>
+ <div className="mt-12 md:mt-2">
   <PageTitle>Developers</PageTitle>
    <div className='grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4 text-center'>
   <Card
@@ -68,6 +69,7 @@ const Developers = () => {
 	    </CardBody>
 	  </Card>
 	  </div>
+    </div>
   </>
 
 
