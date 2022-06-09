@@ -153,6 +153,7 @@ const UploadPastQuestions = () => {
                 e.target.value === "BCom(Marketing)" ||
                 e.target.value === "BCom(Procurement and Supply Chain Management)"
               ) {
+                setLevel(300)
                 setRemoveLevel(true);
               }
 
@@ -176,6 +177,7 @@ const UploadPastQuestions = () => {
           className='mt-4'>
           <span>Select Level</span>
           <Select
+            value={level}
             className='mt-1'
             onChange={(e) => {
               setLevel(e.target.value);

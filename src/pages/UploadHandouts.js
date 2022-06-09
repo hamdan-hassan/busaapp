@@ -160,6 +160,7 @@ const UploadHandouts = () => {
                 e.target.value === "BCom(Marketing)" ||
                 e.target.value === "BCom(Procurement and Supply Chain Management)"
               ) {
+                setLevel(300)
                 setRemoveLevel(true);
               }
 
@@ -184,6 +185,7 @@ const UploadHandouts = () => {
           <span>Select Level</span>
           <Select
             className='mt-1'
+            value={level}
             onChange={(e) => {
               setLevel(e.target.value);
             }}>

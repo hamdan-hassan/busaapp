@@ -49,7 +49,7 @@ const routes = [
   {
     path: "/app/executivesandpatrons",
     icon: "Executives",
-    name: "Executives and Patrons",
+    name: "Management",
   },
   {
     path: "/app/developers",

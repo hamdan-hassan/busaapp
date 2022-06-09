@@ -105,9 +105,9 @@ const Handouts = () => {
                           e.target.value === "BCom(Marketing)" ||
                           e.target.value === "BCom(Procurement and Supply Chain Management)"
                         ) {
+                          setLevel(300)
                           setRemoveLevel(true);
                         }
-      
                         return setDisableLevel(false);
                       }}>
                       <option>BCom(Level 100)</option>
@@ -129,8 +129,10 @@ const Handouts = () => {
                     <span>Select Level</span>
                     <Select
                       className='mt-1'
+                      value={level}
                       onChange={(e) => {
                         setLevel(e.target.value);
+
                       }}>
                       {!removeLevel && <option>100</option>}
                       {!removeLevel && <option>200</option>}
