@@ -9,6 +9,7 @@ const Dues = lazy(() => import("../pages/Dues"));
 const Souverniers = lazy(() => import("../pages/Souvernirs"));
 const Page404 = lazy(() => import("../pages/404"));
 const Announcements = lazy(() => import("../pages/Announcements.js"));
+const Article = lazy(() => import("../pages/Article.js"));
 const ChangePassword = lazy(() => import("../pages/ChangePassword.js"));
 const Handouts = lazy(() => import("../pages/Handouts"));
 const PastQuestions = lazy(() => import("../pages/PastQuestions"));
@@ -32,6 +33,10 @@ const routes = [
   {
     path: "/registration",
     component: Registration,
+  },
+  {
+    path: "/article/:id/:title",
+    component: Article,
   },
   {
     path: "/profile",

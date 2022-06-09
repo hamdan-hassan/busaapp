@@ -17,9 +17,9 @@ const routes = [
     name: "Admin",
   },
   {
-    path: "/app/article",
+    path: "/app/upload-article",
     icon: "FormsIcon",
-    name: "Article",
+    name: "Publish Article",
   },
   {
     path: "/app/stats",

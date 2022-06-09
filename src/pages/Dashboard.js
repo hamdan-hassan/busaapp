@@ -105,7 +105,7 @@ function Dashboard() {
             <Card
               image={Article}
               title='Publish an article'
-              link='/app/article'
+              link='/app/upload-article'
             />
             <Card image={Stats} title='View Students Stats' link='/app/stats' />
             <Card
@@ -152,7 +152,7 @@ function Dashboard() {
             <Card
               image={Article}
               title='Publish an article'
-              link='/app/article'
+              link='/app/upload-article'
             />
             <Card image={Stats} title='View Students Stats' link='/app/stats' />
 

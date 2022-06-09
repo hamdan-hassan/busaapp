@@ -1,23 +1,41 @@
 import React, { useState, useEffect } from "react";
 
-import { Card, CardBody } from "@windmill/react-ui";
+import { Card, CardBody,Button } from "@windmill/react-ui";
 import Image from "../assets/img/announcement.jpg";
 import axios from "axios";
 import Loader from "../loader/loader";
+import { useHistory } from "react-router-dom";
 import {baseUrl} from '../api/busa-api.js'
 import "./Announcements.css";
 
 function Announcements() {
-  const [data, setData] = useState("");
+  const [data, setData] = useState([]);
   const [loading,setLoading] = useState(true)
+  const [offset,setOffset] = useState(0)
+  const [limit,setLimit] = useState(10)
+  // const [totalArticles,setTotalArtticles]
+
+  let history = useHistory();
 
   // Fetch Published Announcement
   useEffect(() => {
+
+ // axios
+ //    .get(`${baseUrl.baseUrl}/count-articles`)
+ //      .then((res) =>
+ //      {
+ //        console.log(res)
+ //      }
+       
+
+ //       )
+ //      .catch((err) => console.log(err));
+
     axios
-      .get(`${baseUrl.baseUrl}/getArticle`)
+      .get(`${baseUrl.baseUrl}/getArticles`)
       .then((res) =>
       {
-        setData(res.data.rows[0])
+        setData(res.data.rows)
         setLoading(false)
       }
        
@@ -26,44 +44,49 @@ function Announcements() {
       .catch((err) => console.log(err));
   }, []);
 
+  const handleClick = (id,title) => {
+
+    history.push(`article/${id}/${title}`)
+
+  }
+
   return (
     <>
     {loading && <div className="mt-16 md:mt-2"><Loader /></div>}
-      <div className='announcement-container mt-12 md:mt-1'>
-        <div
-          className='grid gap-6 mb-8 md:grid-cols-1 xl:grid-cols-1'
-          style={{ marginTop: "50px" }}>
-          <Card className='flex-col h-70'>
-            <img className='object-cover w-1/1' src={Image} alt='' />
-            <p
-              className='dark:text-gray-200'
-              style={{
-                fontSize: "11px",
-                fontWeight: 600,
-
-                margin: "20px",
-              }}>
-              {data.date}
-            </p>
-            <h1
-              className='dark:text-gray-200'
-              style={{ margin: "20px", fontSize: 25 }}>
-              {data.title}
-            </h1>
-            <CardBody>
-              <p
-                className='dark:text-gray-200'
-                style={{
-                  paddingBottom: "40px",
-                  fontSize: 20,
-                  lineHeight: 1.8,
-                }}>
-                {data.content}
-              </p>
-            </CardBody>
-          </Card>
-        </div>
-      </div>
+      {!loading && (<div className='announcement-container mt-12 md:mt-1'>
+                    <div
+                      className='grid gap-6 mb-8 md:grid-cols-1 xl:grid-cols-1'
+                      style={{ marginTop: "50px" }}>
+            
+                      {data.map(article => {
+                        return(
+                        <Card className='flex-col h-70' key={article.article_id}>
+                      
+                        <p
+                          className='dark:text-gray-200'
+                          style={{
+                            fontSize: "11px",
+                            fontWeight: 600,
+            
+                            margin: "20px",
+                          }}>
+                          {article.date}
+                        </p>
+                        <h1
+                          onClick={() => handleClick(article.article_id,article.title)}
+                          className='dark:text-gray-200'
+                          style={{ margin: "20px", fontSize: 20, fontWeight: 800,cursor: "pointer"}}>
+                          {article.title}
+                        </h1>
+                      </Card>)
+                      })}
+            
+                      <div className="flex justify-center">
+                      {data.length > 10 && <Button className="w-1/2" style={{background: "green"}}>Load More</Button>}
+                      </div>
+                    </div>
+                  </div>)
+      }
     </>
   );
 }
