@@ -66,7 +66,7 @@ const loaded = () => {
        />
        <CardBody className='dark:text-gray-200'>
        <h1>Mr. Hamdan M Hassan</h1>
-          <HelperText><strong>Software Engineer/ Full-Stack Developer</strong></HelperText>
+          <HelperText><strong>Software Engineer/Full-Stack Engineer</strong></HelperText>
           <div
            style={{
             display: "flex",
