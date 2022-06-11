@@ -406,7 +406,6 @@ function CreateAccount() {
                     <option>Bsc Accounting and Finance</option>
                     <option>BA Management</option>
                     <option>BA Integrated Business Studies (Accounting)</option>
-                    <option>BA Integrated Business Studies (Management)</option>
                     <option>Diploma in Business Studies</option>
                   </Select>
                 </Label>

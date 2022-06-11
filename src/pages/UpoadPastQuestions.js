@@ -169,7 +169,6 @@ const UploadPastQuestions = () => {
             <option>Bsc Accounting</option>
             <option>Bsc Accounting and Finance</option>
             <option>BA Integrated Business Studies (Accounting)</option>
-            <option>BA Integrated Business Studies (Management)</option>
             <option>BA Management</option>
             <option>Diploma in Business Studies</option>
           </Select>
