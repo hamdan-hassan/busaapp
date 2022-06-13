@@ -61,7 +61,7 @@ const Admin = () => {
 
   const [columns, setColumns] = useState([
     { title: "Student ID", field: "std_id", editable: "never" },
-    { title: "Registered", field: "registered", editable: "never" },
+    { title: "Registration Status", field: "status", editable: "never" },
     {
       title: "Level",
       field: "level",

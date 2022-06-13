@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Logo from "../assets/img/logo.png";
 import auth from "../auth";
+import CreateAccount from "./CreateAccount.js"
 import { UserDetails } from "../userDetails";
+import { Checkmark } from "react-checkmark";
 import Loader from "../loader/loader";
 import axios from "axios";
 import {baseUrl} from '../api/busa-api.js'
@@ -12,6 +14,7 @@ import Particles from "react-tsparticles";
 
 function Login() {
   let history = useHistory();
+
 
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
@@ -30,6 +33,25 @@ function Login() {
       document.body.style.overflow = "auto";
     };
   });
+
+
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let ca = document.cookie.split(';');
+  for(let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+const cookie = getCookie("isCreated")
 
   const handleSubmit = () => {
     setLoading(true);
@@ -161,9 +183,12 @@ function Login() {
               alt='Office'
             />
           </div>
+
           <main className='flex items-center justify-center p-6 sm:p-12 md:w-1/2'>
+
             {!loading && (
               <div className='w-full'>
+              {cookie && (<><h1 className="text-center" style={{color: "#11a729"}}>Account Created Sucessfully</h1><Checkmark /></>)}
                 <h1 className='mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200'>
                   Login
                 </h1>

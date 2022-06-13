@@ -36,8 +36,15 @@ function CreateAccount() {
     /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   // const idValidation = /^(UG0|UD0)[0-9]{4}(19|20|21|22)$/i;
   const phoneValidation = /^[0-9]{10}$/;
-
+  
   let history = useHistory();
+
+  function setCookie(cname, cvalue, exseconds) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exseconds));
+  let expires = "expires="+d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
 
   const handleSubmit = () => {
     setError(false);
@@ -159,6 +166,7 @@ function CreateAccount() {
                 return setExist(true);
               }
               setLoading(false);
+              setCookie("isCreated","true",10000)
               window.localStorage.setItem("level", level);
               window.localStorage.setItem("gender", gender);
               window.localStorage.setItem("id", studId);
