@@ -6,9 +6,9 @@ import axios from "axios";
 import Loader from "../loader/loader";
 import { useHistory } from "react-router-dom";
 import {baseUrl} from '../api/busa-api.js'
-import "./Announcements.css";
+import "./Articles.css";
 
-function Announcements() {
+function Articles() {
   const [data, setData] = useState([]);
   const [loading,setLoading] = useState(true)
   const [offset,setOffset] = useState(0)
@@ -91,4 +91,4 @@ function Announcements() {
   );
 }
 
-export default Announcements;
+export default Articles;

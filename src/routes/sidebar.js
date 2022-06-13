@@ -29,12 +29,12 @@ const routes = [
   {
     path: "/app/souvernirs",
     icon: "Gift",
-    name: "Sourvernirs",
+    name: "Souvenirs",
   },
   {
-    path: "/app/announcements",
-    icon: "Announcements",
-    name: "Announcements",
+    path: "/app/articles",
+    icon: "Articles",
+    name: "Articles",
   },
   {
     path: "/app/handouts",

@@ -10,7 +10,7 @@ import Executives from "../assets/img/executives.png";
 import Register from "../assets/img/register1.png";
 import Developers from "../assets/img/developers.png";
 import User from "../assets/img/user2.png";
-import Announcements from "../assets/img/announcements.png";
+import Articles from "../assets/img/articles.webp";
 import Handout from "../assets/img/handout.png";
 import Question from "../assets/img/question.png";
 import Complains from "../assets/img/complains.png";
@@ -195,13 +195,13 @@ function Dashboard() {
             <Card image={Cedis} title='Dues' link='/app/dues' />
             <Card
               image={Souvenirs}
-              title='Sourvernirs'
+              title='Souvenirs'
               link='/app/souvernirs'
             />
             <Card
-              image={Announcements}
-              title='Announcements'
-              link='/app/announcements'
+              image={Articles}
+              title='Articles'
+              link='/app/articles'
             />
             <Card image={Handout} title='Handouts' link='/app/handouts' />
             <Card

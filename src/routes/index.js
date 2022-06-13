@@ -8,7 +8,7 @@ const Profile = lazy(() => import("../pages/Profile"));
 const Dues = lazy(() => import("../pages/Dues"));
 const Souverniers = lazy(() => import("../pages/Souvernirs"));
 const Page404 = lazy(() => import("../pages/404"));
-const Announcements = lazy(() => import("../pages/Announcements.js"));
+const Articles = lazy(() => import("../pages/Articles.js"));
 const Article = lazy(() => import("../pages/Article.js"));
 const ChangePassword = lazy(() => import("../pages/ChangePassword.js"));
 const Handouts = lazy(() => import("../pages/Handouts"));
@@ -51,8 +51,8 @@ const routes = [
     component: Souverniers,
   },
   {
-    path: "/announcements",
-    component: Announcements,
+    path: "/articles",
+    component: Articles,
   },
   {
     path: "/executivesandpatrons",

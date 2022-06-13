@@ -30,7 +30,7 @@ import { ReactComponent as Stats } from "./stats.svg";
 import { ReactComponent as Admin } from "./admin.svg";
 import { ReactComponent as Profile } from "./profile.svg";
 import { ReactComponent as Due } from "./due.svg";
-import { ReactComponent as Announcements } from "./annoucements.svg";
+import { ReactComponent as Articles } from "./articles.svg";
 import { ReactComponent as Gift } from "./gift.svg";
 import { ReactComponent as Password } from "./password.svg";
 import { ReactComponent as Handout } from "./handout.svg";
@@ -74,7 +74,7 @@ export {
   Profile,
   Due,
   Developers,
-  Announcements,
+  Articles,
   Gift,
   Password,
   Handout,
