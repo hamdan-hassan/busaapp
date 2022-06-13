@@ -1,6 +1,6 @@
 {
   "name": "busa-app",
-  "version": "0.4.0",
+  "version": "0.8.0",
   "description": "A portal for busa association",
   "private": true,
   "scripts": {
