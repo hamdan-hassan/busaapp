@@ -23,7 +23,7 @@ const routes = [
         name: "Statistics",
     },
     {
-        path: "/app/article",
+        path: "/app/upload-article",
         icon: "FormsIcon",
         name: "Article",
     },

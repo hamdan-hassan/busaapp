@@ -32,7 +32,7 @@ const routes = [
         component: Stats, // view rendered
     },
     {
-        path: "/article", // the url
+        path: "/upload-article", // the url
         component: UploadArticle, // view rendered
     },
 
