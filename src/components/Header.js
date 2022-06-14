@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { SidebarContext } from "../context/SidebarContext";
 import Male from "../assets/img/male.png";
 import Female from "../assets/img/female.png";
+import Logo from "../assets/img/logo.png";
 import {
   MoonIcon,
   SunIcon,
@@ -87,6 +88,8 @@ function Header() {
           if (res.data[0].count > 0) {
             setNewMessage(true);
           }
+          setimg(Logo)
+          setLoading(false)
           setComplains(res.data[0].count);
         })
         .catch((err) => {

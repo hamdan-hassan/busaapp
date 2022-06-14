@@ -243,6 +243,27 @@ function Profile() {
           }
         )
         .then((res) => {
+          axios
+      .post(
+        `${baseUrl.baseUrl}/img`,
+        {
+          Id: UserDetails.studentId,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        if (res.data.length > 0) {
+          setimg(res.data[0].img_data);
+          
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
           setUpdated2(true);
           setTimeout(() => {
             setUpdated2(false);
@@ -263,7 +284,7 @@ function Profile() {
         Id: UserDetails.studentId.toUpperCase(),
       })
       .then((res) => {
-        console.log(res);
+        gender === "Male" ? setimg(Male) : setimg(Female)
         setUpdated2(true);
         setTimeout(() => {
           setUpdated2(false);
