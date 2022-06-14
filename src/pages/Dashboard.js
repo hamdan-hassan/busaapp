@@ -221,16 +221,10 @@ function Dashboard() {
             />
            
           </div>
-           <div className="text-center flex w-64 mb-3">
-            <p className="mt-3 mr-2 dark:text-gray-200">Developed by BNB</p>
-            <img
-            src={BnB}
-            width={40}
-            height={40}
-            alt=''
-            
-          />
+           <div className="text-center">
+            <p className="dark:text-gray-200">Developed by BNB</p>
           </div>
+          <p className="text-center dark:text-gray-200">&copy; 2022 Ubids Busa</p>
           </>
         )
       }
