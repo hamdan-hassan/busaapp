@@ -162,7 +162,7 @@ const UploadArticle = () => {
   }
 
   return (
-    <div className='mt-6'>
+    <div className="mt-20 md:mt-2">
       <h1 style={{ color: "green" }}>Write Article</h1>
       <Label>
         <span>Title</span>

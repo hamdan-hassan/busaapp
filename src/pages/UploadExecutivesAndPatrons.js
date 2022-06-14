@@ -121,7 +121,7 @@ const UploadExecutivesAndPatrons = () => {
   };
 
   return (
-    <div>
+    <div className="mt-12 md:mt-2">
       <PageTitle>Upload Executives and Patrons</PageTitle>
 
       <div className='px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800'>

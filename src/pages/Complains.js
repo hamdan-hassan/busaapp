@@ -168,7 +168,7 @@ const Complains = () => {
   };
 
   return (
-    <div className='mt-3'>
+    <div className="mt-20 md:mt-2">
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <ModalHeader>{`Reply: ${subject}`}</ModalHeader>
         <ModalBody>

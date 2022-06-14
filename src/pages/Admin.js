@@ -227,7 +227,7 @@ const Admin = () => {
 
 
   return (
-    <div style={{ overflow: "hidden" }}>
+    <div style={{ overflow: "hidden" }} className="mt-20 md:mt-2">
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <h1>{id}</h1>
         <ModalHeader>Student Contact</ModalHeader>

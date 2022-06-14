@@ -147,7 +147,7 @@ const UploadIDs = () => {
   };
 
   return (
-    <div className='mt-6 dark:text-gray-200'>
+    <div className='dark:text-gray-200 mt-20 md:mt-2'>
       <h1 style={{ fontSize: "20px" }}>Upload Students IDs</h1>
       <Label className='mt-4' onChange={(e) => {
         setProgrammeType(e.target.value)
