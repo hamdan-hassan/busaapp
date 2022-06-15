@@ -68,7 +68,7 @@ function Dues() {
             <TableHeader>
               <TableRow>
                 <TableCell>Dues</TableCell>
-                <TableCell>Amount</TableCell>
+                <TableCell>Amount (₵)</TableCell>
                 <TableCell>Status</TableCell>
               </TableRow>
             </TableHeader>

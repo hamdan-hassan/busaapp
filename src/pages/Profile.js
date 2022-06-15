@@ -375,7 +375,7 @@ function Profile() {
             style={{ borderRadius: "50%", height: "200px", width: "200px" }}
           />}
           <div className="text-center">
-            <PageTitle>{fname}</PageTitle>
+            <PageTitle>{`${fname} ${lname}`}</PageTitle>
           </div>
         </div>
       </div>

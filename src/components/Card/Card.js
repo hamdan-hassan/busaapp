@@ -31,7 +31,7 @@ function InfoCard({ image, title, link, handleClick }) {
       
       <CardBody>
         <Button
-          style={{ background: "green" }}
+          style={{ background: "green",width: 200 }}
           onClick={handleClick}>
           <Link to={link}>{title}</Link>
         </Button>
