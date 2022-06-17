@@ -33,6 +33,7 @@ import {baseUrl} from '../api/busa-api.js'
 import Search from "@material-ui/icons/Search";
 import { Checkmark } from "react-checkmark";
 import React, { forwardRef, useState, useEffect } from "react";
+import { TablePagination, TablePaginationProps } from '@material-ui/core';
 
 const Admin = () => {
   // Table Icons
@@ -56,6 +57,39 @@ const Admin = () => {
       <ArrowDownward {...props} ref={ref} />
     )),
   };
+
+
+
+function PatchedPagination(props: TablePaginationProps) {
+  const {
+    ActionsComponent,
+    onChangePage,
+    onChangeRowsPerPage,
+    ...tablePaginationProps
+  } = props;
+
+  return (
+    <TablePagination
+      {...tablePaginationProps}
+      // @ts-expect-error onChangePage was renamed to onPageChange
+      onPageChange={onChangePage}
+      onRowsPerPageChange={onChangeRowsPerPage}
+      ActionsComponent={(subprops) => {
+        const { onPageChange, ...actionsComponentProps } = subprops;
+        return (
+          // @ts-expect-error ActionsComponent is provided by material-table
+          <ActionsComponent
+            {...actionsComponentProps}
+            onChangePage={onPageChange}
+          />
+        );
+      }}
+    />
+  );
+}
+
+
+
   const [data, setData] = useState([]);
   const [level, setLevel] = useState(100);
 
@@ -268,6 +302,9 @@ const Admin = () => {
         </ModalFooter>
       </Modal>
       <MaterialTable
+         components={{
+    Pagination: PatchedPagination,
+  }}
         icons={tableIcons}
         title="Students information's"
         columns={columns}

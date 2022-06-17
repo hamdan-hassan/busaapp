@@ -26,6 +26,7 @@ import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
+import { TablePagination, TablePaginationProps } from '@material-ui/core';
 
 const Complains = () => {
   const tableIcons = {
@@ -101,6 +102,38 @@ const Complains = () => {
       //   editable: "never",
     },
   ]);
+
+
+
+
+function PatchedPagination(props: TablePaginationProps) {
+  const {
+    ActionsComponent,
+    onChangePage,
+    onChangeRowsPerPage,
+    ...tablePaginationProps
+  } = props;
+
+  return (
+    <TablePagination
+      {...tablePaginationProps}
+      // @ts-expect-error onChangePage was renamed to onPageChange
+      onPageChange={onChangePage}
+      onRowsPerPageChange={onChangeRowsPerPage}
+      ActionsComponent={(subprops) => {
+        const { onPageChange, ...actionsComponentProps } = subprops;
+        return (
+          // @ts-expect-error ActionsComponent is provided by material-table
+          <ActionsComponent
+            {...actionsComponentProps}
+            onChangePage={onPageChange}
+          />
+        );
+      }}
+    />
+  );
+}
+
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   function openModal(row) {
@@ -192,6 +225,9 @@ const Complains = () => {
         </ModalFooter>
       </Modal>
       <MaterialTable
+                components={{
+    Pagination: PatchedPagination,
+  }}
         icons={tableIcons}
         title='Student Complains'
         columns={columns}

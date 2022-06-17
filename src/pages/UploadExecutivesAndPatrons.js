@@ -21,6 +21,7 @@ import ViewColumn from "@material-ui/icons/ViewColumn";
 import axios from "axios";
 import {baseUrl} from '../api/busa-api.js'
 import { Checkmark } from "react-checkmark";
+import { TablePagination, TablePaginationProps } from '@material-ui/core';
 
 const UploadExecutivesAndPatrons = () => {
   const tableIcons = {
@@ -66,6 +67,37 @@ const UploadExecutivesAndPatrons = () => {
     },
     { title: "Position", field: "position" },
   ]);
+
+
+
+function PatchedPagination(props: TablePaginationProps) {
+  const {
+    ActionsComponent,
+    onChangePage,
+    onChangeRowsPerPage,
+    ...tablePaginationProps
+  } = props;
+
+  return (
+    <TablePagination
+      {...tablePaginationProps}
+      // @ts-expect-error onChangePage was renamed to onPageChange
+      onPageChange={onChangePage}
+      onRowsPerPageChange={onChangeRowsPerPage}
+      ActionsComponent={(subprops) => {
+        const { onPageChange, ...actionsComponentProps } = subprops;
+        return (
+          // @ts-expect-error ActionsComponent is provided by material-table
+          <ActionsComponent
+            {...actionsComponentProps}
+            onChangePage={onPageChange}
+          />
+        );
+      }}
+    />
+  );
+}
+
 
   useEffect(() => {
     axios
@@ -203,6 +235,9 @@ const UploadExecutivesAndPatrons = () => {
         </div>
       )}
       <MaterialTable
+              components={{
+    Pagination: PatchedPagination,
+  }}
         icons={tableIcons}
         title='Uploaded'
         columns={columns}
