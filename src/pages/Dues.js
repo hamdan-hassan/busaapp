@@ -33,10 +33,9 @@ function Dues() {
         `${baseUrl.baseUrl}/dues/` + UserDetails.studentId.toUpperCase()
       )
       .then((res) => {
-        console.log(UserDetails.studentId);
-        console.log(UserDetails.level);
+       
         setProgrammeType(res.data[0].programme_type)
-        console.log(res)
+  
         setL100(res.data[0].level_100);
         if (res.data[0].level_100 !== 0) {
           setL100Badge("success");
