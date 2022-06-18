@@ -7,7 +7,6 @@ import {baseUrl} from '../api/busa-api.js'
 import Loader from "../loader/loader";
 import Particles from "react-tsparticles";
 
-// import ImageDark from "../assets/img/create-account-office-dark.jpeg";
 
 import { Input, Label, Button, Select, HelperText } from "@windmill/react-ui";
 
@@ -307,12 +306,12 @@ function CreateAccount() {
       />
       <div className='flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800'>
         <div className='flex flex-col overflow-y-auto md:flex-row '>
-          <div className='h-25 md:h-auto md:w-1/2'>
+          <div className='h-25 w-full md:h-auto md:w-1/2'>
             <img
               aria-hidden='true'
               className='object-cover w-full h-full'
               src={Logo}
-              alt='Office'
+              alt='Ubids'
             />
           </div>
           <main className='flex items-center justify-center p-6 sm:p-12 md:w-1/2'>

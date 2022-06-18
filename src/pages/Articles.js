@@ -6,6 +6,7 @@ import axios from "axios";
 import Loader from "../loader/loader";
 import { useHistory } from "react-router-dom";
 import {baseUrl} from '../api/busa-api.js'
+import PageTitle from "../components/Typography/PageTitle";
 import "./Articles.css";
 
 function Articles() {
@@ -54,9 +55,10 @@ function Articles() {
     <>
     {loading && <div className="mt-16 md:mt-2"><Loader /></div>}
       {!loading && (<div className='announcement-container mt-12 md:mt-1'>
+                    <PageTitle>Articles</PageTitle>
                     <div
                       className='grid gap-6 mb-8 md:grid-cols-1 xl:grid-cols-1'
-                      style={{ marginTop: "50px" }}>
+                      >
             
                       {data.map(article => {
                         return(

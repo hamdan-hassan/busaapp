@@ -18,6 +18,8 @@ function InfoCard({ image, title, link, handleClick }) {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        border: "2px solid #f9f047",
+        boxShadow: "0px 10px 27px -15px rgba(0,0,0,0.75)"
       }}>
       {loading && <Loader />}
       <img
@@ -31,7 +33,7 @@ function InfoCard({ image, title, link, handleClick }) {
       
       <CardBody>
         <Button
-          style={{ background: "green",width: 200 }}
+          style={{ background: "#00B712",width: 200 }}
           onClick={handleClick}>
           <Link to={link}>{title}</Link>
         </Button>

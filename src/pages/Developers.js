@@ -31,7 +31,7 @@ const loaded = () => {
       }}
       className='object-cover'
       src={Osman}
-      alt='card'
+      alt='Osman'
       onLoad={loaded}
        />
        <CardBody className='dark:text-gray-200'>
@@ -61,7 +61,7 @@ const loaded = () => {
       }}
       className='object-cover'
       src={Hamdan}
-      alt='card'
+      alt='Hamdan'
       onLoad={loaded}
        />
        <CardBody className='dark:text-gray-200'>
