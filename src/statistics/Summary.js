@@ -63,6 +63,9 @@ const Summary = () => {
           <h1 style={{ marginBottom: "10px" }}>
             Student T-Shirt size(X-Large): {result[3]}
           </h1>
+          <h1 style={{ marginBottom: "10px" }}>
+            Student T-Shirt size(XX-Large): {result[4]}
+          </h1>
         </div>
       </CardBody>
     </Card>
