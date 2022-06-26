@@ -276,7 +276,8 @@ const UploadIDs = () => {
                 setTimeout(() => {
                   axios
                     .delete(
-                      `${baseUrl.baseUrl}/delete-id/` + oldData.std_id
+                      `${baseUrl.baseUrl}/delete-id/`,
+                      { data: { id:  oldData.std_id} }
                     )
                     .then((res) => console.log(res))
                     .catch((err) => console.log(err));
