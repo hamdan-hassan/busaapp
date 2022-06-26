@@ -26,6 +26,7 @@ const Handouts = () => {
   const [getTrim, setTrim] = useState("");
   const [data, setData] = useState([]);
   const [loading,setLoading] = useState(true)
+  const [loading2,setLoading2] = useState(false)
   const [noData, setNoData] = useState(false);
   const [registered, setRegistered] = useState(false);
 
@@ -42,7 +43,7 @@ const Handouts = () => {
   }, []);
 
   const handleSearch = () => {
-    console.log(level);
+     setLoading2(true)
     axios
       .post(
         `${baseUrl.baseUrl}/get-handouts`,
@@ -60,12 +61,13 @@ const Handouts = () => {
       .then((res) => {
         if (res.data.rows.length === 0) {
           setNoData(true);
+           setLoading2(false)
           return;
         }
-        console.log(res.data.rows);
         setNoData(false);
         setTrim(res.data.rows[0].trimester);
         setData(res.data.rows);
+         setLoading2(false)
       })
       .catch((err) => {
         console.log(err);
@@ -165,53 +167,54 @@ const Handouts = () => {
                   <PageTitle>{`Trimester: ${getTrim}`}</PageTitle>
                 </Label>
                 <TableContainer>
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableCell>Course Name</TableCell>
-                        <TableCell>Doc type</TableCell>
-                        <TableCell>Action</TableCell>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {noData ? (
-                        <TableRow>
-                          <TableCell>
-                            <h1 style={{ fontSize: "25px" }}>
-                              Opps No data found :(
-                            </h1>
-                          </TableCell>
-                          <TableCell></TableCell>
-                        </TableRow>
-                      ) : (
-                        data.map((item, index) => {
-                          return (
-                            <TableRow key={index}>
-                              <TableCell>
-                                <span className='text-sm'>{item.course_name}</span>
-                              </TableCell>
-                              <TableCell>
-                                <span className='text-sm'>{item.doc}</span>
-                              </TableCell>
-                              <TableCell>
-                                <Button
-                                  style={{ background: "#21c42a" }}
-                                >
-                                  <a
-      
-                                    href={item.url}
-                                    target='_blank'
-                                    rel='noopener noreferrer'>
-                                    View and Download
-                                  </a>
-                                </Button>
-                              </TableCell>
-                            </TableRow>
-                          );
-                        })
-                      )}
-                    </TableBody>
-                  </Table>
+                {loading2 && <Loader />}
+                  {!loading2 && (<Table>
+                                                        <TableHeader>
+                                                          <TableRow>
+                                                            <TableCell>Course Name</TableCell>
+                                                            <TableCell>Doc type</TableCell>
+                                                            <TableCell>Action</TableCell>
+                                                          </TableRow>
+                                                        </TableHeader>
+                                                        <TableBody>
+                                                          {noData ? (
+                                                            <TableRow>
+                                                              <TableCell>
+                                                                <h1 style={{ fontSize: "25px" }}>
+                                                                  Opps No data found :(
+                                                                </h1>
+                                                              </TableCell>
+                                                              <TableCell></TableCell>
+                                                            </TableRow>
+                                                          ) : (
+                                                            data.map((item, index) => {
+                                                              return (
+                                                                <TableRow key={index}>
+                                                                  <TableCell>
+                                                                    <span className='text-sm'>{item.course_name}</span>
+                                                                  </TableCell>
+                                                                  <TableCell>
+                                                                    <span className='text-sm'>{item.doc}</span>
+                                                                  </TableCell>
+                                                                  <TableCell>
+                                                                    <Button
+                                                                      style={{ background: "#21c42a" }}
+                                                                    >
+                                                                      <a
+                                          
+                                                                        href={item.url}
+                                                                        target='_blank'
+                                                                        rel='noopener noreferrer'>
+                                                                        View and Download
+                                                                      </a>
+                                                                    </Button>
+                                                                  </TableCell>
+                                                                </TableRow>
+                                                              );
+                                                            })
+                                                          )}
+                                                        </TableBody>
+                                                      </Table>)}
                 </TableContainer>
               </div>
             )
