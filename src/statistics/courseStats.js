@@ -39,8 +39,8 @@ const CourseStats = () => {
       "BCom(Procurement and Supply Chain Management)",
       "Bsc Accounting",
       "Bsc Accounting and Finance",
-      "BA Integreated Business Studies (Accounting)",
-      "BA Integreated Business Studies (Management)",
+      "BA Integrated Business Studies (Accounting)",
+      "BA Integrated Business Studies (Management)",
       "BA Management",
       "Diploma in Business Studies"
     ],
