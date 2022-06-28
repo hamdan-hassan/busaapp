@@ -32,7 +32,14 @@ const Handouts = () => {
 
   useLayoutEffect(() => {
     axios
-      .get(`${baseUrl.baseUrl}/isRegistered/` + UserDetails.studentId)
+      .post(`${baseUrl.baseUrl}/isRegistered`,{
+        StudentID: UserDetails.studentId
+      },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
       .then((res) => {
         if (res.data[0].registered === "true") {
           setRegistered(true);
