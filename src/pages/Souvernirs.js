@@ -25,9 +25,16 @@ function Sourverniers() {
 
   useEffect(() => {
     axios
-      .get(
-        `${baseUrl.baseUrl}/souvenirs/` +
-        UserDetails.studentId.toUpperCase()
+      .post(
+        `${baseUrl.baseUrl}/souvenirs`,{
+        StudentID: UserDetails.studentId
+      },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+        
       )
       .then((res) => {
         setBooks(res.data[0].books);

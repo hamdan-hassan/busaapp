@@ -29,8 +29,16 @@ function Dues() {
 
   useEffect(() => {
     axios
-      .get(
-        `${baseUrl.baseUrl}/dues/` + UserDetails.studentId.toUpperCase()
+      .post(
+        `${baseUrl.baseUrl}/dues/`,
+        {
+        StudentID: UserDetails.studentId
+      },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       )
       .then((res) => {
        

@@ -1,5 +1,5 @@
 import { Bar } from "react-chartjs-2";
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { Card, CardBody } from "@windmill/react-ui";
 import PageTitle from "../components/Typography/PageTitle";
 import {baseUrl} from '../api/busa-api.js'
@@ -18,7 +18,7 @@ const options = {
 };
 
 const GenderStats = () => {
-  useEffect(() => {
+  useLayoutEffect(() => {
     axios
       .get(`${baseUrl.baseUrl}/genderStats`)
       .then((res) => setCourse(res.data));

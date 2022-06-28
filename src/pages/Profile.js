@@ -66,7 +66,14 @@ function Profile() {
 
   useEffect(() => {
     axios
-      .get(`${baseUrl.baseUrl}/profile/` + UserDetails.studentId)
+      .post(`${baseUrl.baseUrl}/profile`, {
+        StudentID: UserDetails.studentId
+      },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
       .then((res) => {
         setFName(res.data.rows[0].first_name);
         setMName(res.data.rows[0].middle_name);
@@ -82,7 +89,16 @@ function Profile() {
       })
       .catch((err) => console.log(err));
     axios
-      .get(`${baseUrl.baseUrl}/isRegistered/` + UserDetails.studentId)
+      .post(`${baseUrl.baseUrl}/isRegistered/`,
+        {
+        StudentID: UserDetails.studentId
+      },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+        )
       .then((res) => {
         if (res.data[0].registered === "true") {
           setRegistered(true);

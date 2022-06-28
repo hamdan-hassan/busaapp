@@ -27,7 +27,14 @@ function Registration() {
 
   useLayoutEffect(() => {
     axios
-      .get(`${baseUrl.baseUrl}/isRegistered/` + UserDetails.studentId)
+      .post(`${baseUrl.baseUrl}/isRegistered`,{
+        StudentID: UserDetails.studentId
+      },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
       .then((res) => {
         setUserName(res.data[0].first_name + " " + res.data[0].last_name);
         if (res.data[0].registered === "true") {
