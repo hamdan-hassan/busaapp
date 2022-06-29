@@ -158,7 +158,7 @@ function Registration() {
                     <Input
                       className='mt-1'
                       placeholder='UGxxxxxx'
-                      onChange={(e) => setStudId(e.target.value.toUpperCase())}
+                      onChange={(e) => setStudId(e.target.value.toUpperCase().trim())}
                     />
                   </Label>
                   <HelperText valid={false}>
