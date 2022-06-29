@@ -75,7 +75,7 @@ const ChangePassword = () => {
       <hr className='mt-5 mb-5' />
 
       <div className='text-center'>
-        <PageTitle>Executives</PageTitle>
+        <PageTitle>Meet your Executives</PageTitle>
       </div>
       {loading && <Loader />}
       <div className='grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4'>
