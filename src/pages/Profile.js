@@ -1,4 +1,4 @@
-import React, { useEffect, useState, } from "react";
+import React, { useEffect, useState } from "react";
 
 import PageTitle from "../components/Typography/PageTitle";
 import SectionTitle from "../components/Typography/SectionTitle";
@@ -16,7 +16,7 @@ import { Checkmark } from "react-checkmark";
 
 import { MailIcon } from "../icons";
 import { UserDetails } from "../userDetails";
-import {baseUrl} from '../api/busa-api.js'
+import { baseUrl } from "../api/busa-api.js";
 import Modal from "./Modal";
 import Loader from "../loader/loader";
 import axios from "axios";
@@ -27,7 +27,7 @@ function Profile() {
   const [lname, setLName] = useState("");
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
-  const [programme, setProgramme] = useState("")
+  const [programme, setProgramme] = useState("");
   const [level, setLevel] = useState("");
   const [dob, setDob] = useState("");
   const [phone, setPhone] = useState("");
@@ -37,9 +37,10 @@ function Profile() {
   const [wrongId, setWrongId] = useState(false);
   const [wrongEmail, setWrongEmail] = useState(false);
   const [wrongPhone, setWrongPhone] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [complain, setComplain] = useState("");
   const [subject, setSubject] = useState("");
-  const [receiver, setReceiver] = useState("Busa")
+  const [receiver, setReceiver] = useState("Busa");
 
   const [complainError, setComplainError] = useState(false);
   const [sent, setSent] = useState(false);
@@ -53,7 +54,7 @@ function Profile() {
   const [wrongPass, setWrongPass] = useState(false);
   const [passMatch, setPassMatch] = useState(false);
   const [updated3, setUpdated3] = useState(false);
-  const [loading,setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   const [editable, setEditable] = useState(false);
   const [updated, setUpdated] = useState(false);
@@ -66,19 +67,22 @@ function Profile() {
 
   useEffect(() => {
     axios
-      .post(`${baseUrl.baseUrl}/profile`, {
-        StudentID: UserDetails.studentId
-      },
+      .post(
+        `${baseUrl.baseUrl}/profile`,
+        {
+          StudentID: UserDetails.studentId,
+        },
         {
           headers: {
             "Content-Type": "application/json",
           },
-        })
+        }
+      )
       .then((res) => {
         setFName(res.data.rows[0].first_name);
         setMName(res.data.rows[0].middle_name);
         setLName(res.data.rows[0].last_name);
-        setProgramme(res.data.rows[0].programme)
+        setProgramme(res.data.rows[0].programme);
         setEmail(res.data.rows[0].email);
         setGender(res.data.rows[0].gender);
         setSize(res.data.rows[0].size);
@@ -89,16 +93,17 @@ function Profile() {
       })
       .catch((err) => console.log(err));
     axios
-      .post(`${baseUrl.baseUrl}/isRegistered/`,
+      .post(
+        `${baseUrl.baseUrl}/isRegistered/`,
         {
-        StudentID: UserDetails.studentId
-      },
+          StudentID: UserDetails.studentId,
+        },
         {
           headers: {
             "Content-Type": "application/json",
           },
         }
-        )
+      )
       .then((res) => {
         if (res.data[0].registered === "true") {
           setRegistered(true);
@@ -121,7 +126,7 @@ function Profile() {
       .then((res) => {
         if (res.data.length > 0) {
           setimg(res.data[0].img_data);
-          setLoading(false)
+          setLoading(false);
         }
       })
       .catch((err) => {
@@ -144,16 +149,13 @@ function Profile() {
     }
 
     if (idValidation.test(stdId) === false) {
-
       return setWrongId(true);
     }
 
     if (emailValidation.test(email) === false) {
-
       return setWrongEmail(true);
     }
     if (phoneValidation.test(phone) === false) {
-
       return setWrongPhone(true);
     }
     axios
@@ -228,22 +230,33 @@ function Profile() {
   };
 
   function formatBytes(bytes, decimals = 2) {
-    if (bytes === 0) return '0 Bytes';
+    if (bytes === 0) return "0 Bytes";
 
     const k = 1024;
     const dm = decimals < 0 ? 0 : decimals;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 
     const i = Math.floor(Math.log(bytes) / Math.log(k));
 
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-}
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+  }
 
   const handleSubmitFile = () => {
-    if (!selectedFile) return;
-    const size = formatBytes(selectedFile.size)
-    if(selectedFile.size > 1000000) return alert("The selected image size is " + size + " Please select an image which is not more then 1 MB")
-    console.log(selectedFile.size)
+    setUploading(true);
+    if (!selectedFile) {
+      setUploading(false);
+      return;
+    }
+    const size = formatBytes(selectedFile.size);
+    if (selectedFile.size > 1000000) {
+      setUploading(false);
+      return alert(
+        "The selected image size is " +
+          size +
+          " Please select an image which is not more then 1 MB"
+      );
+    }
+    console.log(selectedFile.size);
     const reader = new FileReader();
     reader.readAsDataURL(selectedFile);
     reader.onloadend = () => {
@@ -260,26 +273,27 @@ function Profile() {
         )
         .then((res) => {
           axios
-      .post(
-        `${baseUrl.baseUrl}/img`,
-        {
-          Id: UserDetails.studentId,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => {
-        if (res.data.length > 0) {
-          setimg(res.data[0].img_data);
-          
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+            .post(
+              `${baseUrl.baseUrl}/img`,
+              {
+                Id: UserDetails.studentId,
+              },
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            )
+            .then((res) => {
+              if (res.data.length > 0) {
+                setimg(res.data[0].img_data);
+              }
+              setUploading(false);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+          setUploading(false);
           setUpdated2(true);
           setTimeout(() => {
             setUpdated2(false);
@@ -300,7 +314,7 @@ function Profile() {
         Id: UserDetails.studentId.toUpperCase(),
       })
       .then((res) => {
-        gender === "Male" ? setimg(Male) : setimg(Female)
+        gender === "Male" ? setimg(Male) : setimg(Female);
         setUpdated2(true);
         setTimeout(() => {
           setUpdated2(false);
@@ -327,7 +341,7 @@ function Profile() {
           Contact: phone,
           Subject: subject,
           Complain: complain,
-          Receiver: receiver
+          Receiver: receiver,
         },
         {
           headers: {
@@ -348,7 +362,7 @@ function Profile() {
         {
           Id: stdId,
           Count: 1,
-          Receiver: receiver
+          Receiver: receiver,
         },
         {
           headers: {
@@ -386,10 +400,14 @@ function Profile() {
             marginTop: "30px",
           }}
         >
-          {loading ? <Loader /> : <img
-            src={img || (gender === "Male" ? Male : Female)}
-            style={{ borderRadius: "50%", height: "200px", width: "200px" }}
-          />}
+          {loading ? (
+            <Loader />
+          ) : (
+            <img
+              src={img || (gender === "Male" ? Male : Female)}
+              style={{ borderRadius: "50%", height: "200px", width: "200px" }}
+            />
+          )}
           <div className="text-center">
             <PageTitle>{`${fname} ${lname}`}</PageTitle>
           </div>
@@ -429,11 +447,7 @@ function Profile() {
         </Label>
         <Label>
           <span>Programme</span>
-          <Input
-            className="mt-1"
-            defaultValue={programme}
-            disabled
-          />
+          <Input className="mt-1" defaultValue={programme} disabled />
         </Label>
         <Label>
           <span>Email</span>
@@ -457,21 +471,19 @@ function Profile() {
 
         <Label>
           <span>Student ID</span>
-          <Input
-            className="mt-1"
-            defaultValue={stdId}
-            disabled
-          />
+          <Input className="mt-1" defaultValue={stdId} disabled />
         </Label>
-        {UserDetails.level === 100 && <Label style={{ display: !registered ? "none" : null }}>
-          <span>T-Shirt size</span>
-          <Input
-            className="mt-1"
-            placeholder=""
-            defaultValue={size}
-            disabled
-          />
-        </Label>}
+        {UserDetails.level === 100 && (
+          <Label style={{ display: !registered ? "none" : null }}>
+            <span>T-Shirt size</span>
+            <Input
+              className="mt-1"
+              placeholder=""
+              defaultValue={size}
+              disabled
+            />
+          </Label>
+        )}
         <HelperText valid={false}>
           {wrongId && "Incorrect Student Id"}
         </HelperText>
@@ -483,7 +495,6 @@ function Profile() {
             disabled={!editable ? true : false}
             onChange={(e) => {
               setGender(e.target.value);
-
             }}
           >
             <option>Male</option>
@@ -492,11 +503,7 @@ function Profile() {
         </Label>
         <Label className="mt-1">
           <span>Level</span>
-         <Input
-            className="mt-1"
-            defaultValue={level}
-            disabled
-          />
+          <Input className="mt-1" defaultValue={level} disabled />
         </Label>
         <Label>
           <span>Birthday</span>
@@ -542,9 +549,9 @@ function Profile() {
             />
           </Label>
           <Label className="mt-6">
-            <Button
-              style={{ background: "#15d125" }}
-              onClick={handleEdit}>Edit</Button>
+            <Button style={{ background: "#15d125" }} onClick={handleEdit}>
+              Edit
+            </Button>
           </Label>
           {updated && (
             <Label className="mt-4">
@@ -563,9 +570,9 @@ function Profile() {
             onChange={(e) => handleFileInputChange(e)}
           />
         </Label>
-         <HelperText valid={false}>
-            Image size cannot be more then 1 MB
-          </HelperText>
+        <HelperText valid={false}>
+          Image size cannot be more then 1 MB
+        </HelperText>
 
         <div
           style={{
@@ -589,6 +596,7 @@ function Profile() {
               ModalContent={"Are you sure you want to remove image?"}
             />
           </Label>
+          {uploading && <HelperText>Uploading image please wait...</HelperText>}
           {updated2 && (
             <Label className="mt-6 ml-5">
               <Checkmark />
@@ -666,9 +674,8 @@ function Profile() {
           <Select
             className="mt-1"
             onChange={(e) => {
-              setReceiver(e.target.value)
+              setReceiver(e.target.value);
             }}
-
           >
             <option>Busa</option>
             <option>Department of Management Studies</option>
