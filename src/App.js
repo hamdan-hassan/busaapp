@@ -8,7 +8,7 @@ import {
 import AccessibleNavigationAnnouncer from "./components/AccessibleNavigationAnnouncer";
 import ProtectedExpired from "./ProtectedExpired";
 import ProtectedRoute from "./ProtectedRoute";
-
+import { UserDetailsContextProvider } from "./context/UserDetailsContext";
 
 const Layout = lazy(() => import("./containers/Layout"));
 const Login = lazy(() => import("./pages/Login"));
@@ -21,23 +21,25 @@ const Expired = lazy(() => import("./pages/Expired.js"));
 function App() {
   return (
     <>
-      <Router>
-        <AccessibleNavigationAnnouncer />
-        <Switch>
-          <Route path='/login' component={Login} />
-          <Route path='/create-account' component={CreateAccount} />
-          <Route path='/forgot-password' component={ForgotPassword} />
-          {window.localStorage.getItem("reset") && (
-            <Route path='/reset/:id/:token' component={ResetPassword} />
-          )}
+      <UserDetailsContextProvider>
+        <Router>
+          <AccessibleNavigationAnnouncer />
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Route path="/create-account" component={CreateAccount} />
+            <Route path="/forgot-password" component={ForgotPassword} />
+            {window.localStorage.getItem("reset") && (
+              <Route path="/reset/:id/:token" component={ResetPassword} />
+            )}
 
-          <ProtectedExpired path={"/expired-link"} component={Expired} />
-          <ProtectedRoute path='/app' component={Layout} />
+            <ProtectedExpired path={"/expired-link"} component={Expired} />
+            <ProtectedRoute path="/app" component={Layout} />
 
-          <Redirect exact from='/' to='/login' />
-          <Route path='*' component={Page404} />
-        </Switch>
-      </Router>
+            <Redirect exact from="/" to="/login" />
+            <Route path="*" component={Page404} />
+          </Switch>
+        </Router>
+      </UserDetailsContextProvider>
     </>
   );
 }

@@ -14,44 +14,42 @@ import Articles from "../assets/img/articles.webp";
 import Handout from "../assets/img/handout.png";
 import Question from "../assets/img/question.png";
 import Complains from "../assets/img/complains.png";
-import BnB from '../assets/img/bnb.jpg'
+import BnB from "../assets/img/bnb.jpg";
 import PageTitle from "../components/Typography/PageTitle";
 import { Avatar } from "@windmill/react-ui";
 import Card from "../components/Card/Card";
-import {baseUrl} from '../api/busa-api.js'
+import { baseUrl } from "../api/busa-api.js";
 import axios from "axios";
 
 function Dashboard() {
   const [complains, setComplains] = useState(0);
-  const [receiver, setReceiver] = useState("")
+  const [receiver, setReceiver] = useState("");
 
   useEffect(() => {
     if (window.localStorage.getItem("role")) {
-
       switch (window.localStorage.getItem("role")) {
-
-        case 'admin':
-          setReceiver("Busa")
+        case "admin":
+          setReceiver("Busa");
           break;
-        case 'marketing':
-          setReceiver("Department of Procurement and Marketing")
+        case "marketing":
+          setReceiver("Department of Procurement and Marketing");
           break;
-        case 'management':
-          setReceiver("Department of Management Studies")
+        case "management":
+          setReceiver("Department of Management Studies");
           break;
-        case 'banking and finance':
-          setReceiver("Department of Banking and Finance")
+        case "banking and finance":
+          setReceiver("Department of Banking and Finance");
           break;
-        case 'accountancy':
-          setReceiver("Department of Accountancy")
+        case "accountancy":
+          setReceiver("Department of Accountancy");
           break;
-
       }
 
       axios
-        .post(`${baseUrl.baseUrl}/get-complains-count`,
+        .post(
+          `${baseUrl.baseUrl}/get-complains-count`,
           {
-            Receiver: receiver
+            Receiver: receiver,
           },
           {
             headers: {
@@ -62,15 +60,11 @@ function Dashboard() {
         .then((res) => {
           const result = res.data[0].count;
           setComplains(result);
-
         })
         .catch((err) => {
           console.log(err);
         });
-
     }
-
-
   });
 
   const removeNewMessage = () => {
@@ -86,148 +80,155 @@ function Dashboard() {
 
   return (
     <>
-    <div className="mt-12 md:mt-2">
-      <PageTitle>Dashboard</PageTitle>
+      <div className="mt-12 md:mt-2">
+        <PageTitle>Dashboard</PageTitle>
 
-      {/* <!-- Cards --> */}
-      {
-
-
-
-        window.localStorage.getItem("admin") ? (
-
-          (window.localStorage.getItem("role") === 'admin' ? <div className='grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4'>
-            <Card
-              image={Members}
-              title='Registered Students'
-              link='/app/admin'
-            />
-            <Card
-              image={Article}
-              title='Publish an article'
-              link='/app/upload-article'
-            />
-            <Card image={Stats} title='View Students Stats' link='/app/stats' />
-            <Card
-              image={Handout}
-              title='Upload Handouts'
-              link='/app/upload-handouts'
-            />
-            <Card
-              image={Question}
-              title='Upload Past Questions'
-              link='/app/upload-past-questions'
-            />
-            <Card image={ID} title='Upload Student IDs' link='/app/uploadids' />
-            <Card
-              image={Executives}
-              title='Executives and Patrons'
-              link='/app/uploadexecutivesandpatrons'
-            />
-            <div className='relative'>
-              <div className='absolute bottom-0 right-0 h-16 w-20 text-center text-white'>
-                <p
-                  className='bg-red-600'
-                  style={{
-                    height: "25px",
-                    width: "25px",
-                    borderRadius: "50%",
-                  }}>
-                  {complains}
-                </p>
-              </div>
+        {/* <!-- Cards --> */}
+        {window.localStorage.getItem("admin") ? (
+          window.localStorage.getItem("role") === "admin" ? (
+            <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
               <Card
-                image={Complains}
-                title='Complains'
-                link='/app/complains'
-                handleClick={removeNewMessage}
+                image={Members}
+                title="Registered Students"
+                link="/app/admin"
               />
-            </div>
-          </div> : <div className='grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4'>
-            <Card
-              image={Members}
-              title='Registered Students'
-              link='/app/admin'
-            />
-            <Card
-              image={Article}
-              title='Publish an article'
-              link='/app/upload-article'
-            />
-            <Card image={Stats} title='View Students Stats' link='/app/stats' />
-
-            <div className='relative'>
-              <div className='absolute bottom-0 right-0 h-16 w-20 text-center text-white'>
-                <p
-                  className='bg-red-600'
-                  style={{
-                    height: "25px",
-                    width: "25px",
-                    borderRadius: "50%",
-                  }}>
-                  {complains}
-                </p>
-              </div>
               <Card
-                image={Complains}
-                title='Complains'
-                link='/app/complains'
-                handleClick={removeNewMessage}
+                image={Article}
+                title="Publish an article"
+                link="/app/upload-article"
               />
+              <Card
+                image={Stats}
+                title="View Students Stats"
+                link="/app/stats"
+              />
+              <Card
+                image={Handout}
+                title="Upload Handouts"
+                link="/app/upload-handouts"
+              />
+              <Card
+                image={Question}
+                title="Upload Past Questions"
+                link="/app/upload-past-questions"
+              />
+              <Card
+                image={ID}
+                title="Upload Student IDs"
+                link="/app/uploadids"
+              />
+              <Card
+                image={Executives}
+                title="Executives and Patrons"
+                link="/app/uploadexecutivesandpatrons"
+              />
+              <div className="relative">
+                <div className="absolute bottom-0 right-0 h-16 w-20 text-center text-white">
+                  <p
+                    className="bg-red-600"
+                    style={{
+                      height: "25px",
+                      width: "25px",
+                      borderRadius: "50%",
+                    }}
+                  >
+                    {complains}
+                  </p>
+                </div>
+                <Card
+                  image={Complains}
+                  title="Complains"
+                  link="/app/complains"
+                  handleClick={removeNewMessage}
+                />
+              </div>
             </div>
-          </div>)
+          ) : (
+            <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+              <Card
+                image={Members}
+                title="Registered Students"
+                link="/app/admin"
+              />
+              <Card
+                image={Article}
+                title="Publish an article"
+                link="/app/upload-article"
+              />
+              <Card
+                image={Stats}
+                title="View Students Stats"
+                link="/app/stats"
+              />
 
-
+              <div className="relative">
+                <div className="absolute bottom-0 right-0 h-16 w-20 text-center text-white">
+                  <p
+                    className="bg-red-600"
+                    style={{
+                      height: "25px",
+                      width: "25px",
+                      borderRadius: "50%",
+                    }}
+                  >
+                    {complains}
+                  </p>
+                </div>
+                <Card
+                  image={Complains}
+                  title="Complains"
+                  link="/app/complains"
+                  handleClick={removeNewMessage}
+                />
+              </div>
+            </div>
+          )
         ) : (
           // User route
           <>
-          <div className='grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4'>
-            <Card
-              image={Register}
-              title='Register Membership'
-              link='/app/registration'
-            />
-            <Card
-              image={User}
-              title='View and Edit Profile'
-              link='/app/profile'
-            />
-            <Card image={Cedis} title='Dues' link='/app/dues' />
-            <Card
-              image={Souvenirs}
-              title='Souvenirs'
-              link='/app/souvernirs'
-            />
-            <Card
-              image={Articles}
-              title='Articles'
-              link='/app/articles'
-            />
-            <Card image={Handout} title='Handouts' link='/app/handouts' />
-            <Card
-              image={Question}
-              title='Past Questions'
-              link='/app/past-questions'
-            />
-            <Card
-              image={Executives}
-              title='Management'
-              link='/app/executivesandpatrons'
-            />
-            <Card
-              image={Developers}
-              title='Developers'
-              link='/app/developers'
-            />
-           
-          </div>
-           <div className="text-center">
-            <p className="dark:text-gray-200">Developed by BNB</p>
-          </div>
-          <p className="text-center dark:text-gray-200">&copy; 2022 Ubids Busa</p>
+            <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+              <Card
+                image={Register}
+                title="Register Membership"
+                link="/app/registration"
+              />
+              <Card
+                image={User}
+                title="View and Edit Profile"
+                link="/app/profile"
+              />
+              <Card image={Cedis} title="Dues" link="/app/dues" />
+              <Card
+                image={Souvenirs}
+                title="Souvenirs"
+                link="/app/souvernirs"
+              />
+              <Card image={Articles} title="Articles" link="/app/articles" />
+              <Card image={Handout} title="Handouts" link="/app/handouts" />
+              <Card
+                image={Question}
+                title="Past Questions"
+                link="/app/past-questions"
+              />
+              <Card
+                image={Executives}
+                title="Management"
+                link="/app/executivesandpatrons"
+              />
+              <Card
+                image={Developers}
+                title="Developers"
+                link="/app/developers"
+              />
+            </div>
+            <div className="text-center">
+              <p className="dark:text-gray-200">Developed by BNB</p>
+            </div>
+            <p className="text-center dark:text-gray-200">
+              &copy; 2022 Ubids Busa
+            </p>
           </>
-        )
-      }
+        )}
       </div>
     </>
   );

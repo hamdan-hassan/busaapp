@@ -47,6 +47,8 @@ function Profile() {
   const [registered, setRegistered] = useState(false);
   const [stdId, setStdId] = useState("");
   const [img, setimg] = useState("");
+  const [uploadButton, setUploadButton] = useState(false);
+  const [uploaded, setUploaded] = useState(false);
 
   const [oldPass, setOldPass] = useState("");
   const [newPass, setNewPass] = useState("");
@@ -224,9 +226,13 @@ function Profile() {
   };
 
   const handleFileInputChange = (e) => {
+    setUploadButton(true);
     const file = e.target.files[0];
-
-    setSelectedFile(file);
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      setSelectedFile(reader.result);
+    };
   };
 
   function formatBytes(bytes, decimals = 2) {
@@ -243,6 +249,7 @@ function Profile() {
 
   const handleSubmitFile = () => {
     setUploading(true);
+    setUploaded(true);
     if (!selectedFile) {
       setUploading(false);
       return;
@@ -257,55 +264,53 @@ function Profile() {
       );
     }
     console.log(selectedFile.size);
-    const reader = new FileReader();
-    reader.readAsDataURL(selectedFile);
-    reader.onloadend = () => {
-      axios
-        .put(
-          `${baseUrl.baseUrl}/upload`,
-          {
-            ImageData: reader.result,
-            Id: UserDetails.studentId.toUpperCase(),
-          },
-          {
-            headers: { "Content-Type": "application/json" },
-          }
-        )
-        .then((res) => {
-          axios
-            .post(
-              `${baseUrl.baseUrl}/img`,
-              {
-                Id: UserDetails.studentId,
+
+    axios
+      .put(
+        `${baseUrl.baseUrl}/upload`,
+        {
+          ImageData: selectedFile,
+          Id: UserDetails.studentId.toUpperCase(),
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      )
+      .then((res) => {
+        axios
+          .post(
+            `${baseUrl.baseUrl}/img`,
+            {
+              Id: UserDetails.studentId,
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
               },
-              {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              }
-            )
-            .then((res) => {
-              if (res.data.length > 0) {
-                setimg(res.data[0].img_data);
-              }
-              setUploading(false);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-          setUploading(false);
-          setUpdated2(true);
-          setTimeout(() => {
-            setUpdated2(false);
-          }, 5000);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    reader.onerror = () => {
-      console.error("AHHHHHHHH!!");
-    };
+            }
+          )
+          .then((res) => {
+            if (res.data.length > 0) {
+              setimg(res.data[0].img_data);
+            }
+            setUploading(false);
+            setUploadButton(false);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
+        setUploading(false);
+
+        setUpdated2(true);
+        setTimeout(() => {
+          setUpdated2(false);
+          setUploaded(false);
+        }, 5000);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleDeleteFile = () => {
@@ -403,11 +408,36 @@ function Profile() {
           {loading ? (
             <Loader />
           ) : (
-            <img
-              src={img || (gender === "Male" ? Male : Female)}
-              style={{ borderRadius: "50%", height: "200px", width: "200px" }}
-            />
+            <>
+              <Input
+                style={{
+                  position: "absolute",
+                  width: "10rem",
+                  height: "10rem",
+                  marginLeft: "1.5rem",
+                  marginBottom: "5rem",
+                  opacity: 0,
+                  cursor: "pointer",
+                }}
+                type="file"
+                onChange={(e) => handleFileInputChange(e)}
+              />
+              <img
+                src={selectedFile || img || (gender === "Male" ? Male : Female)}
+                style={{ borderRadius: "50%", height: "200px", width: "200px" }}
+              />
+            </>
           )}
+
+          {uploadButton && (
+            <Button
+              style={{ background: "#15d125", marginTop: "1rem" }}
+              onClick={handleSubmitFile}
+            >
+              Upload Image
+            </Button>
+          )}
+          {uploaded && <Checkmark />}
           <div className="text-center">
             <PageTitle>{`${fname} ${lname}`}</PageTitle>
           </div>
